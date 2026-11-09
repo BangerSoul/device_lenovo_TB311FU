@@ -1,0 +1,35 @@
+#
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# Display & Graphics
+/dev/mali0                0666   system     graphics
+/dev/mtk_disp             0660   system     graphics
+/dev/graphics/*           0660   system     graphics
+/dev/sw_sync              0660   system     graphics
+
+# Camera & ISP
+/dev/camera*              0660   cameraserver camera
+/dev/kd_camera_hw*        0660   cameraserver camera
+/dev/MAINAF               0660   cameraserver camera
+/dev/SUBAF                0660   cameraserver camera
+
+# Sensors
+/dev/hf_manager           0660   system     system
+/dev/m_als_misc           0660   system     system
+/dev/m_baro_misc          0660   system     system
+/dev/m_hmd_misc           0660   system     system
+/dev/m_acc_misc           0660   system     system
+/dev/m_mag_misc           0660   system     system
+/dev/m_gyro_misc          0660   system     system
+
+# Audio
+/dev/mtk_audio_*          0660   audioserver audio
+
+# TEE / DRM (Widevine L1)
+/dev/teei_client          0666   system     drmrpc
+/dev/teei_config          0660   system     drmrpc
+/dev/tz_uree              0660   system     drmrpc
+/dev/isee_tee*            0660   system     drmrpc

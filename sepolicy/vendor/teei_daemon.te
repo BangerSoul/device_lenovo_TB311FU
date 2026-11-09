@@ -1,0 +1,16 @@
+#
+# TEE & DRM (Widevine L1) Daemon Sepolicy Rules
+#
+
+type teei_daemon, domain;
+type teei_daemon_exec, exec_type, file_type, vendor_file_type;
+
+init_daemon_domain(teei_daemon)
+
+allow teei_daemon tee_device:chr_file { read write open ioctl };
+allow teei_daemon protect_f_data_file:dir { create_dir_perms rw_dir_perms };
+allow teei_daemon protect_f_data_file:file { create_file_perms rw_file_perms };
+allow teei_daemon protect_s_data_file:dir { create_dir_perms rw_dir_perms };
+allow teei_daemon protect_s_data_file:file { create_file_perms rw_file_perms };
+allow teei_daemon nvdata_file:dir { create_dir_perms rw_dir_perms };
+allow teei_daemon nvdata_file:file { create_file_perms rw_file_perms };

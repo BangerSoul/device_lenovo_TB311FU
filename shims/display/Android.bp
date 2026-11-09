@@ -1,0 +1,41 @@
+//
+// Copyright (C) 2026 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_shared {
+    name: "libshim_composer",
+    srcs: [
+        "hwc_shim.cpp",
+    ],
+    shared_libs: [
+        "libsync",
+        "libutils",
+        "libcutils",
+        "liblog",
+        "libhardware",
+    ],
+    header_libs: [
+        "libhardware_headers",
+    ],
+    vendor: true,
+}
+
+cc_library_shared {
+    name: "libshim_hwc",
+    srcs: [
+        "hwc_shim.cpp",
+    ],
+    shared_libs: [
+        "libsync",
+        "libutils",
+        "libcutils",
+        "liblog",
+        "libhardware",
+    ],
+    header_libs: [
+        "libhardware_headers",
+    ],
+    vendor: true,
+}

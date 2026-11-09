@@ -1,0 +1,8 @@
+#
+# Power HAL Sepolicy Rules
+#
+
+allow hal_power_default proc_perfmgr:dir { read open search };
+allow hal_power_default proc_perfmgr:file { read write open getattr };
+allow hal_power_default sysfs_devices_system_cpu:file { read write open getattr };
+allow hal_power_default sysfs_touchpanel:file { read write open getattr };

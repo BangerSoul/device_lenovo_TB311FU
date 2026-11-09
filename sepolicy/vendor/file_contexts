@@ -1,0 +1,31 @@
+#
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# SELinux File Contexts for Lenovo Tab M11 (TB311FU)
+#
+
+# Devices
+/dev/hf_manager                                     u:object_r:hf_manager_device:s0
+/dev/mtk_disp                                       u:object_r:mtk_disp_device:s0
+/dev/teei_client                                    u:object_r:tee_device:s0
+/dev/trustkernel_tee                                u:object_r:tee_device:s0
+/dev/input(/.*)?                                    u:object_r:input_device:s0
+/dev/dri(/.*)?                                      u:object_r:gpu_device:s0
+
+# Partitions & Mount points (Protected Widevine & Calibration)
+/mnt/vendor/protect1(/.*)?                          u:object_r:protect_f_data_file:s0
+/mnt/vendor/protect2(/.*)?                          u:object_r:protect_s_data_file:s0
+/mnt/vendor/nvdata(/.*)?                            u:object_r:nvdata_file:s0
+
+# Sysfs and Procfs
+/sys/touchpanel(/.*)?                               u:object_r:sysfs_touchpanel:s0
+/proc/perfmgr(/.*)?                                 u:object_r:proc_perfmgr:s0
+/sys/class/leds/lcd-backlight(/.*)?                 u:object_r:sysfs_leds:s0
+
+# Vendor Hal Executables
+/vendor/bin/hw/android\.hardware\.camera\.provider@2\.6-service-mediatek    u:object_r:hal_camera_default_exec:s0
+/vendor/bin/hw/android\.hardware\.sensors@2\.0-service-mediatek             u:object_r:hal_sensors_default_exec:s0
+/vendor/bin/hw/vendor\.mediatek\.hardware\.power@2\.1-service              u:object_r:hal_power_default_exec:s0
+/vendor/bin/hw/android\.hardware\.graphics\.composer@2\.4-service          u:object_r:hal_graphics_composer_default_exec:s0

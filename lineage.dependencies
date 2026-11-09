@@ -1,0 +1,12 @@
+[
+  {
+    "repository": "LineageOS/android_device_mediatek_sepolicy_vndr",
+    "target_path": "device/mediatek/sepolicy_vndr",
+    "branch": "lineage-22.0"
+  },
+  {
+    "repository": "LineageOS/android_hardware_mediatek",
+    "target_path": "hardware/mediatek",
+    "branch": "lineage-22.0"
+  }
+]

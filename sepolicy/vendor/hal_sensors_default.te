@@ -1,0 +1,7 @@
+#
+# Sensors Multi-HAL Sepolicy Rules
+#
+
+allow hal_sensors_default hf_manager_device:chr_file { read write open ioctl };
+allow hal_sensors_default sysfs:dir { read open search };
+allow hal_sensors_default sysfs:file { read open getattr };

@@ -1,0 +1,56 @@
+#
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+import /vendor/etc/init/hw/init.mt6768.usb.rc
+
+on early-init
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
+on init
+    # Goodix / Focaltech touch gesture nodes
+    chmod 0660 /sys/devices/platform/goodix_ts.0/gesture/enable
+    chown system system /sys/devices/platform/goodix_ts.0/gesture/enable
+    chmod 0660 /sys/touchpanel/double_tap_enable
+    chown system system /sys/touchpanel/double_tap_enable
+
+on fs
+    mount_all /vendor/etc/fstab.mt6768 --early
+
+on late-fs
+    mount_all /vendor/etc/fstab.mt6768 --late
+
+on post-fs
+    # Mount persistent calibration and DRM directories
+    mkdir /mnt/vendor/protect1 0770 system system
+    mkdir /mnt/vendor/protect2 0770 system system
+    mkdir /mnt/vendor/persist 0770 system system
+    mkdir /mnt/vendor/nvdata 0771 system system
+
+on post-fs-data
+    # Sensor hub & HF Manager nodes
+    chmod 0660 /dev/hf_manager
+    chown system system /dev/hf_manager
+
+    # MediaTek perfmgr control
+    chmod 0664 /proc/perfmgr/boost_ctrl/eas_ctrl/perfserv_ta_boost
+    chown system system /proc/perfmgr/boost_ctrl/eas_ctrl/perfserv_ta_boost
+    chmod 0664 /proc/perfmgr/boost_ctrl/cpu_ctrl/perfserv_freq
+    chown system system /proc/perfmgr/boost_ctrl/cpu_ctrl/perfserv_freq
+
+    # NVDATA synchronization check and repair fallback
+    restorecon_recursive /mnt/vendor/nvdata
+
+on boot
+    # Enable dynamic 90Hz display panel refresh rate
+    setprop vendor.display.refresh_rate 90
+    setprop ro.surface_flinger.use_content_detection_for_refresh_rate true
+    setprop ro.surface_flinger.set_idle_timer_ms 1500
+    setprop ro.surface_flinger.set_touch_timer_ms 1000
+
+    # Power HAL / EAS governor tuning
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpufreq/policy6/scaling_governor "schedutil"

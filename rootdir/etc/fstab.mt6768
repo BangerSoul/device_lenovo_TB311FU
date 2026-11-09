@@ -1,0 +1,24 @@
+#
+# Android fstab for MediaTek MT6768/MT6769 (Lenovo Tab M11 / TB311FU)
+#
+# <src>                                 <mnt_point>       <type>   <mnt_flags and options>                                  <fs_mgr_flags>
+
+# Dynamic logical partitions (EROFS / EXT4)
+system                                  /system           erofs    ro                                                       wait,logical,first_stage_mount
+system_ext                              /system_ext       erofs    ro                                                       wait,logical,first_stage_mount
+vendor                                  /vendor           erofs    ro                                                       wait,logical,first_stage_mount
+product                                 /product          erofs    ro                                                       wait,logical,first_stage_mount
+odm                                     /odm              erofs    ro                                                       wait,logical,first_stage_mount
+
+# Hardware Root of Trust / Calibration Partitions (Preserved & Read-Only Protected)
+/dev/block/by-name/protect1             /mnt/vendor/protect1 ext4  ro,noatime,nosuid,nodev                                  wait,check
+/dev/block/by-name/protect2             /mnt/vendor/protect2 ext4  ro,noatime,nosuid,nodev                                  wait,check
+/dev/block/by-name/persist              /mnt/vendor/persist  ext4  ro,noatime,nosuid,nodev                                  wait,check
+/dev/block/by-name/nvdata               /mnt/vendor/nvdata   ext4  noatime,nosuid,nodev                                     wait,check
+
+# Metadata & Userdata
+/dev/block/by-name/metadata             /metadata         ext4     noatime,nosuid,nodev,discard                             wait,check,formattable,first_stage_mount
+/dev/block/by-name/userdata             /data             f2fs     noatime,nosuid,nodev,discard,reserve_root=32768,resgid=1065 latemount,wait,check,quota,formattable,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
+
+# Virtual memory / zram
+/dev/block/zram0                        none              swap     defaults                                                 zramsize=75%

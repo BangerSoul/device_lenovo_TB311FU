@@ -1,0 +1,22 @@
+//
+// Copyright (C) 2026 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_shared {
+    name: "libshim_sensors",
+    srcs: [
+        "sensors_shim.cpp",
+    ],
+    shared_libs: [
+        "libhardware",
+        "libutils",
+        "libcutils",
+        "liblog",
+    ],
+    header_libs: [
+        "libhardware_headers",
+    ],
+    vendor: true,
+}

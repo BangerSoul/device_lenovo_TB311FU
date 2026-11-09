@@ -1,0 +1,15 @@
+#
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Device Type Declarations for Lenovo Tab M11 (TB311FU)
+#
+
+type hf_manager_device, dev_type;
+type mtk_disp_device, dev_type;
+type sysfs_touchpanel, sysfs_type, fs_type;
+type proc_perfmgr, fs_type, proc_type;
+type protect_f_data_file, file_type, data_file_type;
+type protect_s_data_file, file_type, data_file_type;
+type nvdata_file, file_type, data_file_type;
