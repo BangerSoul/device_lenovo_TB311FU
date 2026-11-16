@@ -36,7 +36,14 @@ PRODUCT_PACKAGES += \
     libshim_power \
     android.hardware.sensors-service.multihal
 
-# Stylus IDC (Lenovo Tab Pen / AP500U)
+# Stylus IDC (Lenovo Tab Pen / AP500U, dual-sourced Himax & Novatek)
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/configs/idc/Lenovo_Pen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Lenovo_Pen.idc \
-    $(DEVICE_PATH)/configs/idc/NVT-ts.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/NVT-ts.idc
+    $(DEVICE_PATH)/configs/idc/NVT-ts.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/NVT-ts.idc \
+    $(DEVICE_PATH)/configs/idc/himax-touchscreen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/himax-touchscreen.idc \
+    $(DEVICE_PATH)/configs/display/display_90hz_calibration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_90hz_calibration.xml
+
+# Runtime Resource Overlays (RRO)
+PRODUCT_PACKAGES += \
+    treble-overlay-lenovo-tb311fu
+

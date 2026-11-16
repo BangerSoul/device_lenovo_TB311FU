@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lenovo Tab M11 (TB311FU) Dimensions Overlay
+-->
+<resources>
+    <!-- Symmetrical 11-inch status bar padding -->
+    <dimen name="status_bar_padding_start">24dp</dimen>
+    <dimen name="status_bar_padding_end">24dp</dimen>
+
+    <!-- Status bar dimensions -->
+    <dimen name="status_bar_height">24dp</dimen>
+    <dimen name="status_bar_height_portrait">24dp</dimen>
+    <dimen name="status_bar_height_landscape">24dp</dimen>
+
+    <!-- Flat rectangular screen border radius (0dp) -->
+    <dimen name="rounded_corner_radius">0dp</dimen>
+    <dimen name="rounded_corner_radius_top">0dp</dimen>
+    <dimen name="rounded_corner_radius_bottom">0dp</dimen>
+
+    <!-- Navigation bar dimensions -->
+    <dimen name="navigation_bar_height">48dp</dimen>
+    <dimen name="navigation_bar_height_landscape">48dp</dimen>
+    <dimen name="navigation_bar_frame_height">48dp</dimen>
+    <dimen name="navigation_bar_frame_height_landscape">48dp</dimen>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lenovo Tab M11 (TB311FU / 'poplar') SystemUI String Overrides
+    Requirement R5.4: Sanitized Quick Settings tile layout
+    and blanked carrier text across lockscreen and notification shade.
+-->
+<resources>
+    <!-- Pruned Quick Settings Tiles -->
+    <string name="quick_settings_tiles_stock" translatable="false">wifi,bt,dnd,rotation,battery,screenrecord,cast,alarm,calculator</string>
+    <string name="quick_settings_tiles_new_default" translatable="false">wifi,bt,dnd,rotation,battery,screenrecord,cast,alarm,calculator</string>
+    <string name="quick_settings_tiles_default" translatable="false">wifi,bt,dnd,rotation,battery,screenrecord,cast,alarm,calculator</string>
+
+    <!-- Keyguard and SystemUI Carrier Text Blanking (Wi-Fi Only Tablet) -->
+    <string name="keyguard_carrier_text" translatable="false"></string>
+    <string name="shade_carrier_text" translatable="false"></string>
+    <string name="no_carrier_text" translatable="false"></string>
+    <string name="mobile_carrier_text" translatable="false"></string>
+    <string name="mobile_carrier_text_format" translatable="false"></string>
+</resources>

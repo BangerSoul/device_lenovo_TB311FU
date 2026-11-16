@@ -1,0 +1,17 @@
+//
+// Runtime Resource Overlay (RRO) for Lenovo Tab M11 (TB311FU)
+// Track A — Treble GSI Optimization Suite
+//
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+runtime_resource_overlay {
+    name: "treble-overlay-lenovo-tb311fu",
+    theme: "TrebleOverlayLenovoTB311FU",
+    certificate: "platform",
+    sdk_version: "current",
+    resource_dirs: ["res"],
+    product_specific: true,
+}

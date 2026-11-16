@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lenovo Tab M11 (TB311FU) Hardware Configuration Overlay
+    SoC: MediaTek Helio G88 (MT6769)
+    Display: 11.0" 1920x1200 WUXGA IPS LCD, 90Hz, 400 nits peak
+-->
+<resources>
+    <!-- =================================================================== -->
+    <!-- Display Refresh Rate Configuration (90Hz Peak & Dynamic 60/90Hz)    -->
+    <!-- =================================================================== -->
+
+    <!-- Default refresh rate: 90Hz native panel support -->
+    <integer name="config_defaultRefreshRate">90</integer>
+
+    <!-- Peak refresh rate: 90Hz native UI rendering -->
+    <integer name="config_defaultPeakRefreshRate">90</integer>
+
+    <!-- Supported refresh rate operating points -->
+    <integer-array name="config_supportedRefreshRates">
+        <item>60</item>
+        <item>90</item>
+    </integer-array>
+
+    <integer-array name="config_fps_range">
+        <item>60</item>
+        <item>90</item>
+    </integer-array>
+
+
+    <!-- =================================================================== -->
+    <!-- Auto-Brightness Mapping Curves (4.0 to 400.0 nits, 12-bit PWM)      -->
+    <!-- =================================================================== -->
+
+    <!-- Minimum, maximum, and indoor default screen brightness setting (12-bit hardware scale) -->
+    <integer name="config_screenBrightnessSettingMinimum">48</integer>
+    <integer name="config_screenBrightnessSettingMaximum">4095</integer>
+    <integer name="config_screenBrightnessSettingDefault">1200</integer>
+
+    <!-- Calibrated float nits boundaries (Android 14/15/16 brightness pipeline) -->
+    <item name="config_screenBrightnessSettingMinimumFloat" format="float" type="dimen">4.0</item>
+    <item name="config_screenBrightnessSettingMaximumFloat" format="float" type="dimen">400.0</item>
+    <item name="config_screenBrightnessSettingDefaultFloat" format="float" type="dimen">140.0</item>
+
+    <!-- Ambient light sensor thresholds in lux (strictly monotonically increasing) -->
+    <integer-array name="config_autoBrightnessLevels">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>50</item>
+        <item>100</item>
+        <item>200</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+    </integer-array>
+
+    <!-- 12-bit Non-linear auto-brightness PWM spline [48, ..., 4095] (strictly >= 48) -->
+    <integer-array name="config_autoBrightnessLcdBacklightValues">
+        <item>48</item>
+        <item>65</item>
+        <item>95</item>
+        <item>160</item>
+        <item>260</item>
+        <item>420</item>
+        <item>750</item>
+        <item>1200</item>
+        <item>1850</item>
+        <item>2650</item>
+        <item>3350</item>
+        <item>3850</item>
+        <item>4095</item>
+    </integer-array>
+
+    <!-- Auto-brightness debounce intervals in milliseconds -->
+    <integer name="config_autoBrightnessBrighteningLightDebounce">1500</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">3000</integer>
+
+
+    <!-- =================================================================== -->
+    <!-- Tablet Symmetrical Padding, Cutout Suppression & Form Factor Metrics-->
+    <!-- =================================================================== -->
+
+    <!-- Clear camera cutout emulation (TB311FU camera is in symmetrical bezel) -->
+    <string name="config_mainBuiltInDisplayCutout" translatable="false"></string>
+</resources>

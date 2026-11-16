@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lenovo Tab M11 (TB311FU / 'poplar') SystemUI Runtime Resource Overlay
+    Requirement R5.4: Prunes missing-hardware Quick Settings tiles (flashlight & cell)
+    and masks No-Service / carrier text across Keyguard and Notification Shade.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.phh.treble.overlay.lenovo.tb311fu.systemui"
+    android:versionCode="1"
+    android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="36" />
+    <overlay
+        android:targetPackage="com.android.systemui"
+        android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
+        android:requiredSystemPropertyValue="+Lenovo/TB311FU"
+        android:priority="794"
+        android:isStatic="true" />
+    <application
+        android:label="Lenovo Tab M11 (TB311FU) SystemUI Overlay"
+        android:hasCode="false" />
+</manifest>

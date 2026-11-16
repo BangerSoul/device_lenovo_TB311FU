@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lenovo Tab M11 (TB311FU) Treble Vendor Runtime Resource Overlay (RRO)
+    Targeting framework-res (android)
+    Configures 90Hz peak refresh rate, dynamic 60/90Hz switching,
+    calibrated 4-400 nits logarithmic auto-brightness,
+    symmetrical 11" tablet padding, and display cutout suppression.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.phh.treble.overlay.lenovo.tb311fu"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="34" />
+
+    <overlay
+        android:targetPackage="android"
+        android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
+        android:requiredSystemPropertyValue="+Lenovo/TB311FU"
+        android:priority="793"
+        android:isStatic="true" />
+
+    <application
+        android:label="Lenovo Tab M11 (TB311FU) Treble Overlay"
+        android:hasCode="false" />
+</manifest>

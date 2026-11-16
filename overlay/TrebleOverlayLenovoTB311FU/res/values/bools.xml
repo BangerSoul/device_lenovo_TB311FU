@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lenovo Tab M11 (TB311FU) Hardware Boolean Flags
+-->
+<resources>
+    <!-- Display & Refresh Rate -->
+    <bool name="config_refreshRateControlSupported">true</bool>
+    <bool name="config_fillMainBuiltInDisplayCutout">false</bool>
+
+    <!-- Navigation & Desktop UI -->
+    <bool name="config_showNavigationBar">true</bool>
+    <bool name="config_isDesktopModeSupported">true</bool>
+    <bool name="config_enableDesktopMode">true</bool>
+
+    <!-- Stylus & Digitizer Features -->
+    <bool name="config_supportStylusPointerIcon">true</bool>
+    <bool name="config_palmRejectionEnabled">true</bool>
+    <bool name="config_stylusEnabled">true</bool>
+
+    <!-- Connectivity (Wi-Fi, Bluetooth, Hotspot / SoftAP) -->
+    <bool name="config_wifi_dual_band_support">true</bool>
+    <bool name="config_wifi_softap_ieee80211ac_supported">true</bool>
+    <bool name="config_wifi_softap_acs_supported">true</bool>
+    <bool name="config_bluetooth_le_peripheral_mode_supported">true</bool>
+    <bool name="config_bluetooth_hfp_inband_ringing_support">true</bool>
+
+    <!-- Telephony & Cellular Stripping (Wi-Fi Only Tablet) -->
+    <bool name="config_voice_capable">false</bool>
+    <bool name="config_sms_capable">false</bool>
+    <bool name="config_cellBroadcastAppLinks">false</bool>
+    <bool name="config_showDefaultEmergencyString">false</bool>
+    <bool name="config_showEmergencyButton">false</bool>
+    <bool name="config_showOperatorNameInStatusBar">false</bool>
+</resources>

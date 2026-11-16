@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lenovo Tab M11 (TB311FU) 90Hz Display Refresh Rate and Color Calibration -->
+<display-configuration version="1.0">
+    <panel name="BOE_1200x1920_90HZ">
+        <refresh-rates default="90">
+            <rate>60</rate>
+            <rate>90</rate>
+        </refresh-rates>
+        <peak-refresh-rate>90</peak-refresh-rate>
+        <color-modes default="0">
+            <mode id="0" name="NATIVE" />
+            <mode id="1" name="BOOSTED" />
+            <mode id="2" name="SATURATED" />
+        </color-modes>
+        <surface-flinger>
+            <latch-unsignaled>true</latch-unsignaled>
+            <acquired-buffers>3</acquired-buffers>
+        </surface-flinger>
+    </panel>
+</display-configuration>

@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Raw partition dumps & heavy binaries
+*.img
+*.raw
+*.bin
+*.iso
+*.tar.gz
+*.lz4
+*.apk
+
+# Intermediate builds
+build/
+extract/
+out/
+*.log
