@@ -140,11 +140,11 @@ $resolvedGsi = Resolve-ImagePath -PathCandidate $GsiPath `
     -ImageLabel "LineageOS 23.2 GSI"
 
 $resolvedVendor = Resolve-ImagePath -PathCandidate $VendorPath `
-    -Fallbacks @("deployment\vendor_stabilized.img", "partitions\vendor_stabilized.img") `
+    -Fallbacks @("deployment\vendor_stabilized.img", "partitions\vendor_stabilized.img", "C:\Users\BangerSoul\Documents\antigravity\vibrant-hertz\partitions\vendor_stabilized.img") `
     -ImageLabel "Stabilized Vendor Image"
 
 $resolvedBoot = Resolve-ImagePath -PathCandidate $BootPath `
-    -Fallbacks @("deployment\pmos_boot.img", "deployment\boot.img", "boot_vector\pmos_boot.img") `
+    -Fallbacks @("deployment\pmos_boot.img", "deployment\boot.img", "boot_vector\pmos_boot.img", "C:\Users\BangerSoul\Documents\antigravity\vibrant-hertz\boot_vector\pmos_boot.img") `
     -ImageLabel "AVB 2.0 Boot Vector Image"
 
 # ==============================================================================

@@ -98,6 +98,7 @@ def resolve_file(*candidates: str) -> Optional[str]:
     """
     search_roots = [
         WORKSPACE_DIR,
+        os.path.join(os.path.dirname(WORKSPACE_DIR), "linux-lenovo-tb311fu"),
         REF_PMOS_DIR,
         REF_REPOS_DIR,
         FEARLESS_DIR,

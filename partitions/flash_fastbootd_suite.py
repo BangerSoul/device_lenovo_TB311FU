@@ -22,6 +22,10 @@ PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 DEFAULT_CHUNK_SIZE: str = "64M"
 DEFAULT_GSI_PATH: str = r"D:\poplar\GSI\LineageOS-23.2-20260524-GAPPS-EXT4-GSI.img"
 DEFAULT_VENDOR_PATH: str = os.path.join(SCRIPT_DIR, "vendor_stabilized.img")
+if not os.path.exists(DEFAULT_VENDOR_PATH):
+    _fallback_v = r"C:\Users\BangerSoul\Documents\antigravity\vibrant-hertz\partitions\vendor_stabilized.img"
+    if os.path.exists(_fallback_v):
+        DEFAULT_VENDOR_PATH = _fallback_v
 SYSTEM_TARGET_SIZE_BYTES: int = 3446353920   # 3.2097 GiB (exact LineageOS 23.2 GSI byte size)
 
 MAX_CHUNK_LIMIT_MB: int = 256                # WinUSB buffer transfer failure ceiling (error 22)
@@ -189,7 +193,11 @@ class FastbootdDeployer:
             )
 
         if not os.path.exists(self.vendor_path):
-            raise FileNotFoundError(f"Stabilized vendor image not found: {self.vendor_path}")
+            fallback_v = os.path.join(r"C:\Users\BangerSoul\Documents\antigravity\vibrant-hertz\partitions", os.path.basename(self.vendor_path))
+            if os.path.exists(fallback_v):
+                self.vendor_path = fallback_v
+            else:
+                raise FileNotFoundError(f"Stabilized vendor image not found: {self.vendor_path}")
 
         # Check drive type recommendation
         drive_letter = os.path.splitdrive(self.gsi_path)[0]

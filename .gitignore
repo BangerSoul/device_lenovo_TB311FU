@@ -17,3 +17,14 @@ build/
 extract/
 out/
 *.log
+
+# Teamwork & workspace metadata
+ORIGINAL_REQUEST.md
+PROJECT.md
+
+# External repo tools and binary artifacts
+boot_vector/
+kernel_recovery/
+telephony/
+repack_vendor_mod.py
+partitions/build_vendor_stabilized.py

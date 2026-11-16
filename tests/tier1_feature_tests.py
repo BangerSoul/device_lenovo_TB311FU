@@ -23,8 +23,12 @@ GSI_SUITE_DIR = os.path.join(FEARLESS_DIR, "gsi_suite")
 PLATFORM_TOOLS_DIR = os.path.abspath(r"C:\platform-tools")
 TARGET_GSI_PATH = os.path.abspath(r"D:\poplar\GSI\LineageOS-23.2-20260524-GAPPS-EXT4-GSI.img")
 SURVEY_DIR = os.path.join(WORKSPACE_DIR, ".agents", "teamwork")
+if not os.path.exists(SURVEY_DIR):
+    SURVEY_DIR = r"C:\Users\BangerSoul\Documents\antigravity\vibrant-hertz\.agents\teamwork"
 GLOBAL_SKILL_PATH = os.path.abspath(r"C:\Users\BangerSoul\.gemini\config\skills\lenovo-mtk-unlock\SKILL.md")
 LOCAL_SKILL_PATH = os.path.join(WORKSPACE_DIR, ".agents", "teamwork", "test_writer_e2e", "skills", "lenovo-mtk-unlock", "SKILL.md")
+if not os.path.exists(LOCAL_SKILL_PATH):
+    LOCAL_SKILL_PATH = r"C:\Users\BangerSoul\Documents\antigravity\vibrant-hertz\.agents\teamwork\test_writer_e2e\skills\lenovo-mtk-unlock\SKILL.md"
 
 _CACHED_DEVICE = None
 _DEVICE_CHECKED = False
