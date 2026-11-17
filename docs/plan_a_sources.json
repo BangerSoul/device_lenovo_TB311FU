@@ -8,8 +8,8 @@
     "archive_url": "https://sourceforge.net/projects/misterztr-gsi/files/LineageOS/Android%2016/LineageOS-23.2-20260524-GAPPS-EXT4-GSI.7z/download",
     "archive_filename": "LineageOS-23.2-20260524-GAPPS-EXT4-GSI.7z",
     "variant": "Android 16 QPR2; A/B; GAPPS; EXT4",
-    "archive_sha256": null,
-    "status": "pending_first_download"
+    "archive_sha256": "22b3c069445cc3d54819361a1636f7b27ff455dc547f300b868cecddb1b2e22d",
+    "status": "pinned"
   },
   "artifacts": {
     "gsi": {"redistribute": false},
@@ -28,4 +28,3 @@
     {"name": "vibrant-hertz workspace", "classification": "local-only / inventory required"}
   ]
 }
-

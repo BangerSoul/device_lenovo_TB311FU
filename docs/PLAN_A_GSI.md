@@ -8,7 +8,7 @@ The selected release is [MisterZtr LineageOS 23.2, tag `v2026.05.24-lineage23.2`
 
 The release describes this as an unofficial build supplied as-is, says it is for A/B devices, and notes that the experience depends on the device vendor's Treble implementation. It lists separate EXT4 and EROFS downloads; this plan selects EXT4. The release notes say all EXT4 builds are read/write. This is upstream release information, not proof that TB311FU's vendor image, boot chain, partition layout, or firmware is compatible.
 
-The source manifest at `docs/plan_a_sources.json` pins the release tag, commit, archive URL, filename, and variant. It deliberately has `archive_sha256: null` and `status: pending_first_download`: the release does not provide an upstream archive digest in the pinned metadata.
+The source manifest at `docs/plan_a_sources.json` pins the release tag, commit, archive URL, filename, and variant. It now records SHA-256 `22b3c069445cc3d54819361a1636f7b27ff455dc547f300b868cecddb1b2e22d` with status `pinned`. This is the locally observed digest from the first clean download; the release does not provide an upstream archive digest in its pinned metadata.
 
 ## First clean download and hash record
 
@@ -24,7 +24,7 @@ sha256sum ./gsi-build/LineageOS-23.2-20260524-GAPPS-EXT4-GSI.7z
 
 Record the 64-character lowercase digest, exact filename, source URL, download date, and tool used in the private build record. This is a **locally observed** digest for the bytes downloaded from that source URL; it is **not an upstream signature**, checksum, or proof that the publisher signed those bytes. Only after confirming the filename and URL should the observed digest be copied into `docs/plan_a_sources.json` and the status changed to `pinned`.
 
-Do not use the existing workspace image as the input. Workspace review found that image has already been modified. Re-download the archive, list its contents, extract a fresh image into a separate clean-input directory, and preserve the archive and pristine extracted image unchanged. Keep the clean input and transformed output in the private build directory excluded from Git.
+Do not use the previous local candidate as input; it was modified. The workspace inventory does not establish that any existing image is a pristine copy of this exact archive. Re-download the archive, list its contents, extract a fresh image into a separate clean-input directory, and preserve the archive and pristine extracted image unchanged. Keep the clean input and transformed output in the private build directory excluded from Git.
 
 ## Device-fit gates
 
