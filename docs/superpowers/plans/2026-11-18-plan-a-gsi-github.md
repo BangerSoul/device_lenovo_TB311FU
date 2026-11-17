@@ -45,7 +45,7 @@
 
 - [ ] **Step 1: Write failing tests** named `test_source_pin_matches_release`, `test_archive_hash_state_is_consistent`, `test_pinned_hash_is_64_lowercase_hex`, `test_gsi_and_google_apps_are_not_publishable`, and `test_required_repositories_have_url_and_role`.
 - [ ] **Step 2: Run** `python3 -m unittest discover -s tests -p 'test_plan_a_sources.py' -v`; confirm the tests fail before the manifest and validator exist.
-- [ ] **Step 3: Implement** the manifest and standard-library validator. Permit `archive_sha256: null` only with `status: pending_first_download`; require a 64-character lowercase hex digest with `status: pinned`.
+- [ ] **Step 3: Implement** the manifest and standard-library validator. Permit `archive_sha256: null` only with `status: pending_first_download`; require a 64-character lowercase hex digest with `status: pinned`. Include exactly these repositories and URLs: `BangerSoul/device_lenovo_TB311FU` (device tree and GSI transform), `BangerSoul/vendor_lenovo_TB311FU` (vendor source references), `BangerSoul/kernel_lenovo_TB311FU` (kernel), `BangerSoul/recovery_lenovo_TB311FU` (recovery), `BangerSoul/linux-lenovo-tb311fu` (mainline Linux), `BangerSoul/local_manifests` (source pins), and `BangerSoul/crave_aosp_builder` (remote AOSP orchestration).
 - [ ] **Step 4: Run** the focused tests and `python3 tools/validate_plan_a_sources.py`; require both to pass.
 - [ ] **Step 5: Commit** as `docs: pin Plan A GSI source metadata`.
 
@@ -66,7 +66,7 @@
 - [ ] **Step 2: Run** `python3 -m unittest discover -s tests -p 'test_workspace_inventory.py' -v`; confirm failure before implementation.
 - [ ] **Step 3: Implement** the inventory function and CLI using only the Python standard library. Hash files in chunks; exclude only Git metadata, and classify Python cache files as `cache`.
 - [ ] **Step 4: Run** the inventory against the current workspace. Manually classify every entry, then rerun it so classifications are preserved; require `--check` to pass before documenting the inventory. Map every top-level directory and root-level asset group to a GitHub repository or a named local-only reason.
-- [ ] **Step 5: Write** `docs/ARTIFACT_MAP.md` as a sanitized directory/file-group map with counts, destination repository, and publication status. Include `boot_vector`, `deployment`, `diagnostics`, `kernel_recovery`, `linux_bringup_backup`, `overlay_build`, `partitions`, `pmos_download`, `pmos_packaging`, `pmos_postmarketos_backup`, `rootfs_staging`, `telephony`, `tests`, `ui_sanitization`, and root-level files. Mark images, APKs, shared libraries, screenshots, account configs, and third-party firmware as local-only unless individually cleared.
+- [ ] **Step 5: Write** `docs/ARTIFACT_MAP.md` as a sanitized directory/file-group map with counts, destination repository, and publication status. Include `boot_vector`, `deployment`, `diagnostics`, `kernel_recovery`, `linux_bringup_backup`, `overlay_build`, `partitions`, `pmos_download`, `pmos_packaging`, `pmos_postmarketos_backup`, `rootfs_staging`, `telephony`, `tests`, `ui_sanitization`, `.agents`, `__pycache__`, and root-level files. Mark images, APKs, shared libraries, screenshots, account configs, and third-party firmware as local-only unless individually cleared.
 - [ ] **Step 6: Verify** the inventory has no unclassified rows and the public map contains no absolute paths, file contents, secrets, or unapproved binary destinations; run the focused tests and `git diff --check`.
 - [ ] **Step 7: Commit** only the inventory code, tests, ignore rule, and sanitized map as `docs: map local artifacts and repository destinations`.
 
@@ -94,7 +94,7 @@
 **Interfaces:**
 - Run on pull requests and pushes to `codex/plan-a-gsi` with path filters for `.github/workflows/plan-a-source-validation.yml`, `docs/plan_a_sources.json`, `docs/PLAN_A_GSI.md`, `docs/ARTIFACT_MAP.md`, `tools/validate_plan_a_sources.py`, `tools/inventory_workspace.py`, `partitions/strip_system_cellular.py`, `tests/test_plan_a_sources.py`, `tests/test_workspace_inventory.py`, and `tests/test_strip_system_cellular.py`.
 - Use `ubuntu-24.04`, `actions/checkout@v4`, `permissions: contents: read`, and `timeout-minutes: 10`.
-- Run the three focused `unittest` commands plus `python3 tools/validate_plan_a_sources.py`; upload no artifacts.
+- Run exactly: `python3 -m unittest discover -s tests -p 'test_plan_a_sources.py' -v`, `python3 -m unittest discover -s tests -p 'test_workspace_inventory.py' -v`, `python3 -m unittest discover -s tests -p 'test_strip_system_cellular.py' -v`, and `python3 tools/validate_plan_a_sources.py`; upload no artifacts.
 
 - [ ] **Step 1: Add the workflow** with the exact triggers, path filters, read-only permission, runner, timeout, and commands above.
 - [ ] **Step 2: Validate** workflow YAML with an available parser or `actionlint`; if neither is installed, rely on the first GitHub Actions run for syntax validation.
