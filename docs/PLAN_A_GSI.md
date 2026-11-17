@@ -50,7 +50,7 @@ python3 partitions/strip_system_cellular.py --image <new-transformed-image> --ve
 
 The first command must not modify its source. Never use `--in-place` for this reproducible build. Keep the pristine input and output separate, and record both SHA-256 digests, the manifest revision, and the transform command in the private build record.
 
-**Verifier gate:** the current verifier is being hardened in Plan A Task 5. Before that change is present, a missing EXT4 or 7-Zip dependency can be reported as a skipped check, so a successful-looking result is not sufficient. After Task 5, require both EXT4 and 7-Zip verification to run and pass; missing tools, parse errors, or a nonzero 7-Zip result must fail the command. Do not flash or distribute an output when any check is skipped, fails, or cannot be reproduced.
+**Verifier gate:** require both EXT4 and 7-Zip verification to run and pass. The hardened verifier returns failure for missing tools, parse or scan errors, inability to launch 7-Zip, nonzero 7-Zip results, or any remaining target. The CLI returns nonzero unless every required post-transform check passes. Do not flash or distribute an output when any check is skipped, fails, or cannot be reproduced. `--dry-run` is for scanning the source only and cannot be combined with `--output`.
 
 After transformation, confirm the expected cellular targets are absent, the filesystem still parses, and the image remains within the verified partition capacity. A passing script check is only one gate; validate boot, display, touch, audio, Wi-Fi, sensors, suspend/resume, charging, encryption, and recovery on the device before calling the ROM stable.
 

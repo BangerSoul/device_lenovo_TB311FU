@@ -274,19 +274,19 @@ def verify_image_with_ext4(image_path: str) -> Tuple[bool, List[str]]:
     Verify using python ext4 module that none of the target packages exist.
     """
     if ext4 is None:
-        return True, ["ext4 module not available, skipping internal check"]
+        return False, ["Python 'ext4' module is not available; cannot verify image"]
 
     failures: List[str] = []
-    with open(image_path, "rb") as f:
-        vol = ext4.Volume(f)
-        for dir_path, targets in CELLULAR_PURGE_SPEC.items():
-            try:
+    try:
+        with open(image_path, "rb") as f:
+            vol = ext4.Volume(f)
+            for dir_path, targets in CELLULAR_PURGE_SPEC.items():
                 ino = vol.inode_at(dir_path)
                 for entry, ft in ino.opendir():
                     if entry.name_str in targets:
                         failures.append(f"Target '{entry.name_str}' still present in {dir_path}")
-            except Exception:
-                pass
+    except Exception as exc:
+        return False, [f"Unable to parse or scan EXT4 image '{image_path}': {exc}"]
 
     return len(failures) == 0, failures
 
@@ -297,16 +297,23 @@ def verify_image_with_7z(image_path: str) -> Tuple[bool, List[str]]:
     """
     seven_zip = r"C:\Program Files\7-Zip\7z.exe"
     if not os.path.exists(seven_zip):
-        seven_zip = shutil.which("7z")
+        seven_zip = shutil.which("7z") or shutil.which("7zz")
         if not seven_zip:
-            return True, ["7z not found on system PATH, skipping 7z verification"]
+            return False, ["7-Zip executable (7z or 7zz) not found on PATH; cannot verify image"]
 
-    res = subprocess.run([seven_zip, "l", image_path], capture_output=True, text=True)
+    try:
+        res = subprocess.run([seven_zip, "l", image_path], capture_output=True, text=True)
+    except (OSError, subprocess.SubprocessError) as exc:
+        return False, [f"Unable to run 7-Zip for '{image_path}': {exc}"]
+
     failures: List[str] = []
-    if res.stdout:
-        for kw in PURGE_VERIFICATION_KEYWORDS:
-            if kw in res.stdout:
-                failures.append(f"7-Zip detected cellular package: {kw}")
+    output = (res.stdout or "") + "\n" + (res.stderr or "")
+    if res.returncode != 0:
+        detail = (res.stderr or res.stdout or "no diagnostic output").strip()
+        failures.append(f"7-Zip could not list image (exit {res.returncode}): {detail}")
+    for kw in PURGE_VERIFICATION_KEYWORDS:
+        if kw in output:
+            failures.append(f"7-Zip detected cellular package: {kw}")
 
     return len(failures) == 0, failures
 
@@ -324,11 +331,22 @@ def strip_system_cellular(
     if not os.path.exists(image_path):
         raise FileNotFoundError(f"Source GSI image not found: {image_path}")
 
+    if output_path and dry_run:
+        raise ValueError("--dry-run cannot be combined with --output")
+    if output_path and in_place:
+        raise ValueError("--output cannot be combined with --in-place")
+    if output_path:
+        source_identity = os.path.normcase(os.path.realpath(os.path.abspath(image_path)))
+        output_identity = os.path.normcase(os.path.realpath(os.path.abspath(output_path)))
+        if source_identity == output_identity:
+            raise ValueError("output path must differ from source image")
+        if os.path.lexists(output_path):
+            raise FileExistsError(f"Output path already exists: {output_path}")
+
     target_file = image_path
-    if output_path and output_path != image_path:
-        if not dry_run:
-            print(f"[*] Cloning {image_path} to {output_path}...")
-            shutil.copyfile(image_path, output_path)
+    if output_path:
+        print(f"[*] Cloning {image_path} to {output_path}...")
+        shutil.copyfile(image_path, output_path)
         target_file = output_path
     elif not in_place and not dry_run:
         raise ValueError(
@@ -391,6 +409,9 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    if args.dry_run and args.output:
+        parser.error("--dry-run cannot be combined with --output")
+
     if args.restore:
         with open(args.restore, "r", encoding="utf-8") as f:
             jdata = json.load(f)
@@ -431,6 +452,9 @@ def main() -> None:
         dry_run=args.dry_run,
     )
     print(json.dumps(res, indent=2))
+    if not res.get("dry_run") and res.get("verification", {}).get("all_passed") is not True:
+        print("[!] FAIL: Transformation did not pass every required verifier.")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
