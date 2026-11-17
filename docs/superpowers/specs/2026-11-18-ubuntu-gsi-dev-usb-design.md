@@ -1,6 +1,6 @@
 # Design: Plan A GSI and Ubuntu Developer USB
 
-Status: Proposed for review
+Status: Approved for implementation
 Date: 2026-11-18
 
 ## Intent
