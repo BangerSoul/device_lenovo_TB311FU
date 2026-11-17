@@ -1,0 +1,47 @@
+name: Plan A source validation
+
+on:
+  push:
+    branches:
+      - codex/plan-a-gsi
+    paths:
+      - .github/workflows/plan-a-source-validation.yml
+      - docs/plan_a_sources.json
+      - docs/PLAN_A_GSI.md
+      - docs/ARTIFACT_MAP.md
+      - tools/validate_plan_a_sources.py
+      - tools/inventory_workspace.py
+      - partitions/strip_system_cellular.py
+      - tests/test_plan_a_sources.py
+      - tests/test_workspace_inventory.py
+      - tests/test_strip_system_cellular.py
+  pull_request:
+    paths:
+      - .github/workflows/plan-a-source-validation.yml
+      - docs/plan_a_sources.json
+      - docs/PLAN_A_GSI.md
+      - docs/ARTIFACT_MAP.md
+      - tools/validate_plan_a_sources.py
+      - tools/inventory_workspace.py
+      - partitions/strip_system_cellular.py
+      - tests/test_plan_a_sources.py
+      - tests/test_workspace_inventory.py
+      - tests/test_strip_system_cellular.py
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Plan A source manifest and guide
+        run: python3 -m unittest discover -s tests -p 'test_plan_a_sources.py' -v
+      - name: Test workspace inventory
+        run: python3 -m unittest discover -s tests -p 'test_workspace_inventory.py' -v
+      - name: Test GSI transformation checks
+        run: python3 -m unittest discover -s tests -p 'test_strip_system_cellular.py' -v
+      - name: Validate Plan A source manifest
+        run: python3 tools/validate_plan_a_sources.py
