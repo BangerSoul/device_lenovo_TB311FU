@@ -15,6 +15,7 @@
 - Base ISO: `ubuntu-26.04.1-desktop-amd64.iso`; expected SHA-256 `601e30fbf5d97759367c632e2c33630665039b7e2158fd068403da3ccf1bda1f`.
 - Host hardware: HP ProBook 440 G8, Intel i5-1135G7, 8 GB RAM, about 81 GB free SSD space; firmware virtualization is currently disabled.
 - Install only Ubuntu's standard in-kernel Intel graphics/Wi-Fi and Realtek audio support; do not add Windows drivers or unofficial kernel replacements.
+- Include Git, Python 3, Android platform-tools, archive/filesystem utilities, and Java tooling compatible with LineageOS 23.2; this ISO is a workstation image, not a full AOSP build host.
 - Bundle only official Antigravity, OpenAI ChatGPT Linux, and Brave packages; record exact versions and hashes. Keep those binaries out of GitHub.
 - Use the active `Dell_IVO0536_HDR_D65.icm` profile for the IVO0536 panel locally; do not publish the profile to GitHub.
 - Use PipeWire/ALSA defaults for speakers, microphone, and Bluetooth; Windows Sound Research/Sonitude effects are not portable.
@@ -64,7 +65,7 @@
 
 - [ ] **Step 1: Write failing tests** named `test_base_iso_sha_is_pinned`, `test_required_apps_are_listed`, `test_pending_asset_hash_state_is_consistent`, `test_downloaded_asset_hash_is_valid`, `test_assets_use_local_relative_paths`, and `test_no_secret_fields_are_in_manifest`.
 - [ ] **Step 2: Run** `python3 -m unittest discover -s tests -p 'test_ubuntu_usb_manifest.py' -v`; confirm failure before implementation.
-- [ ] **Step 3: Implement** the manifest and validator with the standard library. Pin the verified Canonical base hash and list Antigravity, ChatGPT, Brave, KeePassXC, and Android/GSI tools.
+- [ ] **Step 3: Implement** the manifest and validator with the standard library. Pin the verified Canonical base hash and list Antigravity, ChatGPT, Brave, KeePassXC, Git, Python 3, Android platform-tools, archive/filesystem utilities, and Java tooling compatible with LineageOS 23.2.
 - [ ] **Step 4: Add ignore rules** before downloading app packages or copying the ICC profile.
 - [ ] **Step 5: Run** the focused tests and validator; commit as `feat: add Ubuntu workstation asset manifest`.
 
