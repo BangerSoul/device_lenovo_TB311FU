@@ -58,14 +58,14 @@
 - Modify: `.gitignore` to exclude `.local-artifact-inventory.json`
 
 **Interfaces:**
-- `inventory_workspace(root: Path) -> list[dict]` records each file's relative POSIX path, byte size, SHA-256, and classification without storing file contents or absolute root paths.
-- CLI: `python3 tools/inventory_workspace.py <workspace-root> --output .local-artifact-inventory.json`; the output stays ignored and local.
+- `inventory_workspace(root: Path, existing_classifications: dict[str, str] | None = None) -> list[dict]` records each file's relative POSIX path, byte size, SHA-256, and classification without storing file contents or absolute root paths.
+- CLI: `python3 tools/inventory_workspace.py --root <workspace-root> --output .local-artifact-inventory.json [--check]`; it preserves prior classifications by relative path, defaults new rows to `unclassified`, and `--check` exits 1 while any row is unclassified. The output stays ignored and local.
 - Classification values: `source`, `test`, `documentation`, `configuration`, `generated_binary`, `third_party`, `sensitive_or_license_review`, `cache`, or `unclassified`. No row may remain `unclassified` at handoff.
 
-- [ ] **Step 1: Write failing tests** named `test_inventory_covers_each_file`, `test_paths_are_relative_and_content_is_not_copied`, and `test_git_metadata_is_excluded`, using temporary fixture directories.
+- [ ] **Step 1: Write failing tests** named `test_inventory_covers_each_file`, `test_paths_are_relative_and_content_is_not_copied`, `test_git_metadata_is_excluded`, `test_existing_classification_is_preserved_on_rescan`, and `test_check_rejects_unclassified_rows`, using temporary fixture directories.
 - [ ] **Step 2: Run** `python3 -m unittest discover -s tests -p 'test_workspace_inventory.py' -v`; confirm failure before implementation.
 - [ ] **Step 3: Implement** the inventory function and CLI using only the Python standard library. Hash files in chunks; exclude only Git metadata, and classify Python cache files as `cache`.
-- [ ] **Step 4: Run** the inventory against the current workspace. Manually classify every entry, then map every top-level directory and root-level asset group to a GitHub repository or a named local-only reason.
+- [ ] **Step 4: Run** the inventory against the current workspace. Manually classify every entry, then rerun it so classifications are preserved; require `--check` to pass before documenting the inventory. Map every top-level directory and root-level asset group to a GitHub repository or a named local-only reason.
 - [ ] **Step 5: Write** `docs/ARTIFACT_MAP.md` as a sanitized directory/file-group map with counts, destination repository, and publication status. Include `boot_vector`, `deployment`, `diagnostics`, `kernel_recovery`, `linux_bringup_backup`, `overlay_build`, `partitions`, `pmos_download`, `pmos_packaging`, `pmos_postmarketos_backup`, `rootfs_staging`, `telephony`, `tests`, `ui_sanitization`, and root-level files. Mark images, APKs, shared libraries, screenshots, account configs, and third-party firmware as local-only unless individually cleared.
 - [ ] **Step 6: Verify** the inventory has no unclassified rows and the public map contains no absolute paths, file contents, secrets, or unapproved binary destinations; run the focused tests and `git diff --check`.
 - [ ] **Step 7: Commit** only the inventory code, tests, ignore rule, and sanitized map as `docs: map local artifacts and repository destinations`.
@@ -92,7 +92,7 @@
 - Create: `.github/workflows/plan-a-source-validation.yml`
 
 **Interfaces:**
-- Run on pull requests and pushes to `codex/plan-a-gsi` when the workflow, source manifest/docs, inventory tool, transformer, validator, or their focused tests change.
+- Run on pull requests and pushes to `codex/plan-a-gsi` with path filters for `.github/workflows/plan-a-source-validation.yml`, `docs/plan_a_sources.json`, `docs/PLAN_A_GSI.md`, `docs/ARTIFACT_MAP.md`, `tools/validate_plan_a_sources.py`, `tools/inventory_workspace.py`, `partitions/strip_system_cellular.py`, `tests/test_plan_a_sources.py`, `tests/test_workspace_inventory.py`, and `tests/test_strip_system_cellular.py`.
 - Use `ubuntu-24.04`, `actions/checkout@v4`, `permissions: contents: read`, and `timeout-minutes: 10`.
 - Run the three focused `unittest` commands plus `python3 tools/validate_plan_a_sources.py`; upload no artifacts.
 
