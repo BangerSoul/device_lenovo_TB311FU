@@ -1,0 +1,31 @@
+{
+  "device": {"manufacturer": "Lenovo", "model": "TB311FU", "codename": "poplar"},
+  "source": {
+    "project": "MisterZtr/LineageOS_gsi",
+    "tag": "v2026.05.24-lineage23.2",
+    "commit": "7bf212f",
+    "release_url": "https://github.com/MisterZtr/LineageOS_gsi/releases/tag/v2026.05.24-lineage23.2",
+    "archive_url": "https://sourceforge.net/projects/misterztr-gsi/files/LineageOS/Android%2016/LineageOS-23.2-20260524-GAPPS-EXT4-GSI.7z/download",
+    "archive_filename": "LineageOS-23.2-20260524-GAPPS-EXT4-GSI.7z",
+    "variant": "Android 16 QPR2; A/B; GAPPS; EXT4",
+    "archive_sha256": null,
+    "status": "pending_first_download"
+  },
+  "artifacts": {
+    "gsi": {"redistribute": false},
+    "google_apps": {"redistribute": false}
+  },
+  "repositories": [
+    {"name": "device_lenovo_TB311FU", "url": "https://github.com/BangerSoul/device_lenovo_TB311FU", "role": "device tree and GSI transform"},
+    {"name": "vendor_lenovo_TB311FU", "url": "https://github.com/BangerSoul/vendor_lenovo_TB311FU", "role": "vendor source references"},
+    {"name": "kernel_lenovo_TB311FU", "url": "https://github.com/BangerSoul/kernel_lenovo_TB311FU", "role": "kernel"},
+    {"name": "recovery_lenovo_TB311FU", "url": "https://github.com/BangerSoul/recovery_lenovo_TB311FU", "role": "recovery"},
+    {"name": "linux-lenovo-tb311fu", "url": "https://github.com/BangerSoul/linux-lenovo-tb311fu", "role": "mainline Linux"},
+    {"name": "local_manifests", "url": "https://github.com/BangerSoul/local_manifests", "role": "source pins"},
+    {"name": "crave_aosp_builder", "url": "https://github.com/BangerSoul/crave_aosp_builder", "role": "remote AOSP orchestration"}
+  ],
+  "local_artifacts": [
+    {"name": "vibrant-hertz workspace", "classification": "local-only / inventory required"}
+  ]
+}
+
