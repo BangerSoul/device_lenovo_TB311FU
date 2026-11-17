@@ -4,7 +4,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 # Proprietary blob extraction list for Lenovo Tab M11 (TB311FU)
-# Format: [-]partition/path/to/file[:destination/path][|sha1sum]
+# Format: [-]partition/path/to/file[:destination/path][|sha256sum]
+# Current hashes are placeholders and must be replaced from a matching TB311FU dump before building.
 #
 
 # ------------------------------------------------------------------------------
