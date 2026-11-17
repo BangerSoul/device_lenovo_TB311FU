@@ -54,6 +54,7 @@ Prepare a reproducible Ubuntu 26.04.1 Desktop AMD64 installer for the HP ProBook
 ### USB layout
 
 - Install Ventoy to the user-selected SanDisk, which erases its current contents, then place the custom ISO and a small recovery folder on Ventoy's exFAT data partition.
+- Ventoy is selected over direct Rufus imaging because its exFAT data partition remains usable for the ISO, ICC profile, and encrypted vault file; Rufus would produce a simpler single-purpose installer. Secure Boot is already off on this laptop.
 - Store the ICC profile and instructions on that data partition. Store only a KeePassXC `.kdbx` vault there after the user creates it; never place plaintext credentials or active browser tokens there.
 - Secure Boot is currently disabled on this laptop, so Ventoy's Secure Boot enrollment path is not expected to be needed.
 
