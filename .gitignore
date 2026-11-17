@@ -29,3 +29,6 @@ telephony/
 repack_vendor_mod.py
 partitions/build_vendor_stabilized.py
 /.local-artifact-inventory.json
+tools/ubuntu-usb/local-assets/
+tools/ubuntu-usb/asset-manifest.local.json
+build/ubuntu-usb/

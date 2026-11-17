@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "base_iso": {
+    "filename": "ubuntu-26.04.1-desktop-amd64.iso",
+    "sha256": "601e30fbf5d97759367c632e2c33630665039b7e2158fd068403da3ccf1bda1f",
+    "checksum_url": "https://releases.ubuntu.com/26.04.1/SHA256SUMS"
+  },
+  "custom_iso": {
+    "filename": "ubuntu-26.04.1-probook440g8-dev-amd64.iso",
+    "local_output_directory": "build/ubuntu-usb"
+  },
+  "packages": [
+    "git",
+    "python3",
+    "python3-pip",
+    "python3-venv",
+    "adb",
+    "fastboot",
+    "android-sdk-platform-tools-common",
+    "7zip",
+    "e2fsprogs",
+    "xorriso",
+    "squashfs-tools",
+    "openjdk-21-jdk",
+    "repo",
+    "curl",
+    "ca-certificates",
+    "gnupg",
+    "keepassxc",
+    "colord",
+    "gnome-color-manager",
+    "pipewire",
+    "wireplumber",
+    "pavucontrol",
+    "linux-firmware",
+    "intel-microcode",
+    "firmware-sof-signed"
+  ],
+  "apps": [
+    {
+      "id": "antigravity",
+      "version": "2.32.1",
+      "build_id": "6001966350991360",
+      "payload_version": "44.9.1",
+      "sha256": "4cb2d4fea74a74f17cfe251841b900249c5ad2728b961efdbf729dafae7fe842",
+      "format": "tar.gz",
+      "source_url": "https://antigravity.google/download?os=linux",
+      "install_method": "extract_official_linux_archive",
+      "local_asset": "local-assets/Antigravity.tar.gz",
+      "status": "downloaded"
+    },
+    {
+      "id": "chatgpt",
+      "version": "26.1111.21308",
+      "sha256": "4b443bc557350a1b193bc2f1bae207c9ea3c9fb5d94f7c94a5d3dbaa8b552352",
+      "format": "deb",
+      "source_url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb",
+      "install_method": "install_official_local_deb",
+      "local_asset": "local-assets/chatgpt_amd64.deb",
+      "status": "downloaded"
+    },
+    {
+      "id": "brave",
+      "version": null,
+      "format": "signed_apt_repository",
+      "source_url": "https://brave.com/linux/",
+      "install_method": "install_from_official_signed_apt_repository",
+      "package_name": "brave-browser",
+      "status": "pending_repository_install"
+    },
+    {
+      "id": "keepassxc",
+      "version": null,
+      "format": "ubuntu_apt_package",
+      "source_url": "https://packages.ubuntu.com/",
+      "install_method": "install_from_ubuntu_archive",
+      "package_name": "keepassxc",
+      "status": "pending_repository_install"
+    }
+  ],
+  "assets": [
+    {
+      "id": "antigravity_linux_x64",
+      "kind": "application_archive",
+      "local_path": "local-assets/Antigravity.tar.gz",
+      "source_url": "https://storage.googleapis.com/antigravity-public/antigravity-hub/2.32.1-6001966350991360/linux-x64/Antigravity.tar.gz",
+      "status": "downloaded",
+      "version": "2.32.1 (build 6001966350991360; payload 44.9.1)",
+      "sha256": "4cb2d4fea74a74f17cfe251841b900249c5ad2728b961efdbf729dafae7fe842"
+    },
+    {
+      "id": "chatgpt_linux_amd64",
+      "kind": "application_deb",
+      "local_path": "local-assets/chatgpt_amd64.deb",
+      "source_url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb",
+      "status": "downloaded",
+      "version": "26.1111.21308",
+      "sha256": "4b443bc557350a1b193bc2f1bae207c9ea3c9fb5d94f7c94a5d3dbaa8b552352"
+    },
+    {
+      "id": "ivo0536_icc_profile",
+      "kind": "icc_profile",
+      "local_path": "local-assets/Dell_IVO0536_HDR_D65.icm",
+      "source_url": null,
+      "status": "present_locally",
+      "version": null,
+      "sha256": null
+    }
+  ],
+  "security": {
+    "allowed_local_auth_asset": "encrypted_keepassxc_vault_only",
+    "prohibited_assets": [
+      "passwords",
+      "browser_cookies",
+      "active_session_tokens",
+      "plaintext_private_keys"
+    ]
+  }
+}
