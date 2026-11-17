@@ -102,7 +102,7 @@
                         <gain name="gain_speaker" mode="AUDIO_GAIN_MODE_JOINT"
                               minValueMB="-5800"
                               maxValueMB="0"
-                              defaultValueMB="-1200"
+                              defaultValueMB="0"
                               stepValueMB="100"/>
                     </gains>
                 </devicePort>

@@ -20,10 +20,10 @@ OUTPUT_ZIP = BASE_DIR / "tb311fu-gsi-stabilizer.zip"
 
 MODULE_PROP = """id=tb311fu-gsi-stabilization
 name=Lenovo Tab M11 (TB311FU) GSI Hardware Stabilization Suite
-version=v2.6.0
-versionCode=260
+version=v2.7.0
+versionCode=270
 author=Antigravity Creative Suite & Custom ROM Team
-description=Hardware stabilization suite for Lenovo Tab M11 (TB311FU / MT6769) on GSIs. Features Lenovo OEM Dolby Atmos DAP port (AIDL DAX3), Display Color Profiles (sRGB / DCI-P3 / Natural / Boosted / Saturated) via FrameworkResOverlay, Night Light, Extra Dim, Folio Cover smart sleep, AP500U active stylus (4096 pressure & palm rejection), restores Bluetooth A2DP audio routing, stabilizes display & eliminates HWC/AAL screen flickering, converts system identity to pure Wi-Fi tablet (masks telephony permissions, declares tablet_core_hardware.xml), harmonizes MTK SELinux rules, disables conflicting AudioFX, and silences carrier text.
+description=Hardware stabilization suite for Lenovo Tab M11 (TB311FU / MT6769) on GSIs. v2.7.0: Fixes speaker volume - eliminates -12dB gain_speaker offset, deploys full-range quad-speaker volume curves (0dB at 100%), tunes Dolby DAP volume leveler (-256 to -144) and disables redundant AW883xx distortion regulator. Features Lenovo OEM Dolby Atmos DAP (AIDL DAX3), Display Color Profiles via FrameworkResOverlay, AP500U active stylus (4096 pressure), Wi-Fi tablet conversion, SELinux, AudioFX elimination.
 """
 
 CUSTOMIZE_SH = """SKIPUNZIP=0
@@ -31,13 +31,14 @@ CUSTOMIZE_SH = """SKIPUNZIP=0
 ui_print "*************************************************"
 ui_print "   Lenovo Tab M11 (TB311FU) GSI Stabilizer     "
 ui_print "   SoC: MediaTek Helio G88 / MT6769             "
-ui_print "   Suite Version: v2.6.0 (Dolby DAP + Color)    "
+ui_print "   Suite Version: v2.7.0 (Speaker Volume Fix)   "
 ui_print "*************************************************"
 
 ui_print "- Installing Display Color Profiles & 90Hz Framework Overlay..."
 ui_print "- Calibrating Lenovo Tab Pen (AP500U) Active Stylus..."
-ui_print "- Configuring Quad-Speaker Spatial Audio Policy..."
-ui_print "- Configuring Lenovo OEM Dolby Atmos DAP (AIDL DAX3)..."
+ui_print "- Configuring Quad-Speaker Spatial Audio Policy (0dB Max)..."
+ui_print "- Calibrating Full-Scale Speaker Volume Tables..."
+ui_print "- Tuning Lenovo OEM Dolby Atmos DAP (-144 Target & Headroom)..."
 ui_print "- Installing Post-Boot Cellular & SELinux Daemon..."
 ui_print "- Fabricated overlays will blank No Service text at boot..."
 
@@ -82,6 +83,21 @@ fi
 if [ -f "$MODPATH/system/vendor/etc/audio_effects.xml" ] && [ -f "/vendor/etc/audio_effects.xml" ]; then
     mount -o bind "$MODPATH/system/vendor/etc/audio_effects.xml" /vendor/etc/audio_effects.xml 2>/dev/null || true
     mount_global -o bind "$MODPATH/system/vendor/etc/audio_effects.xml" /vendor/etc/audio_effects.xml
+fi
+
+if [ -f "$MODPATH/system/vendor/etc/audio_policy_volumes.xml" ] && [ -f "/vendor/etc/audio_policy_volumes.xml" ]; then
+    mount -o bind "$MODPATH/system/vendor/etc/audio_policy_volumes.xml" /vendor/etc/audio_policy_volumes.xml 2>/dev/null || true
+    mount_global -o bind "$MODPATH/system/vendor/etc/audio_policy_volumes.xml" /vendor/etc/audio_policy_volumes.xml
+fi
+
+if [ -f "$MODPATH/system/vendor/etc/default_volume_tables.xml" ] && [ -f "/vendor/etc/default_volume_tables.xml" ]; then
+    mount -o bind "$MODPATH/system/vendor/etc/default_volume_tables.xml" /vendor/etc/default_volume_tables.xml 2>/dev/null || true
+    mount_global -o bind "$MODPATH/system/vendor/etc/default_volume_tables.xml" /vendor/etc/default_volume_tables.xml
+fi
+
+if [ -f "$MODPATH/system/vendor/etc/dolby/dax-default.xml" ] && [ -f "/vendor/etc/dolby/dax-default.xml" ]; then
+    mount -o bind "$MODPATH/system/vendor/etc/dolby/dax-default.xml" /vendor/etc/dolby/dax-default.xml 2>/dev/null || true
+    mount_global -o bind "$MODPATH/system/vendor/etc/dolby/dax-default.xml" /vendor/etc/dolby/dax-default.xml
 fi
 
 # Refresh FrameworkResOverlay bind-mount
@@ -330,6 +346,23 @@ if [ -f "$AUDIO_EFFECTS_XML" ] && [ -f "/vendor/etc/audio_effects.xml" ]; then
     mount -o bind "$AUDIO_EFFECTS_XML" /vendor/etc/audio_effects.xml 2>/dev/null || true
     mount_global -o bind "$AUDIO_EFFECTS_XML" /vendor/etc/audio_effects.xml
 fi
+
+# Bind-mount volume tables (0dB max speaker curve)
+if [ -f "$MODPATH/system/vendor/etc/audio_policy_volumes.xml" ] && [ -f "/vendor/etc/audio_policy_volumes.xml" ]; then
+    mount -o bind "$MODPATH/system/vendor/etc/audio_policy_volumes.xml" /vendor/etc/audio_policy_volumes.xml 2>/dev/null || true
+    mount_global -o bind "$MODPATH/system/vendor/etc/audio_policy_volumes.xml" /vendor/etc/audio_policy_volumes.xml
+fi
+
+if [ -f "$MODPATH/system/vendor/etc/default_volume_tables.xml" ] && [ -f "/vendor/etc/default_volume_tables.xml" ]; then
+    mount -o bind "$MODPATH/system/vendor/etc/default_volume_tables.xml" /vendor/etc/default_volume_tables.xml 2>/dev/null || true
+    mount_global -o bind "$MODPATH/system/vendor/etc/default_volume_tables.xml" /vendor/etc/default_volume_tables.xml
+fi
+
+# Bind-mount Dolby DAX configuration (tuned leveler targets & headroom)
+if [ -f "$MODPATH/system/vendor/etc/dolby/dax-default.xml" ] && [ -f "/vendor/etc/dolby/dax-default.xml" ]; then
+    mount -o bind "$MODPATH/system/vendor/etc/dolby/dax-default.xml" /vendor/etc/dolby/dax-default.xml 2>/dev/null || true
+    mount_global -o bind "$MODPATH/system/vendor/etc/dolby/dax-default.xml" /vendor/etc/dolby/dax-default.xml
+fi
 """
 
 SEPOLICY_RULE = """allow surfaceflinger ged_device chr_file { ioctl read write open getattr map }
@@ -367,6 +400,7 @@ def main():
     (MODULE_DIR / "system" / "etc").mkdir(parents=True, exist_ok=True)
     (MODULE_DIR / "system" / "etc" / "permissions").mkdir(parents=True, exist_ok=True)
     (MODULE_DIR / "system" / "vendor" / "etc").mkdir(parents=True, exist_ok=True)
+    (MODULE_DIR / "system" / "vendor" / "etc" / "dolby").mkdir(parents=True, exist_ok=True)
     (MODULE_DIR / "system" / "bin").mkdir(parents=True, exist_ok=True)
     (MODULE_DIR / "system" / "app" / "QcRilAm").mkdir(parents=True, exist_ok=True)
     (MODULE_DIR / "system" / "app" / "QcRilAm" / ".replace").touch()
@@ -455,6 +489,31 @@ def main():
     dst_vendor_effects = MODULE_DIR / "system" / "vendor" / "etc" / "audio_effects.xml"
     shutil.copy2(src_effects, dst_vendor_effects)
     print(f"  -> Added Audio Effects (vendor): {dst_vendor_effects.name}")
+
+    # Audio Policy Volumes
+    src_volumes = BASE_DIR / "audio" / "audio_policy_volumes.xml"
+    if src_volumes.exists():
+        dst_volumes_sys = MODULE_DIR / "system" / "etc" / "audio_policy_volumes.xml"
+        shutil.copy2(src_volumes, dst_volumes_sys)
+        dst_volumes_ven = MODULE_DIR / "system" / "vendor" / "etc" / "audio_policy_volumes.xml"
+        shutil.copy2(src_volumes, dst_volumes_ven)
+        print(f"  -> Added Audio Policy Volumes: {dst_volumes_ven.name}")
+
+    # Default Volume Tables
+    src_tables = BASE_DIR / "audio" / "default_volume_tables.xml"
+    if src_tables.exists():
+        dst_tables_sys = MODULE_DIR / "system" / "etc" / "default_volume_tables.xml"
+        shutil.copy2(src_tables, dst_tables_sys)
+        dst_tables_ven = MODULE_DIR / "system" / "vendor" / "etc" / "default_volume_tables.xml"
+        shutil.copy2(src_tables, dst_tables_ven)
+        print(f"  -> Added Default Volume Tables: {dst_tables_ven.name}")
+
+    # Dolby DAX Configuration (Tuned Volume Leveler & Headroom)
+    src_dax = BASE_DIR / "audio" / "dax-default.xml"
+    if src_dax.exists():
+        dst_dax = MODULE_DIR / "system" / "vendor" / "etc" / "dolby" / "dax-default.xml"
+        shutil.copy2(src_dax, dst_dax)
+        print(f"  -> Added Tuned Dolby DAX Config: {dst_dax.name} ({dst_dax.stat().st_size} bytes)")
 
     # Post-boot daemon
     src_daemon = BASE_DIR / "selinux" / "gsi-post-boot.sh"
