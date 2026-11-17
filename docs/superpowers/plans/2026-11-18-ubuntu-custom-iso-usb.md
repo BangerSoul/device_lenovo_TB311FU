@@ -18,7 +18,7 @@
 - Bundle only official Antigravity, OpenAI ChatGPT Linux, and Brave packages; record exact versions and hashes. Keep those binaries out of GitHub.
 - Use the active `Dell_IVO0536_HDR_D65.icm` profile for the IVO0536 panel locally; do not publish the profile to GitHub.
 - Use PipeWire/ALSA defaults for speakers, microphone, and Bluetooth; Windows Sound Research/Sonitude effects are not portable.
-- KeePassXC may be installed, but the user creates and fills an encrypted vault; do not copy browser sessions, cookies, passwords, or plaintext private keys.
+- KeePassXC may be installed. Copy an existing encrypted `.kdbx` vault to the USB or create and populate one locally before the first Linux boot; never store its master password, browser sessions, cookies, or plaintext private keys on the USB.
 - The current SanDisk `D:` is explicitly authorized for erase; re-identify it by model and capacity immediately before formatting.
 - Keep the custom ISO and app binaries out of GitHub; publish only the build recipe, package/version manifest, and hashes.
 
@@ -112,11 +112,11 @@
 - Local only: official Ventoy release archive, custom ISO, ICC sidecar, recovery notes, and any user-created encrypted KeePassXC vault
 
 **Interfaces:**
-- The Ventoy exFAT data partition contains the custom ISO, ICC profile, and setup notes. The user may create a KeePassXC `.kdbx` vault there after boot; this plan creates no credentials or vault.
+- The Ventoy exFAT data partition contains the custom ISO, ICC profile, setup notes, and (if the user has one) an encrypted KeePassXC `.kdbx` vault. Never store the vault master password or browser session data on the USB.
 
 - [ ] **Step 1: Re-identify** the USB immediately before writing using `Get-Disk` and `Get-Volume`: require exactly one removable SanDisk Dual Drive matching the recorded capacity near 30.76 GB; confirm its current drive letter and physical disk number, and abort on ambiguity.
 - [ ] **Step 2: Install Ventoy** from its official Windows release onto that confirmed SanDisk. The user has authorized erasing this USB; do not select any internal disk.
-- [ ] **Step 3: Copy** the custom ISO, ICC sidecar, Plan A download document, and Ubuntu setup notes to Ventoy's exFAT partition.
+- [ ] **Step 3: Copy** the custom ISO, ICC sidecar, Plan A download document, Ubuntu setup notes, and any existing encrypted `.kdbx` vault to Ventoy's exFAT partition. If no vault exists, create and populate one locally before the first Ubuntu boot; keep its master password off the USB.
 - [ ] **Step 4: Re-read** the copied ISO SHA-256 and require it to match the validated local custom ISO.
 - [ ] **Step 5: Boot** from the HP boot menu and confirm Ventoy launches the custom Ubuntu ISO.
 - [ ] **Step 6: Leave** the laptop's internal storage unchanged; installing Ubuntu over Windows is a separate action.
