@@ -45,7 +45,7 @@
 - [ ] **Step 1: Implement** the report and exit-code behavior above. Do not enable firmware settings, install software, or partition disks from the script.
 - [ ] **Step 2: Run** `pwsh -NoProfile -File tools/ubuntu-usb/host-preflight.ps1`; confirm it reports the correct ISO digest, VT-x disabled, and no installed WSL distro, with exit code 2 for missing prerequisites.
 - [ ] **Step 3: Have the user enable Intel Virtualization Technology (VT-x) in firmware.** After Windows restarts, rerun the script and require VT-x to report enabled.
-- [ ] **Step 4: Install the official Ubuntu 26.04 WSL2 distribution and confirm `wsl.exe --list --verbose` shows version 2. Keep the Cubic project and ISO under WSL's Linux filesystem, not `/mnt/c` or another NTFS path.**
+- [ ] **Step 4: Run** `wsl.exe --list --online`; install the official Ubuntu 26.04 distro if listed and confirm `wsl.exe --list --verbose` shows version 2. If Ubuntu 26.04 is not listed, use the documented local Ubuntu 26.04 VM path. Keep the Cubic project and ISO under WSL's Linux filesystem, not `/mnt/c` or another NTFS path.
 - [ ] **Step 5: Verify** WSLg launches Cubic and the exact ISO can be extracted, loop-mounted, customized, and regenerated in a small proof project. If any of those checks fail, stop WSL work and use an Ubuntu 26.04 VM on the local Hyper-V host; rerun the same proof there before the full build.
 - [ ] **Step 6: Record** the selected host method, Cubic version, and proof result in `docs/UBUNTU_DEV_USB.md`; commit as `docs: document Ubuntu ISO build host`.
 
