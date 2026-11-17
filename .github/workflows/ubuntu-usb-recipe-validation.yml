@@ -1,0 +1,36 @@
+name: Ubuntu USB recipe validation
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/ubuntu-usb-recipe-validation.yml'
+      - 'docs/UBUNTU_DEV_USB.md'
+      - 'tools/ubuntu-usb/**'
+      - 'tests/test_customize_livefs.py'
+      - 'tests/test_ubuntu_usb_manifest.py'
+  push:
+    branches: [codex/plan-a-gsi]
+    paths:
+      - '.github/workflows/ubuntu-usb-recipe-validation.yml'
+      - 'docs/UBUNTU_DEV_USB.md'
+      - 'tools/ubuntu-usb/**'
+      - 'tests/test_customize_livefs.py'
+      - 'tests/test_ubuntu_usb_manifest.py'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-recipes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Ubuntu asset manifest
+        run: |
+          python3 -m unittest discover -s tests -p 'test_ubuntu_usb_manifest.py' -v
+          python3 tools/ubuntu-usb/validate_manifest.py
+      - name: Validate Cubic customization recipe
+        run: |
+          python3 -m unittest discover -s tests -p 'test_customize_livefs.py' -v
+          bash -n tools/ubuntu-usb/customize-livefs.sh
