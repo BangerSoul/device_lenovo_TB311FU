@@ -8,6 +8,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 VALIDATOR = REPO / "tools" / "validate_plan_a_sources.py"
+GUIDE = REPO / "docs" / "PLAN_A_GSI.md"
 RELEASE_URL = "https://github.com/MisterZtr/LineageOS_gsi/releases/tag/v2026.05.24-lineage23.2"
 ARCHIVE_URL = (
     "https://sourceforge.net/projects/misterztr-gsi/files/LineageOS/"
@@ -127,7 +128,50 @@ class PlanASourceManifestTests(unittest.TestCase):
         changed["repositories"][0]["role"] = ""
         self.assertEqual(1, self.validate(changed).returncode)
 
+    def test_plan_guide_pins_variant_and_links(self):
+        guide = GUIDE.read_text(encoding="utf-8")
+
+        for required in (
+            RELEASE_URL,
+            ARCHIVE_URL,
+            "Android 16 QPR2",
+            "A/B",
+            "GAPPS",
+            "EXT4",
+            "TB311FU",
+            "poplar",
+            "dynamic partitions",
+            "AVB",
+        ):
+            with self.subTest(required=required):
+                self.assertIn(required, guide)
+
+    def test_plan_guide_explains_hash_provenance(self):
+        guide = GUIDE.read_text(encoding="utf-8")
+
+        for required in (
+            "sha256sum",
+            "Get-FileHash",
+            "locally observed",
+            "not an upstream signature",
+            "source URL",
+        ):
+            with self.subTest(required=required):
+                self.assertIn(required, guide)
+
+    def test_plan_guide_forbids_binary_publication(self):
+        guide = GUIDE.read_text(encoding="utf-8").lower()
+
+        for required in (
+            "must not commit",
+            "gsi image",
+            "google apps",
+            "firmware",
+            "github actions artifacts",
+        ):
+            with self.subTest(required=required):
+                self.assertIn(required, guide)
+
 
 if __name__ == "__main__":
     unittest.main()
-
