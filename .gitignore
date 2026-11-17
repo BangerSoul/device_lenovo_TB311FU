@@ -28,3 +28,4 @@ kernel_recovery/
 telephony/
 repack_vendor_mod.py
 partitions/build_vendor_stabilized.py
+/.local-artifact-inventory.json
