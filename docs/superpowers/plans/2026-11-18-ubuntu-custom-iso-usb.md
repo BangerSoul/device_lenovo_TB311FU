@@ -1,12 +1,12 @@
 # Ubuntu Custom ISO and Bootable USB Implementation Plan
 
-> **For agentic workers:** Implement task by task. Do not format `D:` until the custom ISO has been rebuilt and validated.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Create and verify a locally remastered Ubuntu 26.04.1 Desktop ISO for the HP ProBook 440 G8, then place it on a bootable Ventoy USB.
+**Goal:** Build and validate a locally remastered Ubuntu 26.04.1 Desktop ISO for the HP ProBook 440 G8, then install Ventoy on the already-authorized SanDisk USB and verify it boots.
 
-**Architecture:** Enable Intel virtualization, build in an Ubuntu 26.04 WSL2 workspace, use Cubic to add the selected applications, developer tools, and local ICC profile, verify the output, then install Ventoy on the user-selected USB and copy the ISO plus small recovery files.
+**Architecture:** Verify the official base ISO and host first. Enable Intel virtualization, test Cubic in the local Ubuntu 26.04 WSL2 environment, and use an Ubuntu VM only if WSL cannot safely support Cubic's mount/build needs. Add official apps, developer tools, and the local ICC profile; validate the output before the USB is erased.
 
-**Tech Stack:** Windows 11 Pro 26H2, WSL2 Ubuntu 26.04, Cubic, Ubuntu apt, PowerShell, Ventoy, Python 3 standard-library `unittest`, and local ISO/USB verification.
+**Tech Stack:** Windows 11 Pro 26H2, Ubuntu 26.04 WSL2 or a local Ubuntu 26.04 VM, Cubic, Ubuntu apt, PowerShell, Ventoy, Python 3 standard-library `unittest`, and local ISO/USB verification.
 
 **Spec:** `docs/superpowers/specs/2026-11-18-ubuntu-gsi-dev-usb-design.md`
 
@@ -14,107 +14,113 @@
 
 - Base ISO: `ubuntu-26.04.1-desktop-amd64.iso`; expected SHA-256 `601e30fbf5d97759367c632e2c33630665039b7e2158fd068403da3ccf1bda1f`.
 - Host hardware: HP ProBook 440 G8, Intel i5-1135G7, 8 GB RAM, about 81 GB free SSD space; firmware virtualization is currently disabled.
-- Install only the standard in-kernel Intel graphics/Wi-Fi and Realtek audio support; do not add unofficial kernel drivers.
-- Bundle only official Antigravity, OpenAI ChatGPT Linux, and Brave downloads; record exact versions and hashes. Keep those binaries out of GitHub.
+- Install only Ubuntu's standard in-kernel Intel graphics/Wi-Fi and Realtek audio support; do not add Windows drivers or unofficial kernel replacements.
+- Bundle only official Antigravity, OpenAI ChatGPT Linux, and Brave packages; record exact versions and hashes. Keep those binaries out of GitHub.
 - Use the active `Dell_IVO0536_HDR_D65.icm` profile for the IVO0536 panel locally; do not publish the profile to GitHub.
-- Use PipeWire/ALSA defaults for speakers, microphone, and Bluetooth. Windows Sound Research/Sonitude effects are not portable.
-- KeePassXC may be installed, but the user must create and fill the encrypted vault. Do not copy browser sessions, cookies, passwords, or plaintext private keys.
+- Use PipeWire/ALSA defaults for speakers, microphone, and Bluetooth; Windows Sound Research/Sonitude effects are not portable.
+- KeePassXC may be installed, but the user creates and fills an encrypted vault; do not copy browser sessions, cookies, passwords, or plaintext private keys.
 - The current SanDisk `D:` is explicitly authorized for erase; re-identify it by model and capacity immediately before formatting.
 - Keep the custom ISO and app binaries out of GitHub; publish only the build recipe, package/version manifest, and hashes.
 
 ## Review Focus
 
-- Wrong input drive: preflight must confirm the target is the removable SanDisk Dual Drive around 30.76 GB and abort for any other device.
-- Wrong base ISO: build must stop if the local Ubuntu ISO hash differs from Canonical's published hash.
-- Missing bundled app or ICC asset: the build script must fail before remastering rather than silently producing an incomplete ISO.
-- WSL/Cubic incompatibility or memory exhaustion: test loop mounting and a small proof build before the full package set; do not format USB on failure.
-- Driver/audio/profile expectations: verify available Linux devices and profile association; explicitly report any Windows-only effect that cannot be imported.
+- Wrong or altered Ubuntu ISO: preflight must stop on a digest mismatch before Cubic starts.
+- Missing app package or ICC asset: manifest/customizer tests must fail before image generation.
+- Unsupported WSL loop/mount behavior or memory exhaustion: the Cubic proof build must fail without formatting USB, then use the documented local VM fallback.
+- Wrong USB target: the final preflight must abort unless exactly one removable SanDisk Dual Drive of the expected capacity is identified.
+- Driver, audio, or color-profile mismatch: live-session checks must report the device/profile that was actually detected and the Windows-only effects that remain unavailable.
 
 ---
 
-### Task 1: Prepare the local Linux build host
+### Task 1: Prepare and verify the local Linux build host
 
 **Files:**
 - Create: `tools/ubuntu-usb/host-preflight.ps1`
 - Create: `docs/UBUNTU_DEV_USB.md`
 
 **Interfaces:**
-- `host-preflight.ps1` reports Windows version, WSL state, firmware virtualization state, C: free space, and the verified base ISO hash; it never changes BIOS settings or partitions.
+- `host-preflight.ps1` is read-only. It reports Windows version, CPU virtualization, WSL distribution/version, C: free bytes, and the base ISO SHA-256.
+- Exit 0 means all pre-build host and ISO checks pass; exit 2 means one or more prerequisites are missing; exit 1 means the ISO hash is wrong or a check failed unexpectedly.
 
-- [ ] **Step 1: Add a PowerShell self-check** that compares the ISO digest with the exact expected SHA-256 and reports missing WSL/virtualization prerequisites.
-- [ ] **Step 2: Run** `pwsh -File tools/ubuntu-usb/host-preflight.ps1`; confirm it reports VT-x disabled and no WSL distribution, then exits with a prerequisite status.
-- [ ] **Step 3: Have the user enable Intel Virtualization Technology (VT-x) in firmware.** After Windows restarts, rerun the preflight and require virtualization to report enabled.
-- [ ] **Step 4: Install Ubuntu 26.04 as WSL2 and confirm `wsl.exe --list --verbose` shows version 2.
-- [ ] **Step 5: Verify** WSLg launches and Cubic can access loop devices and write to the Linux filesystem. If this fails, stop and switch to a local Ubuntu VM before continuing.
-- [ ] **Step 6: Commit** the preflight and host guide as `docs: document Ubuntu ISO build host`.
+- [ ] **Step 1: Implement** the report and exit-code behavior above. Do not enable firmware settings, install software, or partition disks from the script.
+- [ ] **Step 2: Run** `pwsh -NoProfile -File tools/ubuntu-usb/host-preflight.ps1`; confirm it reports the correct ISO digest, VT-x disabled, and no installed WSL distro, with exit code 2 for missing prerequisites.
+- [ ] **Step 3: Have the user enable Intel Virtualization Technology (VT-x) in firmware.** After Windows restarts, rerun the script and require VT-x to report enabled.
+- [ ] **Step 4: Install the official Ubuntu 26.04 WSL2 distribution and confirm `wsl.exe --list --verbose` shows version 2. Keep the Cubic project and ISO under WSL's Linux filesystem, not `/mnt/c` or another NTFS path.**
+- [ ] **Step 5: Verify** WSLg launches Cubic and the exact ISO can be extracted, loop-mounted, customized, and regenerated in a small proof project. If any of those checks fail, stop WSL work and use an Ubuntu 26.04 VM on the local Hyper-V host; rerun the same proof there before the full build.
+- [ ] **Step 6: Record** the selected host method, Cubic version, and proof result in `docs/UBUNTU_DEV_USB.md`; commit as `docs: document Ubuntu ISO build host`.
 
-### Task 2: Create an app and workstation asset manifest
+### Task 2: Create and validate the workstation asset manifest
 
 **Files:**
 - Create: `tools/ubuntu-usb/manifest.json`
 - Create: `tools/ubuntu-usb/validate_manifest.py`
 - Create: `tests/test_ubuntu_usb_manifest.py`
-- Modify: `.gitignore` to exclude `tools/ubuntu-usb/local-assets/` and generated custom ISOs
+- Modify: `.gitignore` to exclude `tools/ubuntu-usb/local-assets/`, local asset manifests, and generated custom ISOs
 
 **Interfaces:**
-- `validate_manifest(data: dict) -> list[str]` checks the base ISO pin, package names, official app source URLs, and 64-character hashes for downloaded app/profile assets.
-- CLI: `python3 tools/ubuntu-usb/validate_manifest.py`; exit 0 means valid, exit 1 means invalid.
+- `validate_manifest(data: dict) -> list[str]` checks the base ISO digest, package names, official app URLs, local asset paths, status/hash consistency, and prohibited secret fields.
+- The CLI `python3 tools/ubuntu-usb/validate_manifest.py` exits 0 for valid input and 1 for errors.
+- A pending local asset has `status: pending_download` and `sha256: null`; a downloaded asset must have an exact version and 64-character lowercase SHA-256.
 
-- [ ] **Step 1: Write failing tests** named `test_base_iso_sha_is_pinned`, `test_required_apps_are_listed`, `test_external_asset_hashes_are_valid`, `test_local_assets_are_not_repo_paths`, and `test_no_secrets_are_in_manifest`.
+- [ ] **Step 1: Write failing tests** named `test_base_iso_sha_is_pinned`, `test_required_apps_are_listed`, `test_pending_asset_hash_state_is_consistent`, `test_downloaded_asset_hash_is_valid`, `test_assets_use_local_relative_paths`, and `test_no_secret_fields_are_in_manifest`.
 - [ ] **Step 2: Run** `python3 -m unittest discover -s tests -p 'test_ubuntu_usb_manifest.py' -v`; confirm failure before implementation.
-- [ ] **Step 3: Implement** the manifest and validator with only the Python standard library.
-- [ ] **Step 4: Add ignore rules** before downloading Antigravity, ChatGPT, Brave packages, or the ICC profile.
+- [ ] **Step 3: Implement** the manifest and validator with the standard library. Pin the verified Canonical base hash and list Antigravity, ChatGPT, Brave, KeePassXC, and Android/GSI tools.
+- [ ] **Step 4: Add ignore rules** before downloading app packages or copying the ICC profile.
 - [ ] **Step 5: Run** the focused tests and validator; commit as `feat: add Ubuntu workstation asset manifest`.
 
-### Task 3: Prepare and verify the remaster recipe
+### Task 3: Prepare and test the Cubic customization recipe
 
 **Files:**
 - Create: `tools/ubuntu-usb/customize-livefs.sh`
 - Create: `tools/ubuntu-usb/packages.txt`
-- Local only: `tools/ubuntu-usb/local-assets/`
+- Create: `tests/test_customize_livefs.py`
+- Local only: `tools/ubuntu-usb/local-assets/` and `asset-manifest.local.json`
 
 **Interfaces:**
-- `customize-livefs.sh` runs inside Cubic's root filesystem environment; it installs the manifest's system packages, official apps, and KeePassXC, copies the local ICC profile into the system color-profile directory, and fails if a required local asset is absent.
+- `customize-livefs.sh --check --assets-dir <dir> --manifest <file>` checks the package list, required local assets, and SHA-256 values without changing files; exit 0 means complete and valid, exit 1 means any input is missing or mismatched.
+- The normal mode runs inside Cubic's root filesystem terminal, installs packages from `packages.txt`, installs the official app packages, and copies the ICC profile to the system color-profile directory. Copy local files into Cubic's terminal environment using Cubic's local file-copy control; the ignored local manifest and binaries never enter Git.
 
-- [ ] **Step 1: Add a shell self-check** for required inputs, asset hashes, and package manifest; test missing files with temporary fixtures.
-- [ ] **Step 2: Run** `bash -n tools/ubuntu-usb/customize-livefs.sh` and the manifest tests; require both to pass before installing anything in Cubic.
-- [ ] **Step 3: Download** each app from its official source, record exact version and SHA-256 in the ignored local asset manifest, and copy the active ICC profile into the ignored local-assets directory.
-- [ ] **Step 4: Run** the customizer in a disposable Cubic project on the exact ISO with one harmless package first; verify the image remains bootable.
-- [ ] **Step 5: Add** the full package set and apps. Do not add proprietary Windows drivers or try to copy Windows audio effects.
-- [ ] **Step 6: Commit** only the recipe, package list, and non-sensitive manifest as `feat: add Ubuntu remaster recipe`.
+- [ ] **Step 1: Write failing subprocess tests** named `test_check_passes_with_valid_assets`, `test_check_rejects_missing_asset`, and `test_check_rejects_hash_mismatch`.
+- [ ] **Step 2: Run** `python3 -m unittest discover -s tests -p 'test_customize_livefs.py' -v`; confirm failure before the script exists.
+- [ ] **Step 3: Implement** the shell checker and customizer; validate asset SHA-256 values before any package installation.
+- [ ] **Step 4: Run** the focused tests and `bash -n tools/ubuntu-usb/customize-livefs.sh`; require all to pass.
+- [ ] **Step 5: Download** Antigravity, ChatGPT Linux, and Brave packages from their official sources; record exact version and SHA-256 in the ignored local manifest; copy the active ICC profile into the ignored local-assets directory.
+- [ ] **Step 6: Run** `--check`, then create a disposable Cubic project and install one harmless package as a proof. Confirm the ISO regenerates and boots before adding the full package/app set.
+- [ ] **Step 7: Commit** only the script, package list, tests, and non-sensitive manifest schema as `feat: add Ubuntu remaster recipe`.
 
 ### Task 4: Build and validate the custom ISO
 
 **Files:**
 - Modify: `tools/ubuntu-usb/manifest.json` with final package/app versions and hashes
-- Local only: custom `.iso` output and Cubic build directory
+- Modify: `docs/UBUNTU_DEV_USB.md` with build and validation results
+- Local only: Cubic project directory and custom `.iso`
 
 **Interfaces:**
-- Output: `ubuntu-26.04.1-probook440g8-dev-amd64.iso`; record its SHA-256 separately from the Canonical base ISO.
+- Output: `ubuntu-26.04.1-probook440g8-dev-amd64.iso`; store a separate SHA-256 for this output.
 
-- [ ] **Step 1: Re-check** the base ISO SHA-256 before opening the Cubic project.
-- [ ] **Step 2: Build** the custom ISO on the local Linux workspace; keep all output under a local build directory ignored by Git.
-- [ ] **Step 3: Verify** ISO structure and hash; boot it in a VM or on the laptop before using Ventoy.
-- [ ] **Step 4: Confirm** installed-system package versions, Antigravity launch, ChatGPT launch, Brave launch, and KeePassXC presence.
-- [ ] **Step 5: Import** the IVO0536 ICC profile and confirm it is associated with the internal display. Record the profile filename and hash.
-- [ ] **Step 6: Verify** Wi-Fi, speakers, microphone, Bluetooth, and JBL headphones in the live/installed Ubuntu session; document that Windows-specific audio effects are not reproduced.
-- [ ] **Step 7: Commit** only the package/version manifest and build instructions; never commit the ISO or app binaries.
+- [ ] **Step 1: Re-check** the base ISO SHA-256 and every app/profile input hash before building.
+- [ ] **Step 2: Build** with Cubic on the proven local Linux host; keep the project on a Linux filesystem and all output in ignored local directories.
+- [ ] **Step 3: Verify** ISO structure, boot catalog, output hash, and build manifest. Boot the result in Cubic's QEMU test or a local VM before touching the USB.
+- [ ] **Step 4: Confirm** installed package versions and launch Antigravity, ChatGPT, Brave, and KeePassXC in the installed test system.
+- [ ] **Step 5: Import** the IVO0536 ICC profile and confirm the profile is associated with the internal display; record its filename and hash locally.
+- [ ] **Step 6: Verify** Wi-Fi, speakers, microphone, Bluetooth, and JBL headphones in the live or installed session. Record detected devices and state plainly that Windows Sound Research/Sonitude effects are not reproduced.
+- [ ] **Step 7: Commit** only the package/version manifest and build instructions; never commit the ISO, ICC profile, or app binaries.
 
 ### Task 5: Format the SanDisk and create the Ventoy USB
 
 **Files:**
-- Local only: Ventoy release archive, custom ISO, ICC sidecar, and USB recovery notes
+- Local only: official Ventoy release archive, custom ISO, ICC sidecar, recovery notes, and any user-created encrypted KeePassXC vault
 
 **Interfaces:**
-- USB data partition contains the custom ISO, ICC profile, and documentation. The user may create a KeePassXC `.kdbx` file there later; no vault contents are created by this plan.
+- The Ventoy exFAT data partition contains the custom ISO, ICC profile, and setup notes. The user may create a KeePassXC `.kdbx` vault there after boot; this plan creates no credentials or vault.
 
-- [ ] **Step 1: Re-identify** `D:` as the removable SanDisk Dual Drive around 30.76 GB, and verify C: remains the internal SSD.
-- [ ] **Step 2: Install Ventoy** from its official Windows release to the confirmed SanDisk; this formats the USB as already authorized.
-- [ ] **Step 3: Copy** the custom ISO, profile sidecar, Plan A download document, and setup notes to the Ventoy exFAT partition.
-- [ ] **Step 4: Re-read** the copied ISO hash and require it to match the locally built ISO.
-- [ ] **Step 5: Boot** the USB through the HP boot menu and confirm Ventoy launches the custom Ubuntu ISO.
-- [ ] **Step 6: Leave** the laptop's internal storage untouched; installing Ubuntu over Windows is a separate step.
+- [ ] **Step 1: Re-identify** the USB immediately before writing using `Get-Disk` and `Get-Volume`: require exactly one removable SanDisk Dual Drive matching the recorded capacity near 30.76 GB; confirm its current drive letter and physical disk number, and abort on ambiguity.
+- [ ] **Step 2: Install Ventoy** from its official Windows release onto that confirmed SanDisk. The user has authorized erasing this USB; do not select any internal disk.
+- [ ] **Step 3: Copy** the custom ISO, ICC sidecar, Plan A download document, and Ubuntu setup notes to Ventoy's exFAT partition.
+- [ ] **Step 4: Re-read** the copied ISO SHA-256 and require it to match the validated local custom ISO.
+- [ ] **Step 5: Boot** from the HP boot menu and confirm Ventoy launches the custom Ubuntu ISO.
+- [ ] **Step 6: Leave** the laptop's internal storage unchanged; installing Ubuntu over Windows is a separate action.
 
 ## Handoff
 
-Run this plan after the Plan A source and artifact map plan. Do not format the SanDisk until Task 4's validation passes.
+Run this plan after Plan A source mapping and transformer hardening. Do not format the SanDisk until Task 4's ISO validation has passed.
