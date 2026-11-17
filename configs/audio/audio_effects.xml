@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Lenovo Tab M11 (TB311FU) Audio Effects Configuration
+    Dolby Atmos Digital Audio Processing (DAP) & Stream Processing
+    Targeting MediaTek MT6769 Smart Audio Amplifiers
+-->
+<audio_effects_conf version="2.0">
+    <libraries>
+        <!-- Standard AOSP AIDL Libraries -->
+        <library name="bundle" path="libbundleaidl.so"/>
+        <library name="reverb" path="libreverbaidl.so"/>
+        <library name="visualizer" path="libvisualizeraidl.so"/>
+        <library name="downmix" path="libdownmixaidl.so"/>
+        <library name="loudness_enhancer" path="libloudnessenhanceraidl.so"/>
+        <library name="dynamics_processing" path="libdynamicsprocessingaidl.so"/>
+
+        <!-- Hardware & Proprietary Dolby Atmos Libraries -->
+        <library name="dap" path="libswdapaidl.so"/>
+        <library name="dvl" path="libdlbvolaidl.so"/>
+        <library name="gamedap" path="libswgamedapaidl.so"/>
+
+        <!-- Pre-processing effects library (AEC & NS) -->
+        <library name="pre_proc" path="libpreprocessingaidl_mtk.so"/>
+    </libraries>
+
+    <effects>
+        <effect name="bassboost" library="bundle" uuid="8631f300-72e2-11df-b57e-0002a5d5c51b"/>
+        <effect name="virtualizer" library="bundle" uuid="1d4033c0-8557-11df-9f2d-0002a5d5c51b"/>
+        <effect name="equalizer" library="bundle" uuid="ce772f20-847d-11df-bb17-0002a5d5c51b"/>
+        <effect name="volume" library="bundle" uuid="119341a0-8469-11df-81f9-0002a5d5c51b"/>
+        <effect name="reverb_env_aux" library="reverb" uuid="4a387fc0-8ab3-11df-8bad-0002a5d5c51b"/>
+        <effect name="reverb_env_ins" library="reverb" uuid="c7a511a0-a3bb-11df-860e-0002a5d5c51b"/>
+        <effect name="reverb_pre_aux" library="reverb" uuid="f29a1400-a3bb-11df-8ddc-0002a5d5c51b"/>
+        <effect name="reverb_pre_ins" library="reverb" uuid="172cdf00-a3bc-11df-a72f-0002a5d5c51b"/>
+        <effect name="visualizer" library="visualizer" uuid="d069d9e0-8329-11df-9168-0002a5d5c51b"/>
+        <effect name="downmix" library="downmix" uuid="93f04452-e4fe-41cc-91f9-e475b6d1d69f"/>
+        <effect name="loudness_enhancer" library="loudness_enhancer" uuid="fa415329-2034-4bea-b5dc-5b381c8d1e2c"/>
+        <effect name="dynamics_processing" library="dynamics_processing" uuid="e0e6539b-1781-7261-676f-6d7573696340"/>
+
+        <!-- Lenovo OEM Dolby Atmos DAP Effects -->
+        <effect name="dap" library="dap" uuid="9d4921da-8225-4f29-aefa-39537a04bcaa" type="fa81de0e-588b-11ed-9b6a-0242ac120002"/>
+        <effect name="dlb_music_listener" library="dvl" uuid="40f66c8b-5aa5-4345-8919-53ec431aaa98" type="fa81de0e-588b-11ed-9b6a-0242ac120002"/>
+        <effect name="gamedap" library="gamedap" uuid="3783c334-d3a0-4d13-874f-0032e5fb80e2" type="fa81de0e-588b-11ed-9b6a-0242ac120002"/>
+
+        <!-- Preprocessing Effects for Voice Communication Capture -->
+        <effect name="acoustic_echo_canceler" library="pre_proc" uuid="595f5152-3049-46b2-a2bc-7b15c65f4d4e"/>
+        <effect name="noise_suppression" library="pre_proc" uuid="3bed20a2-5407-466c-aff0-11f7bafd5dec"/>
+        <effect name="automatic_gain_control_v2" library="pre_proc" uuid="26603575-125e-4502-a000-4539e430f38f"/>
+    </effects>
+
+    <postprocess>
+        <stream type="music">
+            <apply effect="dlb_music_listener"/>
+            <apply effect="dap"/>
+        </stream>
+        <stream type="ring">
+            <apply effect="dap"/>
+        </stream>
+        <stream type="alarm">
+            <apply effect="dap"/>
+        </stream>
+        <stream type="notification">
+            <apply effect="dap"/>
+        </stream>
+    </postprocess>
+
+    <preprocess>
+        <stream type="voice_communication">
+            <apply effect="acoustic_echo_canceler"/>
+            <apply effect="noise_suppression"/>
+            <apply effect="automatic_gain_control_v2"/>
+        </stream>
+    </preprocess>
+</audio_effects_conf>

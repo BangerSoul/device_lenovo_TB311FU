@@ -43,6 +43,16 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/configs/idc/himax-touchscreen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/himax-touchscreen.idc \
     $(DEVICE_PATH)/configs/display/display_90hz_calibration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_90hz_calibration.xml
 
+# Permissions (Wi-Fi Only Tablet & AppWidgets)
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/permissions/tablet_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/tablet_core_hardware.xml
+
+# Audio Effects & Lenovo OEM Dolby Atmos DAP Policies
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/audio/audio_effects_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects_config.xml \
+    $(DEVICE_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
+    $(DEVICE_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
+
 # Runtime Resource Overlays (RRO)
 PRODUCT_PACKAGES += \
     treble-overlay-lenovo-tb311fu

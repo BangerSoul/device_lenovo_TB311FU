@@ -26,6 +26,25 @@
         <item>90</item>
     </integer-array>
 
+    <!-- =================================================================== -->
+    <!-- Display Color Profiles (Natural, Boosted, Saturated, Automatic)     -->
+    <!-- =================================================================== -->
+    <integer-array name="config_availableColorModes">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
+    <integer name="config_defaultDisplayDefaultColorMode">0</integer>
+    <bool name="config_nightDisplayAvailable">true</bool>
+    <bool name="config_setColorTransformAccelerated">true</bool>
+    <bool name="config_reduceBrightColorsAvailable">true</bool>
+    <bool name="config_displayWhiteBalanceAvailable">true</bool>
+
+    <!-- Folio Cover Smart Wake/Sleep (Hall Switch) -->
+    <bool name="config_lidControlsSleep">true</bool>
+    <bool name="config_lidControlsScreenLock">true</bool>
+
 
     <!-- =================================================================== -->
     <!-- Auto-Brightness Mapping Curves (4.0 to 400.0 nits, 12-bit PWM)      -->
