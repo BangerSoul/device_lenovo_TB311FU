@@ -1,190 +1,207 @@
 #!/usr/bin/env python3
-"""
-LineageOS 22 Proprietary Files Extractor for Lenovo Tab M11 (TB311FU)
-Target: MediaTek Helio G88 / MT6769
+"""Extract and verify TB311FU proprietary files from a supplied firmware dump."""
 
-Parses proprietary-files.txt, extracts blobs from device (via ADB) or dump directory,
-verifies cryptographic hashes, applies binary patchelf fixups, and regenerates
-the vendor tree.
-"""
-
-import sys
+import argparse
+import hashlib
 import os
 import shutil
-import hashlib
-import argparse
 import subprocess
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Callable
-
+import sys
+import tempfile
+from pathlib import Path, PurePosixPath
+from typing import Any, Dict, List, Optional, Tuple
 
 DEVICE = "TB311FU"
 VENDOR = "lenovo"
+SHA256_LENGTH = 64
+EXPECTED_BLOB_COUNT = 111
 
 
-def sha1sum(file_path: str) -> str:
-    h = hashlib.sha1()
-    with open(file_path, "rb") as f:
-        while chunk := f.read(65536):
-            h.update(chunk)
-    return h.hexdigest()
+def sha256sum(file_path: Path) -> str:
+    digest = hashlib.sha256()
+    with file_path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
-def sha256sum(file_path: str) -> str:
-    h = hashlib.sha256()
-    with open(file_path, "rb") as f:
-        while chunk := f.read(65536):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def blob_fixup(target_path: str, rel_path: str):
-    """Applies binary transformations (patchelf) to vendor binaries."""
-    patchelf_bin = shutil.which("patchelf")
-
-    if rel_path.endswith("camera.mt6768.so"):
-        print(f"[*] Applying Camera Shim DT_NEEDED fixup to {rel_path}...")
-        if patchelf_bin:
-            try:
-                subprocess.run([patchelf_bin, "--add-needed", "libshim_camera.so", target_path], check=False)
-            except Exception as e:
-                print(f"[!] patchelf execution note: {e}")
-
-    elif rel_path.endswith("sensors.mt6768.so"):
-        print(f"[*] Applying Sensors Shim DT_NEEDED fixup to {rel_path}...")
-        if patchelf_bin:
-            try:
-                subprocess.run([patchelf_bin, "--add-needed", "libshim_sensors.so", target_path], check=False)
-            except Exception as e:
-                print(f"[!] patchelf execution note: {e}")
-
-    elif rel_path.endswith("hwcomposer.mt6768.so"):
-        print(f"[*] Applying HWC Composer Shim DT_NEEDED fixup to {rel_path}...")
-        if patchelf_bin:
-            try:
-                subprocess.run([patchelf_bin, "--add-needed", "libshim_composer.so", target_path], check=False)
-            except Exception as e:
-                print(f"[!] patchelf execution note: {e}")
-
-    elif rel_path.endswith("liboemcrypto.so"):
-        print(f"[*] Applying OEMCrypto TEE fixup to {rel_path}...")
-        if patchelf_bin:
-            try:
-                subprocess.run([patchelf_bin, "--replace-needed", "libion.so", "libion_shim.so", target_path], check=False)
-            except Exception as e:
-                print(f"[!] patchelf execution note: {e}")
+def safe_relative_path(value: str, field: str) -> str:
+    path = PurePosixPath(value)
+    if path.is_absolute() or not value or any(part in ("", ".", "..") for part in path.parts):
+        raise ValueError(f"Unsafe {field} path in proprietary-files.txt: {value!r}")
+    return path.as_posix()
 
 
 class BlobExtractor:
-    def __init__(self, dump_dir: Optional[str] = None, vendor_out: Optional[str] = None):
+    def __init__(self, dump_dir: str, vendor_out: Optional[str] = None):
         self.device_dir = Path(__file__).resolve().parent
         self.repo_root = self.device_dir.parent.parent.parent
-        self.dump_dir = Path(dump_dir).resolve() if dump_dir else None
-        self.vendor_out = Path(vendor_out).resolve() if vendor_out else self.repo_root / "vendor" / VENDOR / DEVICE
+        self.dump_dir = Path(dump_dir).resolve()
+        self.vendor_out = (
+            Path(vendor_out).resolve()
+            if vendor_out
+            else self.repo_root / "vendor" / VENDOR / DEVICE
+        )
         self.prop_files_txt = self.device_dir / "proprietary-files.txt"
 
     def parse_blob_list(self) -> List[Dict[str, Any]]:
-        entries = []
-        if not self.prop_files_txt.exists():
+        entries: List[Dict[str, Any]] = []
+        seen_destinations = set()
+        if not self.prop_files_txt.is_file():
             raise FileNotFoundError(f"Missing proprietary-files.txt at {self.prop_files_txt}")
 
-        with open(self.prop_files_txt, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
+        with self.prop_files_txt.open("r", encoding="utf-8") as stream:
+            for line_number, raw_line in enumerate(stream, 1):
+                line = raw_line.strip()
                 if not line or line.startswith("#"):
                     continue
 
-                is_module = False
-                if line.startswith("-"):
-                    is_module = True
+                is_module = line.startswith("-")
+                if is_module:
                     line = line[1:].strip()
 
-                sha1 = None
+                expected_sha256 = None
                 if "|" in line:
-                    line, sha1 = line.split("|", 1)
-                    sha1 = sha1.strip()
+                    line, expected_sha256 = line.rsplit("|", 1)
+                    expected_sha256 = expected_sha256.strip().lower()
+                    if len(expected_sha256) != SHA256_LENGTH or any(
+                        char not in "0123456789abcdef" for char in expected_sha256
+                    ):
+                        raise ValueError(
+                            f"Line {line_number}: expected a 64-character SHA-256 digest"
+                        )
+                else:
+                    raise ValueError(
+                        f"Line {line_number}: missing the required SHA-256 digest"
+                    )
 
-                dest_path = None
                 if ":" in line:
                     src_path, dest_path = line.split(":", 1)
-                    src_path = src_path.strip()
-                    dest_path = dest_path.strip()
                 else:
-                    src_path = line.strip()
-                    dest_path = src_path
+                    src_path = dest_path = line
 
-                entries.append({
-                    "src": src_path,
-                    "dest": dest_path,
-                    "is_module": is_module,
-                    "sha1": sha1
-                })
+                src_path = safe_relative_path(src_path.strip(), "source")
+                dest_path = safe_relative_path(dest_path.strip(), "destination")
+                if dest_path in seen_destinations:
+                    raise ValueError(
+                        f"Line {line_number}: duplicate destination path {dest_path!r}"
+                    )
+                seen_destinations.add(dest_path)
+                entries.append(
+                    {
+                        "src": src_path,
+                        "dest": dest_path,
+                        "is_module": is_module,
+                        "sha256": expected_sha256,
+                    }
+                )
+
+        if not entries:
+            raise ValueError("proprietary-files.txt contains no blob entries")
+        if len(entries) != EXPECTED_BLOB_COUNT:
+            raise ValueError(
+                f"Expected {EXPECTED_BLOB_COUNT} TB311FU blobs, found {len(entries)}"
+            )
         return entries
 
-    def extract_from_dump(self, entries: List[Dict[str, Any]]) -> Tuple[int, int]:
-        success_count = 0
-        missing_count = 0
+    def locate_dump_file(self, relative_path: str) -> Optional[Path]:
+        candidates = (
+            self.dump_dir / relative_path,
+            self.dump_dir / "partitions" / relative_path,
+        )
+        for candidate in candidates:
+            if candidate.is_file():
+                resolved = candidate.resolve()
+                try:
+                    resolved.relative_to(self.dump_dir)
+                except ValueError:
+                    continue
+                return resolved
+        return None
 
-        prop_root = self.vendor_out / "proprietary"
-        prop_root.mkdir(parents=True, exist_ok=True)
+    def extract_from_dump(self, entries: List[Dict[str, Any]]) -> Tuple[int, List[str]]:
+        sources: List[Tuple[Dict[str, Any], Path]] = []
+        failures: List[str] = []
 
         for entry in entries:
-            rel_src = entry["src"]
-            rel_dest = entry["dest"]
-            expected_sha1 = entry["sha1"]
+            source = self.locate_dump_file(entry["src"])
+            if source is None:
+                failures.append(f"missing: {entry['src']}")
+                continue
+            actual = sha256sum(source)
+            if actual != entry["sha256"]:
+                failures.append(
+                    f"SHA-256 mismatch: {entry['src']} "
+                    f"(expected {entry['sha256']}, got {actual})"
+                )
+                continue
+            sources.append((entry, source))
 
-            found_file = None
-            if self.dump_dir and self.dump_dir.exists():
-                candidate = self.dump_dir / rel_src
-                if candidate.exists():
-                    found_file = candidate
-                else:
-                    # Search partitions subfolder
-                    parts_cand = self.dump_dir / "partitions" / rel_src
-                    if parts_cand.exists():
-                        found_file = parts_cand
+        if failures:
+            return 0, failures
 
-            out_dest_file = prop_root / rel_dest
-            out_dest_file.parent.mkdir(parents=True, exist_ok=True)
+        self.vendor_out.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(
+            prefix=".TB311FU-proprietary-", dir=self.vendor_out.parent
+        ) as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            staged_proprietary = temporary_root / "proprietary"
+            staged_proprietary.mkdir()
 
-            if found_file:
-                shutil.copy2(found_file, out_dest_file)
-                blob_fixup(str(out_dest_file), rel_src)
-                success_count += 1
-            else:
-                # If dump doesn't exist, generate a placeholder blob for makefile parsing
-                if not out_dest_file.exists():
-                    with open(out_dest_file, "wb") as pf:
-                        pf.write(b"\x7fELF" if rel_src.endswith(".so") else b"# Placeholder blob\n")
-                missing_count += 1
+            for entry, source in sources:
+                destination = staged_proprietary / entry["dest"]
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, destination)
 
-        return success_count, missing_count
+            target_proprietary = self.vendor_out / "proprietary"
+            backup = temporary_root / "previous-proprietary"
+            had_previous = target_proprietary.exists()
+            try:
+                if had_previous:
+                    os.replace(target_proprietary, backup)
+                os.replace(staged_proprietary, target_proprietary)
+            except Exception:
+                if had_previous and backup.exists() and not target_proprietary.exists():
+                    os.replace(backup, target_proprietary)
+                raise
 
-    def run(self):
+        return len(sources), []
+
+    def run(self) -> None:
         print(f"[*] Extracting proprietary blobs for {VENDOR}/{DEVICE}...")
         entries = self.parse_blob_list()
-        print(f"[*] Total indexed proprietary blobs: {len(entries)}")
+        print(f"[*] Indexed proprietary blobs: {len(entries)}")
 
-        extracted, missing = self.extract_from_dump(entries)
-        print(f"[*] Extraction summary: {extracted} extracted from dump, {missing} generated/retained.")
+        extracted, failures = self.extract_from_dump(entries)
+        if failures:
+            print(f"[ERROR] Refusing partial extraction ({len(failures)} input errors):")
+            for failure in failures:
+                print(f"  - {failure}")
+            raise SystemExit(1)
 
-        # Trigger setup-makefiles.py
+        print(f"[*] Verified and extracted {extracted} blobs.")
         setup_script = self.device_dir / "setup-makefiles.py"
-        if setup_script.exists():
-            print(f"[*] Running setup-makefiles.py...")
+        if setup_script.is_file():
             subprocess.run([sys.executable, str(setup_script)], check=True)
+        print("[OK] Extraction completed with every source hash verified.")
 
-        print("[OK] extract-files.py execution complete.")
 
-
-def main():
-    parser = argparse.ArgumentParser(description="LineageOS 22 Proprietary Files Extractor for TB311FU")
-    parser.add_argument("--dump-dir", "-d", help="Path to extracted firmware dump directory")
-    parser.add_argument("--vendor-out", help="Custom output directory for vendor tree")
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Extract verified TB311FU proprietary files from a firmware dump"
+    )
+    parser.add_argument(
+        "--dump-dir",
+        "-d",
+        required=True,
+        help="Root of an extracted firmware dump, including vendor/system_ext/product/odm",
+    )
+    parser.add_argument(
+        "--vendor-out",
+        help="Output vendor/lenovo/TB311FU directory (defaults to the Android checkout)",
+    )
     args = parser.parse_args()
-
-    extractor = BlobExtractor(dump_dir=args.dump_dir, vendor_out=args.vendor_out)
-    extractor.run()
+    BlobExtractor(dump_dir=args.dump_dir, vendor_out=args.vendor_out).run()
 
 
 if __name__ == "__main__":

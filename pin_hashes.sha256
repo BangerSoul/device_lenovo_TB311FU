@@ -1,5 +1,6 @@
 #
-# SHA-256 Cryptographic Pinning Ledger for Lenovo Tab M11 (TB311FU)
+# PROVISIONAL: SHA-256 ledger for Lenovo Tab M11 (TB311FU)
+# Current hashes are placeholders; regenerate from a matching firmware dump before building.
 # Format: <sha256_hash>  <relative_path>
 # Total Blobs: 111
 #
