@@ -23,14 +23,22 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Discover flash images directory
-if [ -d "$WORKSPACE_ROOT/../flash_work" ]; then
-    FLASH_DIR="$WORKSPACE_ROOT/../flash_work"
+if [ -d "/home/bangersoul/GSI-Development/flash_work" ]; then
+    FLASH_DIR="/home/bangersoul/GSI-Development/flash_work"
+elif [ -d "$SCRIPT_DIR/flash_work" ]; then
+    FLASH_DIR="$SCRIPT_DIR/flash_work"
+elif [ -d "$SCRIPT_DIR/../flash_work" ]; then
+    FLASH_DIR="$SCRIPT_DIR/../flash_work"
 elif [ -d "$WORKSPACE_ROOT/flash_work" ]; then
     FLASH_DIR="$WORKSPACE_ROOT/flash_work"
+elif [ -d "$WORKSPACE_ROOT/../flash_work" ]; then
+    FLASH_DIR="$WORKSPACE_ROOT/../flash_work"
 elif [ -d "./flash_work" ]; then
     FLASH_DIR="./flash_work"
-else
+elif [ -d "$WORKSPACE_ROOT/out" ]; then
     FLASH_DIR="$WORKSPACE_ROOT/out"
+else
+    FLASH_DIR="$SCRIPT_DIR/out"
 fi
 
 # Locate mtkclient execution entrypoint
