@@ -1,6 +1,7 @@
+#!/usr/bin/env bash
 #!/usr/bin/env python3
 """
-LineageOS 22 Vendor Tree Makefile Generator for Lenovo Tab with Clear Case (TB311FU)
+Vendor Tree Makefile Generator for Lenovo Tab with Clear Case (TB311FU)
 Target: MediaTek Helio G88 / MT6769
 
 Parses proprietary-files.txt and generates:
@@ -74,6 +75,33 @@ def generate_makefiles():
 BOARD_VENDOR := {VENDOR}
 """)
 
+    # Group library modules by name
+    lib_modules = {}
+    bin_modules = []
+    jar_modules = []
+
+    for m in modules:
+        dest = m["dest"]
+        is_bin = "/bin/" in dest
+        is_lib = "/lib/" in dest or "/lib64/" in dest
+        is_jar = dest.endswith(".jar")
+        is_64 = "/lib64/" in dest
+
+        if is_lib:
+            name = Path(dest).stem
+            if name not in lib_modules:
+                lib_modules[name] = {}
+            if is_64:
+                lib_modules[name]["arm64"] = dest
+            else:
+                lib_modules[name]["arm"] = dest
+        elif is_bin:
+            name = Path(dest).name
+            bin_modules.append((name, dest))
+        elif is_jar:
+            name = Path(dest).stem
+            jar_modules.append((name, dest))
+
     # 2. Generate TB311FU-vendor.mk
     vendor_mk_path = vendor_dir / f"{DEVICE}-vendor.mk"
     with open(vendor_mk_path, "w", encoding="utf-8") as f:
@@ -98,15 +126,10 @@ PRODUCT_COPY_FILES += \\
             f.write(f"    vendor/{VENDOR}/{DEVICE}/proprietary/{cf['dest']}:$(TARGET_COPY_OUT_VENDOR)/{cf['dest'].replace('vendor/', '')}{sep}\n")
 
         f.write(f"\n# Proprietary packages to install\nPRODUCT_PACKAGES += \\\n")
-        module_names = []
-        for m in modules:
-            base_name = Path(m["dest"]).stem
-            module_names.append(base_name)
-
-        # De-duplicate while preserving order
+        all_pkg_names = list(lib_modules.keys()) + [b[0] for b in bin_modules] + [j[0] for j in jar_modules]
         seen = set()
         unique_modules = []
-        for name in module_names:
+        for name in all_pkg_names:
             if name not in seen:
                 seen.add(name)
                 unique_modules.append(name)
@@ -132,35 +155,54 @@ soong_namespace {{
     ],
 }}
 """)
-        for m in modules:
-            dest = m["dest"]
-            name = Path(dest).stem
-            is_bin = "/bin/" in dest
-            is_lib = "/lib/" in dest or "/lib64/" in dest
-            is_jar = dest.endswith(".jar")
-            is_64 = "/lib64/" in dest
+        # Shared libraries
+        for name, targets in lib_modules.items():
+            has_64 = "arm64" in targets
+            has_32 = "arm" in targets
 
-            if is_lib:
-                f.write(f"""
+            if has_64 and has_32:
+                multilib_str = "both"
+                target_str = f"""    target: {{
+        android_arm64: {{
+            srcs: ["proprietary/{targets['arm64']}"],
+        }},
+        android_arm: {{
+            srcs: ["proprietary/{targets['arm']}"],
+        }},
+    }},"""
+            elif has_64:
+                multilib_str = "64"
+                target_str = f"""    target: {{
+        android_arm64: {{
+            srcs: ["proprietary/{targets['arm64']}"],
+        }},
+    }},"""
+            else:
+                multilib_str = "32"
+                target_str = f"""    target: {{
+        android_arm: {{
+            srcs: ["proprietary/{targets['arm']}"],
+        }},
+    }},"""
+
+            f.write(f"""
 cc_prebuilt_library_shared {{
     name: "{name}",
     owner: "{VENDOR}",
     strip: {{
         none: true,
     }},
-    target: {{
-        android_{'arm64' if is_64 else 'arm'}: {{
-            srcs: ["proprietary/{dest}"],
-        }},
-    }},
-    compile_multilib: "{'64' if is_64 else '32'}",
+{target_str}
+    compile_multilib: "{multilib_str}",
     check_elf_files: false,
     prefer: true,
     soc_specific: true,
 }}
 """)
-            elif is_bin:
-                f.write(f"""
+
+        # Binaries
+        for name, dest in bin_modules:
+            f.write(f"""
 cc_prebuilt_binary {{
     name: "{name}",
     owner: "{VENDOR}",
@@ -178,8 +220,10 @@ cc_prebuilt_binary {{
     soc_specific: true,
 }}
 """)
-            elif is_jar:
-                f.write(f"""
+
+        # Jars
+        for name, dest in jar_modules:
+            f.write(f"""
 dex_import {{
     name: "{name}",
     owner: "{VENDOR}",
