@@ -28,18 +28,23 @@ The native Windows 11 Pro host has an Intel i5-1135G7 and an active Hyper-V hype
 
 The selected build path is Ubuntu 26.04 under WSL 2 with Cubic 2026.09.110. Cubic extracted and loop-mounted the verified base ISO, opened its custom root filesystem, accepted a harmless `hello` package proof, and regenerated a disposable image. Cubic's first QEMU attempt could not access `/dev/kvm`; the WSL build user was added to the existing `kvm` group, and the retry reached Ubuntu's live “Choose your language” welcome screen. The WSLg terminal did not accept keyboard input, so the package proof was run through `nsenter` in Cubic's active root and mount namespaces.
 
-Disposable proof ISO: `ubuntu-26.04.1-2026.11.18-desktop-amd64.iso`, 6,596,521,984 bytes, SHA-256 `1380cc9a62804dcb2c7cb2c493770fd5e0341306a2a7c60ea8f878378f7fc0fa`. This hash is only for the proof image; it is not the final workstation ISO.
+Disposable proof ISO: `ubuntu-26.04.1-2026.11.18-desktop-amd64.iso`, 6,596,521,984 bytes, SHA-256 `1380cc9a62804dcb2c7cb2c493770fd5e0341306a2a7c60ea8f878378f7fc0fa`. After its VM boot check, the disposable Cubic project and proof ISO were removed to recover build space; this is not the final workstation ISO.
 
 | Build check | Result |
 | --- | --- |
-| Host preflight | Passed after restart; the proof build later reduced C: to 16.77 GB free, so the current check is exit 2 until at least 35 GiB is available again |
+| Host preflight | Passed before the full build with 39.63 GB free and the pinned base ISO hash matching; after the full build C: has 8.88 GB free, so avoid making another local ISO copy |
 | Base ISO hash | Matches Canonical's pinned SHA-256 |
 | WSL Ubuntu 26.04 | Installed and running as WSL 2 |
 | Cubic proof build | Passed with Cubic 2026.09.110; extraction, loop mount, custom-root package change, and ISO regeneration succeeded |
 | Proof ISO VM boot | Passed after KVM device permissions were corrected; reached Ubuntu live language selection |
-| Final workstation ISO validation and VM boot | Pending |
-| Profile, Wi-Fi, audio, microphone, Bluetooth checks | Pending |
-| SanDisk Ventoy write | Pending; do this only after custom ISO validation |
+| Custom ISO | Built at `~/iso-build/cubic-full/ubuntu-26.04.1-probook440g8-dev-amd64.iso`; 7,864,367,104 bytes; SHA-256 `dd1ea66c312f09ca2a41944c1ba50760bd00fddbec905811e444a423dee52d61` |
+| ISO structure | Passed xorriso inspection: ISO 9660/Rock Ridge/Joliet, `/boot.catalog`, BIOS El Torito boot image and UEFI El Torito boot image are present |
+| QEMU boot | Reached GRUB and the Ubuntu GDM live-session greeter. Desktop entry and app launches were not verified in QEMU |
+| Installed package state | `dpkg-query` confirmed Brave 1.99.57, ChatGPT 26.1111.21308, KeePassXC 2.7.10+dfsg1-2ubuntu1, Git 1:2.53.0-1ubuntu1.1, adb/fastboot 1:34.0.5-12build1, OpenJDK 21.0.13.0.3+1-1~26.04.1, and Python 3.14.3-0ubuntu2 in Cubic's custom root. Antigravity's executable exists and `ldd` reported no missing libraries. These checks establish installation, not successful GUI launch |
+| ICC profile | Included at `/usr/share/color/icc/Dell_IVO0536_HDR_D65.icm`; its hash remains in the ignored local asset manifest; display association and visual match await hardware boot |
+| Package state audit | `dpkg --audit` produced no findings; the Cubic CD-ROM apt source was restored |
+| Physical Wi-Fi, audio, microphone, Bluetooth, JBL, display profile, and app launches | Pending live USB boot on the HP ProBook 440 G8 |
+| SanDisk Ventoy write | Next: ISO checksum, boot structure, and QEMU-to-greeter validation passed; re-identify SanDisk immediately before authorized erase |
 
 ## Credential handling
 
@@ -47,4 +52,4 @@ The USB may hold an encrypted KeePassXC `.kdbx` vault only if the user provides 
 
 ## USB write gate
 
-The user authorized erasing the SanDisk Dual Drive without backup. Re-identify it by model, capacity, bus type, and current drive letter immediately before installing Ventoy. Do not write the USB until the custom ISO hash, structure, boot catalog, VM boot, app launch, and hardware checks have been recorded. The laptop's internal storage is outside this USB task.
+The user authorized erasing the SanDisk Dual Drive without backup. Re-identify it by model, capacity, bus type, and current drive letter immediately before installing Ventoy. The custom ISO hash, ISO/BIOS/UEFI structure, and QEMU boot to the live greeter are verified; app launch and physical hardware checks require the actual USB on the HP, so perform those immediately after USB creation. Do not select the laptop's internal storage or start the Ubuntu installer.

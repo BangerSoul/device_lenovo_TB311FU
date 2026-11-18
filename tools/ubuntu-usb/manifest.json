@@ -7,7 +7,25 @@
   },
   "custom_iso": {
     "filename": "ubuntu-26.04.1-probook440g8-dev-amd64.iso",
-    "local_output_directory": "build/ubuntu-usb"
+    "local_output_directory": "~/iso-build/cubic-full",
+    "size_bytes": 7864367104,
+    "sha256": "dd1ea66c312f09ca2a41944c1ba50760bd00fddbec905811e444a423dee52d61",
+    "validation": {
+      "iso9660_rock_ridge_joliet": "passed",
+      "el_torito_bios": "present",
+      "el_torito_uefi": "present",
+      "qemu_boot": "reached_gdm_greeter; desktop_and_app_launch_unverified"
+    }
+  },
+  "installed_package_versions": {
+    "adb": "1:34.0.5-12build1",
+    "brave-browser": "1.99.57",
+    "chatgpt": "26.1111.21308",
+    "fastboot": "1:34.0.5-12build1",
+    "git": "1:2.53.0-1ubuntu1.1",
+    "keepassxc": "2.7.10+dfsg1-2ubuntu1",
+    "openjdk-21-jdk:amd64": "21.0.13.0.3+1-1~26.04.1",
+    "python3": "3.14.3-0ubuntu2"
   },
   "packages": [
     "git",
@@ -47,7 +65,8 @@
       "source_url": "https://antigravity.google/download?os=linux",
       "install_method": "extract_official_linux_archive",
       "local_asset": "local-assets/Antigravity.tar.gz",
-      "status": "downloaded"
+      "status": "downloaded",
+      "installation_status": "installed_in_iso_launch_unverified"
     },
     {
       "id": "chatgpt",
@@ -57,25 +76,28 @@
       "source_url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb",
       "install_method": "install_official_local_deb",
       "local_asset": "local-assets/chatgpt_amd64.deb",
-      "status": "downloaded"
+      "status": "downloaded",
+      "installation_status": "installed_in_iso_launch_unverified"
     },
     {
       "id": "brave",
-      "version": null,
+      "version": "1.99.57",
       "format": "signed_apt_repository",
       "source_url": "https://brave.com/linux/",
       "install_method": "install_from_official_signed_apt_repository",
       "package_name": "brave-browser",
-      "status": "pending_repository_install"
+      "status": "installed_in_iso_launch_unverified",
+      "installation_status": "installed_in_iso_launch_unverified"
     },
     {
       "id": "keepassxc",
-      "version": null,
+      "version": "2.7.10+dfsg1-2ubuntu1",
       "format": "ubuntu_apt_package",
       "source_url": "https://packages.ubuntu.com/",
       "install_method": "install_from_ubuntu_archive",
       "package_name": "keepassxc",
-      "status": "pending_repository_install"
+      "status": "installed_in_iso_launch_unverified",
+      "installation_status": "installed_in_iso_launch_unverified"
     }
   ],
   "assets": [

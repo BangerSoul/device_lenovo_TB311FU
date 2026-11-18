@@ -19,7 +19,7 @@
 - Bundle only official Antigravity, OpenAI ChatGPT Linux, and Brave packages; record exact versions and hashes. Keep those binaries out of GitHub.
 - Use the active `Dell_IVO0536_HDR_D65.icm` profile for the IVO0536 panel locally; do not publish the profile to GitHub.
 - Use PipeWire/ALSA defaults for speakers, microphone, and Bluetooth; Windows Sound Research/Sonitude effects are not portable.
-- KeePassXC may be installed. Copy an existing encrypted `.kdbx` vault to the USB or create and populate one locally before the first Linux boot; never store its master password, browser sessions, cookies, or plaintext private keys on the USB.
+- KeePassXC may be installed. Copy an encrypted `.kdbx` vault only if the user supplies one; never invent/export account credentials or store vault passwords, browser sessions, cookies, or plaintext private keys on the USB.
 - The current SanDisk `D:` is explicitly authorized for erase; re-identify it by model and capacity immediately before formatting.
 - Keep the custom ISO and app binaries out of GitHub; publish only the build recipe, package/version manifest, and hashes.
 
@@ -101,10 +101,10 @@
 
 - [ ] **Step 1: Re-check** the base ISO SHA-256 and every app/profile input hash before building.
 - [ ] **Step 2: Build** with Cubic on the proven local Linux host; keep the project on a Linux filesystem and all output in ignored local directories.
-- [ ] **Step 3: Verify** ISO structure, boot catalog, output hash, and build manifest. Boot the result in Cubic's QEMU test or a local VM before touching the USB.
-- [ ] **Step 4: Confirm** installed package versions and launch Antigravity, ChatGPT, Brave, and KeePassXC in the installed test system.
-- [ ] **Step 5: Import** the IVO0536 ICC profile and confirm the profile is associated with the internal display; record its filename and hash locally.
-- [ ] **Step 6: Verify** Wi-Fi, speakers, microphone, Bluetooth, and JBL headphones in the live or installed session. Record detected devices and state plainly that Windows Sound Research/Sonitude effects are not reproduced.
+- [ ] **Step 3: Verify** ISO structure, boot catalog, output hash, and build manifest. Boot the result in Cubic's QEMU test or a local VM and require it to reach the live-session greeter before touching the USB. QEMU app launches and laptop hardware checks are not considered passed here.
+- [ ] **Step 4: Record** package versions and installation state in the manifest. App launch checks move to Task 5 because they require an actual live desktop session.
+- [ ] **Step 5: Record** the local IVO0536 profile filename and hash. Confirm its display association and visual match during Task 5's physical live session.
+- [ ] **Step 6: Defer** Wi-Fi, speakers, microphone, Bluetooth, and JBL checks to Task 5's physical live session; record detected devices and state plainly that Windows Sound Research/Sonitude effects are not reproduced.
 - [ ] **Step 7: Commit** only the package/version manifest and build instructions; never commit the ISO, ICC profile, or app binaries.
 
 ### Task 5: Format the SanDisk and create the Ventoy USB
@@ -117,10 +117,11 @@
 
 - [ ] **Step 1: Re-identify** the USB immediately before writing using `Get-Disk` and `Get-Volume`: require exactly one removable SanDisk Dual Drive matching the recorded capacity near 30.76 GB; confirm its current drive letter and physical disk number, and abort on ambiguity.
 - [ ] **Step 2: Install Ventoy** from its official Windows release onto that confirmed SanDisk. The user has authorized erasing this USB; do not select any internal disk.
-- [ ] **Step 3: Copy** the custom ISO, ICC sidecar, Plan A download document, Ubuntu setup notes, and any existing encrypted `.kdbx` vault to Ventoy's exFAT partition. If no vault exists, create and populate one locally before the first Ubuntu boot; keep its master password off the USB.
+- [ ] **Step 3: Copy** the custom ISO, ICC sidecar, Plan A download document, Ubuntu setup notes, and (only if already supplied by the user) an encrypted `.kdbx` vault to Ventoy's exFAT partition. Do not invent or export account credentials; keep vault passwords, browser sessions, cookies, and plaintext keys off the USB.
 - [ ] **Step 4: Re-read** the copied ISO SHA-256 and require it to match the validated local custom ISO.
-- [ ] **Step 5: Boot** from the HP boot menu and confirm Ventoy launches the custom Ubuntu ISO.
-- [ ] **Step 6: Leave** the laptop's internal storage unchanged; installing Ubuntu over Windows is a separate action.
+- [ ] **Step 5: Boot** from the HP boot menu and confirm Ventoy launches the custom Ubuntu ISO into the live desktop, without starting the installer.
+- [ ] **Step 6: Verify** Antigravity, ChatGPT, Brave, and KeePassXC launch; associate the ICC profile and visually check color; test Wi-Fi, speakers, microphone, Bluetooth, and JBL headphones. Record exact outcomes and any issues.
+- [ ] **Step 7: Leave** the laptop's internal storage unchanged; installing Ubuntu over Windows is a separate action.
 
 ## Handoff
 
