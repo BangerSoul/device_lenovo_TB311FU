@@ -213,6 +213,12 @@ case "$ACTION" in
     flash_boot_b)
         cmd_flash_boot "b"
         ;;
+    flash_both|flash_all_slots)
+        echo -e "${YELLOW}[*] Flashing Slot A...${RESET}"
+        cmd_flash_boot "a"
+        echo -e "${YELLOW}[*] Flashing Slot B...${RESET}"
+        cmd_flash_boot "b"
+        ;;
     udev|install_udev)
         install_udev_rules
         ;;
