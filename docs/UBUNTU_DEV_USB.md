@@ -44,7 +44,10 @@ Disposable proof ISO: `ubuntu-26.04.1-2026.11.18-desktop-amd64.iso`, 6,596,521,9
 | ICC profile | Included at `/usr/share/color/icc/Dell_IVO0536_HDR_D65.icm`; its hash remains in the ignored local asset manifest; display association and visual match await hardware boot |
 | Package state audit | `dpkg --audit` produced no findings; the Cubic CD-ROM apt source was restored |
 | Physical Wi-Fi, audio, microphone, Bluetooth, JBL, display profile, and app launches | Pending live USB boot on the HP ProBook 440 G8 |
-| SanDisk Ventoy write | Next: ISO checksum, boot structure, and QEMU-to-greeter validation passed; re-identify SanDisk immediately before authorized erase |
+| SanDisk Ventoy write | Ventoy 1.1.18 CLI reports SUCCESS on the identified SanDisk Dual Drive, PhysicalDrive1 (30,765,219,840 bytes); Ventoy exFAT data partition is mounted as D: |
+| USB ISO copy | `GSI-Development/Ubuntu/ubuntu-26.04.1-probook440g8-dev-amd64.iso`, 7,864,367,104 bytes; a fresh USB SHA-256 matches the built ISO digest exactly |
+| USB contents | README, ICC sidecar, Ubuntu manifest/package notes, Plan A source manifest and guide, artifact map, and both implementation plans copied; no credentials or app installer binaries copied |
+| Physical boot and live checks | Pending HP boot-menu session; confirm Ventoy reaches the live desktop, launch apps, associate/visually check ICC, then test Wi-Fi, speakers, microphone, Bluetooth, and JBL |
 
 ## Credential handling
 
@@ -52,4 +55,4 @@ The USB may hold an encrypted KeePassXC `.kdbx` vault only if the user provides 
 
 ## USB write gate
 
-The user authorized erasing the SanDisk Dual Drive without backup. Re-identify it by model, capacity, bus type, and current drive letter immediately before installing Ventoy. The custom ISO hash, ISO/BIOS/UEFI structure, and QEMU boot to the live greeter are verified; app launch and physical hardware checks require the actual USB on the HP, so perform those immediately after USB creation. Do not select the laptop's internal storage or start the Ubuntu installer.
+The user authorized erasing the SanDisk Dual Drive without backup. Ventoy is installed and the USB ISO digest matches the validated custom ISO. The next check is physical boot from the HP one-time boot menu; choose the live “Try Ubuntu” path and do not select the installer. Verify app launch, profile association/color, Wi-Fi, speakers, microphone, Bluetooth, and JBL before claiming complete hardware readiness.
