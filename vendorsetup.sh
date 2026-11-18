@@ -3,7 +3,5 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
+# Lunch combos are defined in AndroidProducts.mk via COMMON_LUNCH_CHOICES
 
-add_lunch_combo arrow_TB311FU-userdebug
-add_lunch_combo arrow_TB311FU-user
-add_lunch_combo arrow_TB311FU-eng
