@@ -24,6 +24,7 @@ The complete open-source software stack for the **Lenovo Tab with Clear Case** (
 
 ## Branches
 
+- **`arrow-14.0`**: ArrowOS 14.0 (Android 14) official ROM tree with `arrow_TB311FU.mk`, `arrow.dependencies`, and custom lunch combos.
 - **`main`**: Master branch with LineageOS 23.2 (Android 16 QPR2) device configurations, RRO overlays, 90Hz display profiles, and dynamic partition tools.
 - **`lineage-23.2`**: Dedicated Android 16 QPR2 GSI / ROM tree branch.
 - **`lineage-22.1`**: LineageOS 22.1 (Android 15) baseline snapshot.
@@ -98,6 +99,24 @@ The complete open-source software stack for the **Lenovo Tab with Clear Case** (
   - Tier 3: Pairwise Combinations.
   - Tier 4: Real-world Workload Scenarios.
   - Tier 5: Adversarial and hostile security suites.
+
+### 8. ArrowOS Build Support
+- **Branch**: `arrow-14.0` (Android 14)
+- **Product Definition**: `arrow_TB311FU.mk`
+- **Lunch Target**: `arrow_TB311FU-userdebug`
+- **Dependencies Manifest**: `arrow.dependencies` & `manifests/arrow_TB311FU.xml`
+- **Compilation Quickstart**:
+  ```bash
+  # In your ArrowOS 14.0 workspace:
+  mkdir -p .repo/local_manifests
+  cp device/lenovo/TB311FU/manifests/arrow_TB311FU.xml .repo/local_manifests/
+  repo sync -c -j$(nproc) --no-clone-bundle --no-tags
+  source build/envsetup.sh
+  lunch arrow_TB311FU-userdebug
+  m bacon
+  # or directly:
+  bash device/lenovo/TB311FU/scripts/build_arrow.sh userdebug
+  ```
 
 ---
 

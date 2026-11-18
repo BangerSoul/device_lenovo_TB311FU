@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <!-- Lenovo Tab with Clear Case (TB311FU / poplar) ArrowOS Local Manifest -->
+    <!-- Place this file in .repo/local_manifests/arrow_TB311FU.xml inside your ArrowOS tree -->
+
+    <!-- Device Tree -->
+    <project name="BangerSoul/device_lenovo_TB311FU"
+             path="device/lenovo/TB311FU"
+             remote="github"
+             revision="arrow-14.0" />
+
+    <!-- Vendor Tree -->
+    <project name="BangerSoul/vendor_lenovo_TB311FU"
+             path="vendor/lenovo/TB311FU"
+             remote="github"
+             revision="arrow-14.0" />
+
+    <!-- Kernel Source Tree -->
+    <project name="BangerSoul/kernel_lenovo_TB311FU"
+             path="kernel/lenovo/TB311FU"
+             remote="github"
+             revision="arrow-14.0" />
+
+    <!-- MediaTek Hardware & SELinux Dependencies for ArrowOS -->
+    <project name="ArrowOS/android_device_mediatek_sepolicy_vndr"
+             path="device/mediatek/sepolicy_vndr"
+             remote="github"
+             revision="arrow-14.0" />
+
+    <project name="ArrowOS/android_hardware_mediatek"
+             path="hardware/mediatek"
+             remote="github"
+             revision="arrow-14.0" />
+</manifest>

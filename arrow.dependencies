@@ -1,0 +1,22 @@
+[
+  {
+    "repository": "ArrowOS/android_device_mediatek_sepolicy_vndr",
+    "target_path": "device/mediatek/sepolicy_vndr",
+    "branch": "arrow-14.0"
+  },
+  {
+    "repository": "ArrowOS/android_hardware_mediatek",
+    "target_path": "hardware/mediatek",
+    "branch": "arrow-14.0"
+  },
+  {
+    "repository": "BangerSoul/vendor_lenovo_TB311FU",
+    "target_path": "vendor/lenovo/TB311FU",
+    "branch": "arrow-14.0"
+  },
+  {
+    "repository": "BangerSoul/kernel_lenovo_TB311FU",
+    "target_path": "kernel/lenovo/TB311FU",
+    "branch": "arrow-14.0"
+  }
+]

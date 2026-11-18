@@ -55,5 +55,6 @@ PRODUCT_COPY_FILES += \
 
 # Runtime Resource Overlays (RRO)
 PRODUCT_PACKAGES += \
-    treble-overlay-lenovo-tb311fu
+    treble-overlay-lenovo-tb311fu \
+    treble-overlay-lenovo-tb311fu-systemui
 

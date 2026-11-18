@@ -1,0 +1,16 @@
+//
+// SystemUI Runtime Resource Overlay (RRO) for Lenovo Tab with Clear Case (TB311FU)
+//
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+runtime_resource_overlay {
+    name: "treble-overlay-lenovo-tb311fu-systemui",
+    theme: "TrebleOverlayLenovoTB311FUSystemUI",
+    certificate: "platform",
+    sdk_version: "current",
+    resource_dirs: ["res"],
+    product_specific: true,
+}
