@@ -2,7 +2,7 @@
 """
 tests/test_adversarial_m1_m2.py - Adversarial Stress Harness & Empirical Verification
 Milestones 1 & 2: Hardware Subsystems & Dynamic Partition Engineering
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786 / MT6768, serial HNQ09EZD)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786 / MT6768, serial HNQ09EZD)
 
 Objectives & Empirical Coverage:
 1. Brightness sysfs boundary probing & clamp logic resilience:

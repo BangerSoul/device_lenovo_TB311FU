@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Lenovo Tab M11 (TB311FU) Treble Vendor Runtime Resource Overlay (RRO)
+    Lenovo Tab with Clear Case (TB311FU) Treble Vendor Runtime Resource Overlay (RRO)
     Targeting framework-res (android)
     Configures 90Hz peak refresh rate, dynamic 60/90Hz switching,
     calibrated 4-400 nits logarithmic auto-brightness,
@@ -21,6 +21,6 @@
         android:isStatic="true" />
 
     <application
-        android:label="Lenovo Tab M11 (TB311FU) Treble Overlay"
+        android:label="Lenovo Tab with Clear Case (TB311FU) Treble Overlay"
         android:hasCode="false" />
 </manifest>

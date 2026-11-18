@@ -2,7 +2,7 @@
 #
 # scripts/build_fastboot_set.sh
 # Fastboot Package Builder with Sparse Image Generation and Flash Scripts
-# Target Device: Lenovo Tab M11 (TB311FU / 'poplar', MT8786 / Helio G88)
+# Target Device: Lenovo Tab with Clear Case (TB311FU / 'poplar', MT8786 / Helio G88)
 #
 # Builds a fastboot deployment set containing:
 #   - system.sparse.img (converted from EXT4 GSI with Android sparse v1.0)
@@ -30,7 +30,7 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Build a Fastboot deployment set with sparse images and flashing scripts for Lenovo Tab M11 (TB311FU).
+Build a Fastboot deployment set with sparse images and flashing scripts for Lenovo Tab with Clear Case (TB311FU).
 
 Options:
   -d, --images-dir DIR      Directory containing partition images
@@ -159,7 +159,7 @@ BUILD_TMP="$(mktemp -d)"
 trap 'rm -rf "$BUILD_TMP"' EXIT
 
 echo "===================================================================="
-echo " Lenovo Tab M11 (TB311FU) Fastboot Deployment Set Builder"
+echo " Lenovo Tab with Clear Case (TB311FU) Fastboot Deployment Set Builder"
 echo "===================================================================="
 echo "System Image:      $SYSTEM_IMG ($(du -h "$SYSTEM_IMG" | cut -f1))"
 echo "Boot Image:        $BOOT_IMG"
@@ -198,7 +198,7 @@ echo "[*] Generating flash_all.sh..."
 cat <<'EOF' > "${BUILD_TMP}/flash_all.sh"
 #!/usr/bin/env bash
 #
-# Lenovo Tab M11 (TB311FU / 'poplar') Fastboot Flashing Script (Linux/macOS)
+# Lenovo Tab with Clear Case (TB311FU / 'poplar') Fastboot Flashing Script (Linux/macOS)
 # Flashes LineageOS 23.2 GSI + GKI PoplarKernel + OrangeFox Boot Vector
 #
 set -euo pipefail
@@ -234,7 +234,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 echo "===================================================================="
-echo " Lenovo Tab M11 (TB311FU) LineageOS 23.2 Fastboot Flasher"
+echo " Lenovo Tab with Clear Case (TB311FU) LineageOS 23.2 Fastboot Flasher"
 echo "===================================================================="
 
 FASTBOOT_BIN="fastboot"
@@ -287,7 +287,7 @@ cat <<'EOF' > "${BUILD_TMP}/flash_all.bat"
 setlocal enabledelayedexpansion
 
 echo ====================================================================
-echo  Lenovo Tab M11 (TB311FU) LineageOS 23.2 Fastboot Flasher (Windows)
+echo  Lenovo Tab with Clear Case (TB311FU) LineageOS 23.2 Fastboot Flasher (Windows)
 echo ====================================================================
 
 where fastboot >nul 2>&1
@@ -329,7 +329,7 @@ echo "[*] Generating flash_all.ps1..."
 cat <<'EOF' > "${BUILD_TMP}/flash_all.ps1"
 <#
 .SYNOPSIS
-    Lenovo Tab M11 (TB311FU) LineageOS 23.2 Fastboot PowerShell Flasher.
+    Lenovo Tab with Clear Case (TB311FU) LineageOS 23.2 Fastboot PowerShell Flasher.
 #>
 [CmdletBinding()]
 param(
@@ -341,7 +341,7 @@ $ErrorActionPreference = "Stop"
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 Write-Host "====================================================================" -ForegroundColor Cyan
-Write-Host " Lenovo Tab M11 (TB311FU) LineageOS 23.2 Fastboot Flasher" -ForegroundColor Cyan
+Write-Host " Lenovo Tab with Clear Case (TB311FU) LineageOS 23.2 Fastboot Flasher" -ForegroundColor Cyan
 Write-Host "====================================================================" -ForegroundColor Cyan
 
 $fastboot = Get-Command fastboot -ErrorAction SilentlyContinue

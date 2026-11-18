@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 tests/test_rom_packaging.py - Comprehensive Unit & Integration Tests for ROM Packaging Pipeline
-Target Device: Lenovo Tab M11 (TB311FU / 'poplar', MT8786 / Helio G88)
+Target Device: Lenovo Tab with Clear Case (TB311FU / 'poplar', MT8786 / Helio G88)
 
 Tests:
 1. Syntax validity of all shell scripts (bash -n) and Python scripts (py_compile)
@@ -180,7 +180,7 @@ class TestBuildSideloadZipScript(unittest.TestCase):
 
             # Inspect installer.sh
             installer_code = z.read("installer.sh").decode("utf-8")
-            self.assertIn("Lenovo Tab M11", installer_code)
+            self.assertIn("Lenovo Tab with Clear Case", installer_code)
             self.assertIn("system_a", installer_code)
             self.assertIn("boot_a", installer_code)
 

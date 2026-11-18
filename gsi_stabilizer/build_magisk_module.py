@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build Magisk / KernelSU / APatch Flashable Module for Lenovo Tab M11 (TB311FU)
+Build Magisk / KernelSU / APatch Flashable Module for Lenovo Tab with Clear Case (TB311FU)
 Packages Track A GSI stabilization fixes:
   - 90Hz Display Refresh Rate & Display Color Profiles (sRGB/DCI-P3/Natural/Boosted/Saturated) via FrameworkResOverlay
   - Quad-Speaker Discrete Audio Policy & Lenovo OEM Dolby Atmos DAP (AIDL DAX3)
@@ -19,17 +19,17 @@ MODULE_DIR = BASE_DIR / "magisk_module"
 OUTPUT_ZIP = BASE_DIR / "tb311fu-gsi-stabilizer.zip"
 
 MODULE_PROP = """id=tb311fu-gsi-stabilization
-name=Lenovo Tab M11 (TB311FU) GSI Hardware Stabilization Suite
+name=Lenovo Tab with Clear Case (TB311FU) GSI Hardware Stabilization Suite
 version=v2.7.0
 versionCode=270
 author=Antigravity Creative Suite & Custom ROM Team
-description=Hardware stabilization suite for Lenovo Tab M11 (TB311FU / MT6769) on GSIs. v2.7.0: Fixes speaker volume - eliminates -12dB gain_speaker offset, deploys full-range quad-speaker volume curves (0dB at 100%), tunes Dolby DAP volume leveler (-256 to -144) and disables redundant AW883xx distortion regulator. Features Lenovo OEM Dolby Atmos DAP (AIDL DAX3), Display Color Profiles via FrameworkResOverlay, AP500U active stylus (4096 pressure), Wi-Fi tablet conversion, SELinux, AudioFX elimination.
+description=Hardware stabilization suite for Lenovo Tab with Clear Case (TB311FU / MT6769) on GSIs. v2.7.0: Fixes speaker volume - eliminates -12dB gain_speaker offset, deploys full-range quad-speaker volume curves (0dB at 100%), tunes Dolby DAP volume leveler (-256 to -144) and disables redundant AW883xx distortion regulator. Features Lenovo OEM Dolby Atmos DAP (AIDL DAX3), Display Color Profiles via FrameworkResOverlay, AP500U active stylus (4096 pressure), Wi-Fi tablet conversion, SELinux, AudioFX elimination.
 """
 
 CUSTOMIZE_SH = """SKIPUNZIP=0
 
 ui_print "*************************************************"
-ui_print "   Lenovo Tab M11 (TB311FU) GSI Stabilizer     "
+ui_print "   Lenovo Tab with Clear Case (TB311FU) GSI Stabilizer     "
 ui_print "   SoC: MediaTek Helio G88 / MT6769             "
 ui_print "   Suite Version: v2.7.0 (Speaker Volume Fix)   "
 ui_print "*************************************************"

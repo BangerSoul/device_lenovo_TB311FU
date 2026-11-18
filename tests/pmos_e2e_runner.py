@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-tests/pmos_e2e_runner.py - Master E2E Test Runner for PostmarketOS on Lenovo Tab M11 (TB311FU)
+tests/pmos_e2e_runner.py - Master E2E Test Runner for PostmarketOS on Lenovo Tab with Clear Case (TB311FU)
 
 Supports CLI flags:
   --tier {1,2,3,4,all}   Execute specific tier or all tiers (default: all)
@@ -142,7 +142,7 @@ def run_tier(tier_key: str, verbose: bool = False) -> Tuple[PMOSTestResultCollec
 def print_master_summary(results: Dict[str, Tuple[PMOSTestResultCollector, float]]):
     """Print overall multi-tier execution summary table."""
     print("\n" + "=" * 78)
-    print(" POSTMARKETOS E2E TEST EXECUTION SUMMARY — LENOVO TAB M11 (TB311FU / poplar)")
+    print(" POSTMARKETOS E2E TEST EXECUTION SUMMARY — LENOVO TAB WITH CLEAR CASE (TB311FU / poplar)")
     print("=" * 78)
     print(f"{'Tier':<10} {'Scope':<38} {'Total':<8} {'Pass':<8} {'Fail':<8} {'Rate':<8}")
     print("-" * 78)
@@ -183,7 +183,7 @@ def print_master_summary(results: Dict[str, Tuple[PMOSTestResultCollector, float
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Master E2E Test Runner for PostmarketOS on Lenovo Tab M11 (TB311FU)"
+        description="Master E2E Test Runner for PostmarketOS on Lenovo Tab with Clear Case (TB311FU)"
     )
     parser.add_argument(
         "--tier",
@@ -240,8 +240,8 @@ def main():
             all_records.extend(coll.test_records)
 
         payload = {
-            "project": "PostmarketOS & Alpine ARM64 with Plasma Mobile on Lenovo Tab M11 (TB311FU)",
-            "target_device": "Lenovo Tab M11 (TB311FU / poplar)",
+            "project": "PostmarketOS & Alpine ARM64 with Plasma Mobile on Lenovo Tab with Clear Case (TB311FU)",
+            "target_device": "Lenovo Tab with Clear Case (TB311FU / poplar)",
             "serial": "HNQ09EZD",
             "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "total_tests": len(all_records),

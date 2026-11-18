@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Lenovo Tab M11 (TB311FU, 'poplar') Automated Subsystem Audit Harness
+Lenovo Tab with Clear Case (TB311FU, 'poplar') Automated Subsystem Audit Harness
 Milestone 1 (M1): Programmatic test harness querying live connected tablet (serial HNQ09EZD via adb)
 across all 8 hardware subsystems.
 
@@ -46,7 +46,7 @@ class SubsystemAuditResult:
 
 
 class SubsystemAuditor:
-    """Automated diagnostic probe for Lenovo Tab M11 running AOSP/Treble GSI."""
+    """Automated diagnostic probe for Lenovo Tab with Clear Case (TB311FU) running AOSP/Treble GSI."""
 
     def __init__(self, serial: str = DEFAULT_SERIAL, verbose: bool = True):
         self.serial = serial
@@ -630,7 +630,7 @@ class SubsystemAuditor:
     def generate_markdown_report(self, results: List[SubsystemAuditResult]) -> str:
         timestamp = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
         lines = [
-            f"# Lenovo Tab M11 (TB311FU) Hardware Subsystem Matrix & Forensic Audit Report",
+            f"# Lenovo Tab with Clear Case (TB311FU) Hardware Subsystem Matrix & Forensic Audit Report",
             f"**Device Serial:** `{self.serial}`  ",
             f"**Audit Execution Timestamp:** `{timestamp}`  ",
             f"**Tool:** `diagnostics/audit_subsystems.py`  ",
@@ -670,7 +670,7 @@ class SubsystemAuditor:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Lenovo Tab M11 Subsystem Audit Harness")
+    parser = argparse.ArgumentParser(description="Lenovo Tab with Clear Case (TB311FU) Subsystem Audit Harness")
     parser.add_argument("--serial", default=DEFAULT_SERIAL, help=f"Target adb serial (default: {DEFAULT_SERIAL})")
     parser.add_argument("--output", "-o", help="Path to write Markdown report")
     parser.add_argument("--json", action="store_true", help="Output results in JSON format")

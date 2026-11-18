@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-LineageOS 22 Proprietary Files Extractor for Lenovo Tab M11 (TB311FU)
+LineageOS 22 Proprietary Files Extractor for Lenovo Tab with Clear Case (TB311FU)
 Target: MediaTek Helio G88 / MT6769
 
 Parses proprietary-files.txt, extracts blobs from device (via ADB) or dump directory,

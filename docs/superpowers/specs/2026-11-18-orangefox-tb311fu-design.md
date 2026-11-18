@@ -2,7 +2,7 @@
 
 ## Intent
 
-Build and validate an OrangeFox recovery for the Lenovo Tab M11 TB311FU (`poplar`) as the first stage of the user's custom ROM project. The recovery must support ADB sideload, slot reporting/switching, backup and restore, and USB OTG. It will become the installer and maintenance environment for a later GSI-based clean-install package.
+Build and validate an OrangeFox recovery for the Lenovo Tab with Clear Case (TB311FU) (`poplar`) as the first stage of the user's custom ROM project. The recovery must support ADB sideload, slot reporting/switching, backup and restore, and USB OTG. It will become the installer and maintenance environment for a later GSI-based clean-install package.
 
 ## Current state and evidence
 

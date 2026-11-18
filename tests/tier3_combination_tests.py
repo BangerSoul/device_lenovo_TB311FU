@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Tier 3: Cross-Feature Combinations & Pairwise Integration Test Suite
-Lenovo Tab M11 (poplar / TB311FU, MT8786 / MT6768) Engineering Verification
+Lenovo Tab with Clear Case (poplar / TB311FU, MT8786 / MT6768) Engineering Verification
 Covers >= 21 tests verifying multi-module and cross-feature interactions.
 """
 

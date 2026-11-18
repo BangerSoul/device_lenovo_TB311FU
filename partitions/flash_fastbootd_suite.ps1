@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Lenovo Tab M11 (TB311FU / 'poplar') Fastbootd Dynamic Partition Deployment Suite.
+    Lenovo Tab with Clear Case (TB311FU / 'poplar') Fastbootd Dynamic Partition Deployment Suite.
 .DESCRIPTION
     Automated fastbootd logical partition optimization, GSI deployment, and stabilized
     vendor flashing with mandatory -S 64M chunking to prevent WinUSB transfer failures (error 22).

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Lenovo Tab M11 (TB311FU / 'poplar') Fastbootd Flashing Deployment Suite.
+Lenovo Tab with Clear Case (TB311FU / 'poplar') Fastbootd Flashing Deployment Suite.
 Automated dynamic partition resizing, product partition removal, GSI deployment,
 and stabilized vendor flashing with mandatory -S 64M WinUSB chunking and
 zero-data-loss enforcement.
@@ -291,7 +291,7 @@ class FastbootdDeployer:
 # CLI Entrypoint
 # ==============================================================================
 def main():
-    parser = argparse.ArgumentParser(description="Lenovo Tab M11 Fastbootd Flashing Deployment Suite")
+    parser = argparse.ArgumentParser(description="Lenovo Tab with Clear Case (TB311FU) Fastbootd Flashing Deployment Suite")
     parser.add_argument("--gsi", type=str, default=DEFAULT_GSI_PATH, help="Path to target GSI image")
     parser.add_argument("--vendor", type=str, default=DEFAULT_VENDOR_PATH, help="Path to stabilized vendor image")
     parser.add_argument("--chunk-size", type=str, default=DEFAULT_CHUNK_SIZE, help="Fastboot chunk size (default: 64M)")

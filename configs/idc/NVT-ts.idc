@@ -1,6 +1,6 @@
 #
-# Lenovo Tab M11 Novatek Touchscreen / Tab Pen Digitizer Input Device Configuration
-# Target: Lenovo Tab M11 (TB311FU)
+# Lenovo Tab with Clear Case (TB311FU) Novatek Touchscreen / Tab Pen Digitizer Input Device Configuration
+# Target: Lenovo Tab with Clear Case (TB311FU)
 #
 
 # Basic Properties

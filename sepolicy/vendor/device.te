@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-# Device Type Declarations for Lenovo Tab M11 (TB311FU)
+# Device Type Declarations for Lenovo Tab with Clear Case (TB311FU)
 #
 
 type hf_manager_device, dev_type;

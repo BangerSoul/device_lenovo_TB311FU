@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Lenovo Tab M11 (TB311FU / 'poplar') Dynamic Partition Super Budget Audit Tool.
+Lenovo Tab with Clear Case (TB311FU / 'poplar') Dynamic Partition Super Budget Audit Tool.
 Forensic geometry analysis, live lpdump inspection, and headroom verification
 tailored for LineageOS-23.2-20260524-GAPPS-EXT4-GSI.img.
 """
@@ -14,7 +14,7 @@ import argparse
 from typing import Dict, List, Optional, Tuple, Any
 
 # ==============================================================================
-# Hardware Constants: Lenovo Tab M11 (TB311FU / poplar, MT8786 / MT6768)
+# Hardware Constants: Lenovo Tab with Clear Case (TB311FU / poplar, MT8786 / MT6768)
 # ==============================================================================
 SECTOR_SIZE: int = 512
 PAGE_SIZE: int = 4096
@@ -252,7 +252,7 @@ def parse_lpdump_output(text: str) -> SuperGeometry:
 
 
 def get_default_tb311fu_geometry() -> SuperGeometry:
-    """Construct calibrated forensic SuperGeometry for Lenovo Tab M11 (TB311FU)."""
+    """Construct calibrated forensic SuperGeometry for Lenovo Tab with Clear Case (TB311FU)."""
     geom = SuperGeometry(
         physical_size=SUPER_PHYSICAL_BYTES,
         metadata_version="10.2",
@@ -338,7 +338,7 @@ class BudgetAuditReport:
 
     def generate_markdown(self) -> str:
         lines = [
-            "# Lenovo Tab M11 (TB311FU / poplar) Super Budget Audit Report",
+            "# Lenovo Tab with Clear Case (TB311FU / poplar) Super Budget Audit Report",
             "",
             "## 1. Physical & Group Super Geometry",
             f"- **Physical Super Size**: {self.physical_super_bytes:,} bytes ({round(self.physical_super_bytes / (1024**3), 3)} GiB, {self.physical_super_bytes // SECTOR_SIZE:,} sectors)",
@@ -465,7 +465,7 @@ def audit_super_budget(
 # CLI Entrypoint
 # ==============================================================================
 def main():
-    parser = argparse.ArgumentParser(description="Lenovo Tab M11 Super Budget Audit Tool")
+    parser = argparse.ArgumentParser(description="Lenovo Tab with Clear Case (TB311FU) Super Budget Audit Tool")
     parser.add_argument("--live", action="store_true", help="Query live connected device via ADB root lpdump")
     parser.add_argument("--serial", type=str, default=None, help="Specific ADB device serial (e.g., HNQ09EZD)")
     parser.add_argument("--file", type=str, default=None, help="Path to saved lpdump output file")

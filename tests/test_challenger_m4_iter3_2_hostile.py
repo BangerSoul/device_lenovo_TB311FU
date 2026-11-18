@@ -2,7 +2,7 @@
 """
 tests/test_challenger_m4_iter3_2_hostile.py
 Challenger M4 Iteration 3 (Instance 2) Empirical Adversarial Stress Suite.
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
 
 Comprehensive Empirical Adversarial Challenges:
 1. Hostile Live Mode Mocking:

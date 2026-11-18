@@ -1,5 +1,5 @@
 #
-# Android fstab for MediaTek MT6768/MT6769 (Lenovo Tab M11 / TB311FU)
+# Android fstab for MediaTek MT6768/MT6769 (Lenovo Tab with Clear Case (TB311FU) / TB311FU)
 #
 # <src>                                 <mnt_point>       <type>   <mnt_flags and options>                                  <fs_mgr_flags>
 

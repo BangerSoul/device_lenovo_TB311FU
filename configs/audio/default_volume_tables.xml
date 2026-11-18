@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Lenovo Tab M11 (TB311FU, poplar) - Default Volume Reference Tables
+    Lenovo Tab with Clear Case (TB311FU, poplar) - Default Volume Reference Tables
     TB311FU-specific: DEFAULT_DEVICE_CATEGORY_SPEAKER_VOLUME_CURVE upgraded to
     reach 0 dB at index 100. AW883xx amplifiers provide hardware protection.
     DAP volume-leveler tuned separately to not double-attenuate.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 tests/test_tier2_boundary_corner.py - Tier 2: Boundary & Corner Cases Test Suite (F1 - F24)
-PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab M11 (TB311FU / poplar)
+PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab with Clear Case (TB311FU / poplar)
 
 Covers boundary value analysis, negative inputs, off-by-one errors, extreme sizes,
 and corner conditions across all 24 features with >= 5 test cases each.

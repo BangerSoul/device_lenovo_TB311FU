@@ -5,7 +5,7 @@ Date: 2026-11-18
 
 ## Intent
 
-Prepare a reproducible Ubuntu 26.04.1 Desktop AMD64 installer for the HP ProBook 440 G8, and place the exact upstream Lenovo Tab M11 TB311FU GSI source and transformation provenance in the GitHub Plan A documentation before ROM development continues.
+Prepare a reproducible Ubuntu 26.04.1 Desktop AMD64 installer for the HP ProBook 440 G8, and place the exact upstream Lenovo Tab with Clear Case (TB311FU) GSI source and transformation provenance in the GitHub Plan A documentation before ROM development continues.
 
 ## Goals
 

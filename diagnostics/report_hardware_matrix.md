@@ -1,4 +1,4 @@
-# Lenovo Tab M11 (TB311FU) Hardware Subsystem Matrix & Forensic Audit Report
+# Lenovo Tab with Clear Case (TB311FU) Hardware Subsystem Matrix & Forensic Audit Report
 **Device Serial:** `HNQ09EZD`  
 **Audit Execution Timestamp:** `2026-11-15 13:35:24 UTC`  
 **Tool:** `diagnostics/audit_subsystems.py`  

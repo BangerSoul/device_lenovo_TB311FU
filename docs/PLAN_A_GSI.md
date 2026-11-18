@@ -1,6 +1,6 @@
 # Plan A: reproducible GSI source and transformation
 
-This guide pins the input and the checks needed before a transformed system image is considered a candidate for the Lenovo Tab M11 TB311FU (`poplar`). It does not claim that this GSI is already compatible with the tablet or that a transformed image is safe to flash.
+This guide pins the input and the checks needed before a transformed system image is considered a candidate for the Lenovo Tab with Clear Case (TB311FU) (`poplar`). It does not claim that this GSI is already compatible with the tablet or that a transformed image is safe to flash.
 
 ## Pinned upstream input
 

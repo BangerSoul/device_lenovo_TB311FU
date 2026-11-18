@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Tier 4: Real-World Application Workload Scenarios
-Lenovo Tab M11 (poplar / TB311FU, MT8786 / MT6768) Engineering Verification
+Lenovo Tab with Clear Case (poplar / TB311FU, MT8786 / MT6768) Engineering Verification
 Covers >= 11 full-lifecycle end-to-end workload and user journey scenarios.
 """
 

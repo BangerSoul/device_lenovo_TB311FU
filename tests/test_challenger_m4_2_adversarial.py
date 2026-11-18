@@ -2,7 +2,7 @@
 """
 tests/test_challenger_m4_2_adversarial.py
 Challenger M4-2 Adversarial Stress Suite for PostmarketOS Hardware Adaptation Probing.
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
 
 Comprehensive Empirical Adversarial Challenges targeting deployment/verify_live_adaptation.py:
 1. Simulated 2-second Orange State reboot loop:

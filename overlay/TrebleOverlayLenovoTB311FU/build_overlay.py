@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build & Patch script for Lenovo Tab M11 (TB311FU) Treble Vendor Overlay APK.
+Build & Patch script for Lenovo Tab with Clear Case (TB311FU) Treble Vendor Overlay APK.
 Produces 'treble-overlay-lenovo-tb311fu.apk' targeting Android 16 (LineageOS 23.2).
 Provides:
   - 12-bit binary ARSC resource table patching (min=48, max=4095, default=1200, 12-bit spline)

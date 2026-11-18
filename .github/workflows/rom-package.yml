@@ -278,13 +278,13 @@ jobs:
         if: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.publish_release == 'true') || startsWith(github.ref, 'refs/tags/') }}
         with:
           tag_name: PoplarROM-v23.2-${{ steps.staging.outputs.TIMESTAMP }}
-          name: "LineageOS 23.2 for Lenovo Tab M11 (TB311FU) - Build ${{ steps.staging.outputs.TIMESTAMP }}"
+          name: "LineageOS 23.2 for Lenovo Tab with Clear Case (TB311FU) - Build ${{ steps.staging.outputs.TIMESTAMP }}"
           draft: false
           prerelease: false
           files: |
             dist/*
           body: |
-            ### Lenovo Tab M11 (TB311FU / poplar / MT8786) LineageOS 23.2 Official Release
+            ### Lenovo Tab with Clear Case (TB311FU / poplar / MT8786) LineageOS 23.2 Official Release
 
             This release provides the complete Android 16 QPR2 GSI deployment ecosystem:
             

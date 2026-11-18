@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Lenovo Tab M11 (TB311FU / 'poplar') LineageOS 23.2 Fastbootd Dynamic Partition Deployment Script.
+    Lenovo Tab with Clear Case (TB311FU / 'poplar') LineageOS 23.2 Fastbootd Dynamic Partition Deployment Script.
 .DESCRIPTION
     Production PowerShell deployment runner for LineageOS 23.2 (Android 16 QPR2 GSI) with stabilized
     vendor dynamic partition and custom Linux 6.6 GKI PoplarKernel boot vector.
@@ -219,7 +219,7 @@ $chunkFormatted = '{0:N0}' -f $chunkBytes
 
 Write-Host ("=" * 78) -ForegroundColor Cyan
 Write-Host "LineageOS 23.2 Fastbootd Dynamic Partition Deployment Script" -ForegroundColor Cyan
-Write-Host "Hardware Target: Lenovo Tab M11 (TB311FU / 'poplar', Serial: $Serial)" -ForegroundColor Cyan
+Write-Host "Hardware Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / 'poplar', Serial: $Serial)" -ForegroundColor Cyan
 Write-Host ("=" * 78) -ForegroundColor Cyan
 Write-Host ("Fastboot Binary:   {0}" -f $FastbootPath)
 Write-Host ("ADB Binary:        {0}" -f $AdbPath)
@@ -392,6 +392,6 @@ foreach ($cmd in $plan) {
 }
 
 Write-Host "`n" + ("=" * 78) -ForegroundColor Green
-Write-Host "DEPLOYMENT COMPLETE: LineageOS 23.2 successfully deployed to Lenovo Tab M11!" -ForegroundColor Green
+Write-Host "DEPLOYMENT COMPLETE: LineageOS 23.2 successfully deployed to Lenovo Tab with Clear Case (TB311FU)!" -ForegroundColor Green
 Write-Host ("=" * 78) -ForegroundColor Green
 exit 0

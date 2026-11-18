@@ -2,7 +2,7 @@
 """
 tests/test_challenger_m4_iter3_hostile.py
 Adversarial Verification Suite by Challenger M4-Iter3-1.
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
 
 Comprehensive empirical verification of:
 1. Adversarial path inputs:

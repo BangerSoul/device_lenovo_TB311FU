@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 tests/test_challenger_los_final_adversarial.py
-Empirical Adversarial Test Harness for LineageOS 23.2 Deliverables on Lenovo Tab M11 (TB311FU / poplar).
+Empirical Adversarial Test Harness for LineageOS 23.2 Deliverables on Lenovo Tab with Clear Case (TB311FU / poplar).
 
 Mandated Challenge Domains:
 1. Dynamic Partition & EROFS stress tests: block sizes, LZ4 compression flags, file context permissions, superblock fuzzing.

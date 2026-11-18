@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 tests/pmos_test_utils.py - Shared Test Infrastructure & Utilities
-PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab M11 (TB311FU / poplar)
+PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab with Clear Case (TB311FU / poplar)
 """
 
 import hashlib

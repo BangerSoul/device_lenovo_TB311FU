@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Target device is Lenovo Tab M11 TB311FU, codename `poplar`.
+- Target device is Lenovo Tab with Clear Case (TB311FU), codename `poplar`.
 - Upstream GSI is unofficial LineageOS 23.2 Android 16 QPR2, A/B, GAPPS/EXT4, release tag `v2026.05.24-lineage23.2`, commit `7bf212f`.
 - Exact archive URL: `https://sourceforge.net/projects/misterztr-gsi/files/LineageOS/Android%2016/LineageOS-23.2-20260524-GAPPS-EXT4-GSI.7z/download`.
 - The release page publishes no archive SHA-256. Record the observed digest and source URL on the first clean download; do not describe that locally calculated digest as an upstream signature.

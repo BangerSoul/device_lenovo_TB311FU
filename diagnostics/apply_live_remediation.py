@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Lenovo Tab M11 (TB311FU, 'poplar') Live Subsystem Remediation Tool
+Lenovo Tab with Clear Case (TB311FU, 'poplar') Live Subsystem Remediation Tool
 Applies real-time driver, HAL, and sysprop remediations on the connected tablet via root (su -c).
 
 Targets:
@@ -269,7 +269,7 @@ class LiveRemediator:
         """Executes all remediation phases sequentially."""
         start_time = time.time()
         self.log("====================================================================")
-        self.log(f"Starting Live Remediation on Lenovo Tab M11 (Serial: {self.serial})")
+        self.log(f"Starting Live Remediation on Lenovo Tab with Clear Case (TB311FU) (Serial: {self.serial})")
         self.log("====================================================================")
 
         # Check device connection
@@ -298,7 +298,7 @@ class LiveRemediator:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Lenovo Tab M11 Live Remediation Suite")
+    parser = argparse.ArgumentParser(description="Lenovo Tab with Clear Case (TB311FU) Live Remediation Suite")
     parser.add_argument("--serial", default=DEFAULT_SERIAL, help=f"Target adb serial (default: {DEFAULT_SERIAL})")
     parser.add_argument("--dry-run", action="store_true", help="Log commands without executing on device")
     parser.add_argument("--quiet", action="store_true", help="Suppress verbose stdout logging")

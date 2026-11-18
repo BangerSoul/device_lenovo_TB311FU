@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Lenovo Tab M11 (TB311FU / 'poplar') SystemUI String Overrides
+    Lenovo Tab with Clear Case (TB311FU / 'poplar') SystemUI String Overrides
     Requirement R5.4: Sanitized Quick Settings tile layout
     and blanked carrier text across lockscreen and notification shade.
 -->

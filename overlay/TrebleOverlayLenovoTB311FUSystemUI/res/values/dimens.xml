@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Lenovo Tab M11 (TB311FU / 'poplar') SystemUI Dimensions Overrides
+    Lenovo Tab with Clear Case (TB311FU / 'poplar') SystemUI Dimensions Overrides
 -->
 <resources>
     <!-- Zero margin for blanked carrier text to eliminate UI layout spacing gaps -->

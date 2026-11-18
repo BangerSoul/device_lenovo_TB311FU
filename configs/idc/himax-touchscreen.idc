@@ -1,5 +1,5 @@
 #
-# Lenovo Tab M11 (TB311FU) Active Stylus Input Device Configuration
+# Lenovo Tab with Clear Case (TB311FU) Active Stylus Input Device Configuration
 # Device Name: himax-touchscreen (Himax HX83102E Touch & Stylus Digitizer IC)
 # Stylus: Lenovo Tab Pen / Tab Pen Plus (AP500U / AP501U)
 # Protocol: Lenovo Pen Protocol 2.0 (LPP 2.0) / Wacom WGP

@@ -2,7 +2,7 @@
 #
 # scripts/build_ota_payload.sh
 # Android A/B OTA Payload (payload.bin) & Properties Builder
-# Target Device: Lenovo Tab M11 (TB311FU / 'poplar', MT8786 / Helio G88)
+# Target Device: Lenovo Tab with Clear Case (TB311FU / 'poplar', MT8786 / Helio G88)
 #
 # Generates signed payload.bin and payload_properties.txt using a test signing key.
 #
@@ -28,7 +28,7 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Build an Android A/B OTA payload (payload.bin + payload_properties.txt) for Lenovo Tab M11 (TB311FU).
+Build an Android A/B OTA payload (payload.bin + payload_properties.txt) for Lenovo Tab with Clear Case (TB311FU).
 
 Options:
   -d, --images-dir DIR      Directory containing partition images
@@ -170,7 +170,7 @@ if [[ -f "$PAYLOAD_BIN" ]] && ! "$FORCE"; then
 fi
 
 echo "===================================================================="
-echo " Lenovo Tab M11 (TB311FU) Android A/B OTA Payload Builder"
+echo " Lenovo Tab with Clear Case (TB311FU) Android A/B OTA Payload Builder"
 echo "===================================================================="
 echo "System Image:      $SYSTEM_IMG ($(du -h "$SYSTEM_IMG" | cut -f1))"
 echo "Boot Image:        $BOOT_IMG"

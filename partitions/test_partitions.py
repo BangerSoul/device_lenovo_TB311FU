@@ -86,7 +86,7 @@ class TestSuperBudgetAudit(unittest.TestCase):
     """Unit tests for super dynamic partition geometry and headroom calculations."""
 
     def test_physical_geometry_constants(self):
-        """Physical super size matches Lenovo Tab M11 eMMC 5.1 specs (11.81 GB)."""
+        """Physical super size matches Lenovo Tab with Clear Case (TB311FU) eMMC 5.1 specs (11.81 GB)."""
         self.assertEqual(SUPER_PHYSICAL_BYTES, 11811160064)
         self.assertEqual(SUPER_PHYSICAL_BYTES, 23068672 * SECTOR_SIZE)
         self.assertEqual(SECTOR_SIZE, 512)

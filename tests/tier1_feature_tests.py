@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Tier 1: Feature Coverage Test Suite (F1 - F21)
-Lenovo Tab M11 (poplar / TB311FU, MT8786 / MT6768) Engineering Verification
+Lenovo Tab with Clear Case (poplar / TB311FU, MT8786 / MT6768) Engineering Verification
 Covers >= 5 test cases per feature across all 21 features = >= 105 tests.
 """
 

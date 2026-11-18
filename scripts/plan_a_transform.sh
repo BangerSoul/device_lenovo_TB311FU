@@ -2,7 +2,7 @@
 #
 # scripts/plan_a_transform.sh
 # Plan A GSI System Image Transformation & Verification Script
-# Target Device: Lenovo Tab M11 (TB311FU / 'poplar', MT8786 / Helio G88)
+# Target Device: Lenovo Tab with Clear Case (TB311FU / 'poplar', MT8786 / Helio G88)
 #
 # Removes the 7 Plan-A telephony/cellular targets from GSI system.img:
 #   1. /system/priv-app/TelephonyProvider
@@ -53,7 +53,7 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS] <input_system.img> [output_system.img]
 
-Transform an EXT4 GSI system.img for Lenovo Tab M11 (TB311FU) by stripping the
+Transform an EXT4 GSI system.img for Lenovo Tab with Clear Case (TB311FU) by stripping the
 7 Plan-A cellular packages and validating filesystem integrity via e2fsck.
 
 Options:
@@ -288,7 +288,7 @@ run_cellular_absence_check() {
 
 # Main flow
 echo "===================================================================="
-echo " Lenovo Tab M11 (TB311FU) Plan A GSI System Transformation Suite"
+echo " Lenovo Tab with Clear Case (TB311FU) Plan A GSI System Transformation Suite"
 echo "===================================================================="
 echo "Input Image: $INPUT_IMG"
 

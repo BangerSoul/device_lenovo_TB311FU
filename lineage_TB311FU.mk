@@ -14,7 +14,7 @@ $(call inherit-product, $(LOCAL_DIR)/device.mk)
 PRODUCT_NAME := lineage_TB311FU
 PRODUCT_DEVICE := TB311FU
 PRODUCT_BRAND := Lenovo
-PRODUCT_MODEL := Tab M11
+PRODUCT_MODEL := Lenovo Tab with Clear Case (TB311FU)
 PRODUCT_MANUFACTURER := lenovo
 
 # GMS Client ID Base

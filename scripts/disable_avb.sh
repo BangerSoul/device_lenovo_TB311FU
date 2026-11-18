@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# disable_avb.sh - AVB / dm-verity patching utility for Lenovo Tab M11 (TB311FU)
+# disable_avb.sh - AVB / dm-verity patching utility for Lenovo Tab with Clear Case (TB311FU)
 #
 # Patches vbmeta.img, vbmeta_system.img, and vbmeta_vendor.img to disable AVB
 # verification and dm-verity hashtree checking by setting flag |= 3

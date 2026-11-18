@@ -3,7 +3,7 @@
 tests/test_challenger_m3_adversarial.py - Empirical Challenger Adversarial Verification Suite
 Milestone 3: Boot Vector Assembly, Little Kernel (LK) AVB Invariants & Stock Partition Preservation
 
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786 / MT6768)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786 / MT6768)
 Challenger: Challenger M3 (teamwork_preview_challenger)
 
 This test suite independently and empirically tests:

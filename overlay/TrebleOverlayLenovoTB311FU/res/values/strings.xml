@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Lenovo Tab M11 (TB311FU) String Overrides (Wi-Fi Only Tablet)
+    Lenovo Tab with Clear Case (TB311FU) String Overrides (Wi-Fi Only Tablet)
     Silences cellular/SIM "No Service" and "No SIM" indicators on generic system images.
 -->
 <resources>

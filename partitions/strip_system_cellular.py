@@ -2,7 +2,7 @@
 """
 partitions/strip_system_cellular.py - System_a Cellular Package Stripping Suite
 Milestone M3: Aggressive Telephony Purge & UI Sanitization
-Target: Lenovo Tab M11 (TB311FU / 'poplar', MediaTek MT8786 / Helio G88)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / 'poplar', MediaTek MT8786 / Helio G88)
 
 Requirement R5.3:
 Build a reliable stripping script (using 7z, e2tools, debugfs, or loopback mounting)

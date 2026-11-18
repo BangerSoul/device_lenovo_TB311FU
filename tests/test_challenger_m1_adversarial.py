@@ -2,7 +2,7 @@
 """
 tests/test_challenger_m1_adversarial.py - Empirical Adversarial Test Suite for Milestone 1.
 
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786 / MT6768)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786 / MT6768)
 Role: Challenger M1-2 (Adversarial stress-testing and empirical verification)
 
 Covers:

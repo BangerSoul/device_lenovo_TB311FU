@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Lenovo Tab M11 (TB311FU / 'poplar') SystemUI Runtime Resource Overlay
+    Lenovo Tab with Clear Case (TB311FU / 'poplar') SystemUI Runtime Resource Overlay
     Requirement R5.4: Prunes missing-hardware Quick Settings tiles (flashlight & cell)
     and masks No-Service / carrier text across Keyguard and Notification Shade.
 -->
@@ -16,6 +16,6 @@
         android:priority="794"
         android:isStatic="true" />
     <application
-        android:label="Lenovo Tab M11 (TB311FU) SystemUI Overlay"
+        android:label="Lenovo Tab with Clear Case (TB311FU) SystemUI Overlay"
         android:hasCode="false" />
 </manifest>

@@ -2,7 +2,7 @@
 """
 tests/test_challenger2_adversarial_m3.py - Challenger 2 Adversarial Stress Suite (Iteration 2)
 Focus Area: Kernel AVB 2.0 Chain, Dual-Boot Recovery & Alternative OS Architecture (Milestone 3)
-Target: Lenovo Tab M11 (TB311FU / poplar, serial HNQ09EZD, MediaTek MT8786 / MT6768)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, serial HNQ09EZD, MediaTek MT8786 / MT6768)
 
 Objectives & Adversarial Coverage:
 1. AVB 2.0 Header Corruption:

@@ -1,6 +1,6 @@
 #!/system/bin/sh
 #
-# Lenovo Tab M11 (TB311FU) Post-Boot Stabilization Daemon for Generic System Images (GSI)
+# Lenovo Tab with Clear Case (TB311FU) Post-Boot Stabilization Daemon for Generic System Images (GSI)
 # Eliminates cellular service stalls, fixes MT6769 SELinux denials, forces 90Hz, and routes 4-channel audio.
 #
 

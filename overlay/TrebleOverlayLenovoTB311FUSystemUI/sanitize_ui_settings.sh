@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # ==============================================================================
-# Lenovo Tab M11 (TB311FU / 'poplar') UI Sanitization & Quick Settings Setup
+# Lenovo Tab with Clear Case (TB311FU / 'poplar') UI Sanitization & Quick Settings Setup
 # Requirement R5.4: Prunes missing-hardware Quick Settings tiles (flashlight & cell)
 # and masks carrier/network text in system settings.
 # ==============================================================================

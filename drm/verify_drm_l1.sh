@@ -4,11 +4,11 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-# Widevine L1 Security Level Verification Script for Lenovo Tab M11 (TB311FU)
+# Widevine L1 Security Level Verification Script for Lenovo Tab with Clear Case (TB311FU)
 #
 
 echo "================================================================================"
-echo " Widevine DRM L1 Verification on Lenovo Tab M11 (TB311FU)"
+echo " Widevine DRM L1 Verification on Lenovo Tab with Clear Case (TB311FU)"
 echo "================================================================================"
 
 # 1. Check MediaDrm Security Level via dumpsys

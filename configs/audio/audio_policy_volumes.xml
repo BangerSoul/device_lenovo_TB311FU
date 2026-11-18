@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Lenovo Tab M11 (TB311FU, poplar) - Audio Policy Volume Curves
+    Lenovo Tab with Clear Case (TB311FU, poplar) - Audio Policy Volume Curves
     Optimized for: Discrete Quad-Speaker Array (4x Awinic AW883xx)
     Fix: Speaker STREAM_MUSIC curve reaches 0 dB at index 100 (was capped at -600 mB)
     AW883xx has integrated hardware clipping/thermal protection - no SW headroom needed.

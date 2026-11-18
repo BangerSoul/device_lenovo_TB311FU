@@ -2,7 +2,7 @@
 """
 tests/test_adversarial_m3.py - Adversarial Stress Harness & Edge Case Generator
 Milestone 3: Kernel AVB 2.0 Chain, Dual-Boot Recovery & Alternative OS Architecture
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786 / MT6768)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786 / MT6768)
 
 Objectives & Adversarial Coverage:
 1. AVB 2.0 Header Corruption:

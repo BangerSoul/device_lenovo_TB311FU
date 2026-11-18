@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 tests/test_tier4_workload_scenarios.py - Tier 4: Real-World Workload Scenarios Test Suite
-PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab M11 (TB311FU / poplar)
+PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab with Clear Case (TB311FU / poplar)
 
 Covers 12 end-to-end realistic application scenarios exercising full lifecycle behaviors.
 Total Test Cases: 12 tests.

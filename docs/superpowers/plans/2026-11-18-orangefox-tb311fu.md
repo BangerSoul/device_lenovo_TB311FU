@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Device target is Lenovo Tab M11 TB311FU, codename `poplar`.
+- Device target is Lenovo Tab with Clear Case (TB311FU), codename `poplar`.
 - Device observations currently show A/B, dynamic partitions, Virtual A/B, active slot A, physical `super` size 11,811,160,064 bytes, `system_a` size 3,446,353,920 bytes, and `system_b` size 478,015,488 bytes.
 - Do not infer the recovery-bearing partition from repository names or release filenames; verify it against the live partition map and boot-chain metadata.
 - No recovery, slot, vendor, vbmeta, dtbo, or super write is permitted until the restore package/path gate is met and the owner separately authorizes the device operation.

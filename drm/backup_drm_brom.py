@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Pre-Unlock BootROM (BROM) Disaster Recovery Backup Tool for Lenovo Tab M11 (TB311FU)
+Pre-Unlock BootROM (BROM) Disaster Recovery Backup Tool for Lenovo Tab with Clear Case (TB311FU)
 Safely reads byte-for-byte images of DRM and calibration partitions (nvram, nvdata,
 protect1, protect2, proinfo, persist) prior to bootloader unlock or custom ROM flashing.
 """
@@ -29,7 +29,7 @@ def backup_drm(out_dir: str, port: str = None) -> bool:
     out_path.mkdir(parents=True, exist_ok=True)
 
     print("================================================================================")
-    print(" Lenovo Tab M11 (TB311FU) DRM & Calibration BROM Backup")
+    print(" Lenovo Tab with Clear Case (TB311FU) DRM & Calibration BROM Backup")
     print(" Target Partitions:", ", ".join(CRITICAL_PARTITIONS))
     print(f" Backup Destination: {out_path}")
     print("================================================================================")

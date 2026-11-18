@@ -2,7 +2,7 @@
 """
 tests/test_challenger_m4_rem_2_hostile.py
 Challenger M4-Rem-2 Hostile Adversarial Stress Suite for PostmarketOS Hardware Adaptation Probing.
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
 
 Empirical Adversarial Challenges:
 1. Hostile Live Mode Mocking across ALL 6 Subsystem Probes:

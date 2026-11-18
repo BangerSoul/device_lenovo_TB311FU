@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Lenovo Tab M11 (TB311FU / 'poplar') UI Sanitization Host Provisioner
+    Lenovo Tab with Clear Case (TB311FU / 'poplar') UI Sanitization Host Provisioner
     Requirement R5.4: Prunes missing-hardware Quick Settings tiles (flashlight & cell)
     and masks carrier text across Keyguard and SystemUI.
 #>
@@ -28,7 +28,7 @@ function Run-Adb([string]$Command) {
 }
 
 Write-Host "======================================================================"
-Write-Host "Lenovo Tab M11 (TB311FU) UI Sanitization & Quick Settings Setup"
+Write-Host "Lenovo Tab with Clear Case (TB311FU) UI Sanitization & Quick Settings Setup"
 Write-Host "======================================================================"
 
 # 1. Prune Quick Settings Tiles (remove flashlight, cell, internet)

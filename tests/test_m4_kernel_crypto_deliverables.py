@@ -2,7 +2,7 @@
 """
 tests/test_m4_kernel_crypto_deliverables.py - Comprehensive Verification Test Suite
 Milestone M4: Custom Linux 6.6 Kernel & Cryptographic Invariants
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek MT8786 / Helio G88)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek MT8786 / Helio G88)
 
 Covers Authoritative Requirements:
 - R6.1: Permissive dm-verity patch (0002-permissive-dm-verity.patch, dm-verity-target.c, build-kernel.yml),

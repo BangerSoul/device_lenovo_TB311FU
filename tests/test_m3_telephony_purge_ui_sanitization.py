@@ -2,7 +2,7 @@
 """
 tests/test_m3_telephony_purge_ui_sanitization.py - Comprehensive Unit & Boundary Test Suite
 Milestone M3: Aggressive Telephony Purge & UI Sanitization
-Target: Lenovo Tab M11 (TB311FU / 'poplar', MediaTek MT8786 / Helio G88)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / 'poplar', MediaTek MT8786 / Helio G88)
 
 Requirements Under Test:
 - R5.1: Vendor Build Properties Injection (ro.radio.noril, ro.carrier, telephony.lteOnCdmaDevice, ro.telephony.default_network)

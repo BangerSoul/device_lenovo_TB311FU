@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 tests/test_tier3_pairwise_combinations.py - Tier 3: Pairwise Combinations Test Suite
-PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab M11 (TB311FU / poplar)
+PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab with Clear Case (TB311FU / poplar)
 
 Covers major cross-feature interactions and subsystem combinations.
 Total Test Cases: 24 tests.

@@ -1,6 +1,6 @@
 #
 # Lenovo Tab Pen (AP500U / NVT Active Stylus Digitizer) Input Device Configuration
-# Target: Lenovo Tab M11 (TB311FU)
+# Target: Lenovo Tab with Clear Case (TB311FU)
 #
 
 # Basic Properties

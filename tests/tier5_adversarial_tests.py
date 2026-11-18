@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Tier 5: Adversarial Hardening & Empirical Stress Harness (M1 & M2)
-Lenovo Tab M11 (TB311FU / poplar, MT8786 / MT6768)
+Lenovo Tab with Clear Case (TB311FU / poplar, MT8786 / MT6768)
 
 Empirically challenges, stress-tests, and probes boundary edge cases across:
 1. Out-of-bounds brightness inputs (negative, >4095, non-integer) against sysfs and clamp logic.

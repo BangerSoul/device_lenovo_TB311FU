@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Master E2E Test Suite Runner for Lenovo Tab M11 (poplar / TB311FU)
+Master E2E Test Suite Runner for Lenovo Tab with Clear Case (poplar / TB311FU)
 Engineering Verification: Dynamic Partitions, Hardware Remediations, AVB 2.0 & GKI
 Discovers, executes, and aggregates results across Tiers 1-4 and Features F1-F21.
 """
@@ -117,7 +117,7 @@ def get_hardware_status():
     try:
         serial = t1.is_device_connected()
         if serial:
-            return f"Lenovo Tab M11 TB311FU ({serial}) [LIVE CONNECTED]"
+            return f"Lenovo Tab with Clear Case (TB311FU) ({serial}) [LIVE CONNECTED]"
     except Exception:
         pass
     return "Offline Firmware & Artifact Verification Mode"
@@ -202,7 +202,7 @@ def run_e2e_suite(tier_filter=None, feature_filter=None, json_path=None, verbose
     hw_status = get_hardware_status()
 
     print("=" * 80)
-    print("  LENOVO TAB M11 (TB311FU / poplar) E2E TEST EXECUTION HARNESS")
+    print("  LENOVO TAB WITH CLEAR CASE (TB311FU / poplar) E2E TEST EXECUTION HARNESS")
     print("=" * 80)
     print(f"[*] Target Architecture: MediaTek MT8786 / MT6768 (Helio G88)")
     print(f"[*] Target Baseline OS : Android 16 QPR2 GSI (LineageOS 23.2 EXT4)")
@@ -329,7 +329,7 @@ def run_e2e_suite(tier_filter=None, feature_filter=None, json_path=None, verbose
     # 5. Export JSON report if requested
     if json_path:
         report_data = {
-            "project": "Lenovo Tab M11 (poplar / TB311FU)",
+            "project": "Lenovo Tab with Clear Case (poplar / TB311FU)",
             "execution_timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(start_wall_time)),
             "hardware_mode": hw_status,
             "total_tests": total_tests_run,
@@ -349,7 +349,7 @@ def run_e2e_suite(tier_filter=None, feature_filter=None, json_path=None, verbose
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Lenovo Tab M11 E2E Test Suite Runner")
+    parser = argparse.ArgumentParser(description="Lenovo Tab with Clear Case (TB311FU) E2E Test Suite Runner")
     parser.add_argument("--tier", type=int, choices=[1, 2, 3, 4], help="Run only tests from specified tier")
     parser.add_argument("--feature", type=str, help="Run only tests for specific feature (e.g. F4, F16)")
     parser.add_argument("--json-output", type=str, help="Path to write JSON test report")

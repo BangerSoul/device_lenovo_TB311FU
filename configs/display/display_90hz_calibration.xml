@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Lenovo Tab M11 (TB311FU) 90Hz Display Refresh Rate and Color Calibration -->
+<!-- Lenovo Tab with Clear Case (TB311FU) 90Hz Display Refresh Rate and Color Calibration -->
 <display-configuration version="1.0">
     <panel name="BOE_1200x1920_90HZ">
         <refresh-rates default="90">

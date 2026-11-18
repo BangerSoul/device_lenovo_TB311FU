@@ -2,7 +2,7 @@
 """
 ui_sanitization/build_systemui_overlay.py - SystemUI RRO Overlay Packaging Tool
 Milestone M3: Aggressive Telephony Purge & UI Sanitization
-Target: Lenovo Tab M11 (TB311FU / 'poplar', MediaTek MT8786 / Helio G88)
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / 'poplar', MediaTek MT8786 / Helio G88)
 
 Requirement R5.4:
 Build and deploy SystemUI Runtime Resource Overlay (RRO) package

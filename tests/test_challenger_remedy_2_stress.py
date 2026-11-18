@@ -3,7 +3,7 @@
 tests/test_challenger_remedy_2_stress.py
 Adversarial Stress Test Suite for LineageOS 23.2 Deliverables (Challenger Remedy 2).
 
-Target Hardware: Lenovo Tab M11 (TB311FU / poplar, Serial HNQ09EZD)
+Target Hardware: Lenovo Tab with Clear Case (TB311FU / poplar, Serial HNQ09EZD)
 
 Mandated Verification Tasks:
 1. Stress test vendor_stabilized.img EROFS superblock, inode table, and LZ4HC decompression against corrupted blocks and size limits.

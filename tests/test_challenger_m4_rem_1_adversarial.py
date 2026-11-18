@@ -2,7 +2,7 @@
 """
 tests/test_challenger_m4_rem_1_adversarial.py
 Challenger M4-Rem-1 Empirical Adversarial Stress Suite for Fastbootd Deployment Runner.
-Target: Lenovo Tab M11 (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
+Target: Lenovo Tab with Clear Case (TB311FU) (TB311FU / poplar, MediaTek Helio G88 / MT8786, Serial HNQ09EZD).
 
 Covers Authoritative Adversarial Challenge Scope:
 1. Hostile Chunk Size Testing on deployment/flash_pmos_fastbootd.ps1:

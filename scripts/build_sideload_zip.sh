@@ -2,7 +2,7 @@
 #
 # scripts/build_sideload_zip.sh
 # OrangeFox / Recovery ADB Sideloadable ZIP Builder
-# Target Device: Lenovo Tab M11 (TB311FU / 'poplar', MT8786 / Helio G88)
+# Target Device: Lenovo Tab with Clear Case (TB311FU / 'poplar', MT8786 / Helio G88)
 #
 # Builds a flashable/sideloadable ZIP package containing:
 #   - META-INF/com/google/android/update-binary
@@ -30,7 +30,7 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Build an OrangeFox/recovery ADB sideloadable ZIP package for Lenovo Tab M11 (TB311FU).
+Build an OrangeFox/recovery ADB sideloadable ZIP package for Lenovo Tab with Clear Case (TB311FU).
 
 Options:
   -d, --images-dir DIR      Directory containing partition images
@@ -158,7 +158,7 @@ BUILD_TMP="$(mktemp -d)"
 trap 'rm -rf "$BUILD_TMP"' EXIT
 
 echo "===================================================================="
-echo " Lenovo Tab M11 (TB311FU) OrangeFox Sideload ZIP Package Builder"
+echo " Lenovo Tab with Clear Case (TB311FU) OrangeFox Sideload ZIP Package Builder"
 echo "===================================================================="
 echo "System Image:      $SYSTEM_IMG ($(du -h "$SYSTEM_IMG" | cut -f1))"
 echo "Boot Image:        $BOOT_IMG ($(du -h "$BOOT_IMG" | cut -f1))"
@@ -184,9 +184,9 @@ META_DIR="${BUILD_TMP}/META-INF/com/google/android"
 mkdir -p "$META_DIR"
 
 cat <<'EOF' > "${META_DIR}/updater-script"
-# Lenovo Tab M11 (TB311FU / 'poplar') LineageOS 23.2 Sideload Updater Script
+# Lenovo Tab with Clear Case (TB311FU / 'poplar') LineageOS 23.2 Sideload Updater Script
 ui_print("==================================================");
-ui_print(" Lenovo Tab M11 (TB311FU) LineageOS 23.2 Installer");
+ui_print(" Lenovo Tab with Clear Case (TB311FU) LineageOS 23.2 Installer");
 ui_print(" Android 16 QPR2 / MT8786 / GSI PoplarKernel");
 ui_print("==================================================");
 EOF
@@ -243,7 +243,7 @@ echo "[*] Writing installer.sh..."
 cat <<'EOF' > "${BUILD_TMP}/installer.sh"
 #!/sbin/sh
 #
-# installer.sh - Recovery partition flasher for Lenovo Tab M11 (TB311FU)
+# installer.sh - Recovery partition flasher for Lenovo Tab with Clear Case (TB311FU)
 # Flashes system_a, boot_a, init_boot_a, vendor_boot_a, dtbo_a, vbmeta_a
 #
 
@@ -263,7 +263,7 @@ ui_print() {
 }
 
 ui_print "=================================================="
-ui_print "  Lenovo Tab M11 (TB311FU) ROM Flasher"
+ui_print "  Lenovo Tab with Clear Case (TB311FU) ROM Flasher"
 ui_print "  LineageOS 23.2 (Android 16 QPR2 GSI)"
 ui_print "=================================================="
 

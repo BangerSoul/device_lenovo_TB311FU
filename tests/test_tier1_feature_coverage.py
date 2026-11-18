@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 tests/test_tier1_feature_coverage.py - Tier 1: Feature Coverage Test Suite (F1 - F24)
-PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab M11 (TB311FU / poplar)
+PostmarketOS / Alpine ARM64 with Plasma Mobile on Lenovo Tab with Clear Case (TB311FU / poplar)
 
 Covers all 24 features defined in PROJECT.md and TEST_INFRA.md with >= 5 test cases each.
 Total Test Cases: 120 tests.
