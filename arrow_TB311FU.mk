@@ -8,7 +8,7 @@
 $(call inherit-product-if-exists, vendor/arrow/config/common.mk)
 
 # Inherit from device configuration
-$(call inherit-product, $(LOCAL_DIR)/device.mk)
+$(call inherit-product, device/lenovo/TB311FU/device.mk)
 
 # Device Identifiers
 PRODUCT_NAME := arrow_TB311FU
