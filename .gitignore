@@ -32,3 +32,10 @@ partitions/build_vendor_stabilized.py
 tools/ubuntu-usb/local-assets/
 tools/ubuntu-usb/asset-manifest.local.json
 build/ubuntu-usb/
+
+# Signing keys & certificates
+keys/
+*.pem
+*.key
+*.pk8
+
