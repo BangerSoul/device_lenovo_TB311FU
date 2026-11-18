@@ -92,6 +92,7 @@ required_packages = {
     "7zip",
     "e2fsprogs",
     "openjdk-21-jdk",
+    "brave-browser",
 }
 sha256_re = re.compile(r"^[0-9a-f]{64}$")
 errors = []
@@ -212,12 +213,34 @@ if [[ "$(id -u)" -ne 0 ]]; then
     exit 1
 fi
 
+cdrom_source="/etc/apt/sources.list.d/cdrom.sources"
+cdrom_source_disabled="${cdrom_source}.ubuntu-usb-build-disabled"
+if [[ -e "$cdrom_source" && -e "$cdrom_source_disabled" ]]; then
+    printf 'Both active and saved CD-ROM source files exist; refusing to overwrite either.\n' >&2
+    exit 1
+fi
+if [[ -e "$cdrom_source_disabled" && ! -e "$cdrom_source" ]]; then
+    mv "$cdrom_source_disabled" "$cdrom_source"
+fi
+restore_cdrom_source() {
+    if [[ -e "$cdrom_source_disabled" && ! -e "$cdrom_source" ]]; then
+        mv "$cdrom_source_disabled" "$cdrom_source"
+    fi
+}
+if [[ -f "$cdrom_source" ]]; then
+    mv "$cdrom_source" "$cdrom_source_disabled"
+fi
+trap restore_cdrom_source EXIT
+
 brave_keyring="/usr/share/keyrings/brave-browser-archive-keyring.gpg"
 install -d -m 0755 "$(dirname "$brave_keyring")"
+mapfile -t package_names < <(sed 's/#.*//' "$packages_file" | awk 'NF {print $1}')
+
+apt-get update
+apt-get install -y --no-install-recommends curl ca-certificates gnupg
 curl -fsSLo "$brave_keyring" https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 
-mapfile -t package_names < <(sed 's/#.*//' "$packages_file" | awk 'NF {print $1}')
 apt-get update
 apt-get install -y --no-install-recommends "${package_names[@]}"
 apt-get install -y --no-install-recommends "$assets_dir/chatgpt_amd64.deb"

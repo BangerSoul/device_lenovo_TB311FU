@@ -77,6 +77,37 @@ class CustomizeLivefsTests(unittest.TestCase):
             check=False,
         )
 
+    def test_package_list_includes_brave_browser(self):
+        packages_path = SCRIPT.with_name("packages.txt")
+        package_names = {
+            line.split("#", 1)[0].strip()
+            for line in packages_path.read_text(encoding="utf-8").splitlines()
+            if line.split("#", 1)[0].strip()
+        }
+
+        self.assertIn("brave-browser", package_names)
+
+    def test_installs_curl_before_fetching_brave_repository(self):
+        script = SCRIPT.read_text(encoding="utf-8")
+        bootstrap_command = "apt-get install -y --no-install-recommends curl ca-certificates gnupg"
+        repository_command = "curl -fsSLo"
+
+        self.assertIn(bootstrap_command, script)
+        self.assertIn(repository_command, script)
+        bootstrap = script.index(bootstrap_command)
+        repository_fetch = script.index(repository_command)
+
+        self.assertLess(bootstrap, repository_fetch)
+
+    def test_disables_and_restores_cdrom_source_around_apt_install(self):
+        script = SCRIPT.read_text(encoding="utf-8")
+        disable_source = 'mv "$cdrom_source" "$cdrom_source_disabled"'
+        restore_trap = "trap restore_cdrom_source EXIT"
+
+        self.assertIn(disable_source, script)
+        self.assertIn(restore_trap, script)
+        self.assertLess(script.index(disable_source), script.index("apt-get update"))
+
     def test_check_passes_with_valid_assets(self):
         result = self.run_check()
 

@@ -19,6 +19,7 @@ repo
 curl
 ca-certificates
 gnupg
+brave-browser
 keepassxc
 
 # Color management and audio controls
