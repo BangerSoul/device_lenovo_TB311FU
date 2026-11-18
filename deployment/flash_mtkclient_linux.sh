@@ -149,9 +149,12 @@ cmd_flash_boot() {
         BOOT_IMG="$WORKSPACE_ROOT/out/boot.img"
     fi
 
-    # Determine vendor_boot image
-    VENDOR_BOOT_IMG="$FLASH_DIR/vendor_boot_fixed_orangefox.img"
-    if [ ! -f "$VENDOR_BOOT_IMG" ]; then
+    # Determine vendor_boot image (prefer newly generated working image if present)
+    if [ -f "$FLASH_DIR/vendor_boot_orangefox_working.img" ]; then
+        VENDOR_BOOT_IMG="$FLASH_DIR/vendor_boot_orangefox_working.img"
+    elif [ -f "$FLASH_DIR/vendor_boot_fixed_orangefox.img" ]; then
+        VENDOR_BOOT_IMG="$FLASH_DIR/vendor_boot_fixed_orangefox.img"
+    else
         VENDOR_BOOT_IMG="$FLASH_DIR/orangefox_vendor_boot.img"
     fi
 
