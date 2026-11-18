@@ -24,17 +24,20 @@ The active `Dell_IVO0536_HDR_D65.icm` profile is included as a local-only file f
 
 ## Build host status
 
-The native Windows 11 Pro host has an Intel i5-1135G7 and an active Hyper-V hypervisor. Windows reports `VirtualizationFirmwareEnabled: false` and `HypervisorPresent: true`; the preflight records both values and treats virtualization as available to Windows while Hyper-V is running. The WSL optional feature has been enabled without forcing an immediate restart. Windows reports that a restart is required, and no Ubuntu WSL distribution is installed yet.
+The native Windows 11 Pro host has an Intel i5-1135G7 and an active Hyper-V hypervisor. Windows reports `VirtualizationFirmwareEnabled: false` and `HypervisorPresent: true`; the preflight records both values. Ubuntu 26.04 is installed as a WSL 2 distribution. The ISO and Cubic project remain in WSL's Linux filesystem.
 
-The selected build path is Ubuntu 26.04 under WSL 2 with the project and Cubic workspace inside the Linux filesystem. If Cubic cannot extract, mount, customize, and rebuild the exact base ISO there, use the planned local Hyper-V Ubuntu VM fallback. Record the actual Cubic version and proof result below before the full image build.
+The selected build path is Ubuntu 26.04 under WSL 2 with Cubic 2026.09.110. Cubic extracted and loop-mounted the verified base ISO, opened its custom root filesystem, accepted a harmless `hello` package proof, and regenerated a disposable image. Cubic's first QEMU attempt could not access `/dev/kvm`; the WSL build user was added to the existing `kvm` group, and the retry reached Ubuntu's live “Choose your language” welcome screen. The WSLg terminal did not accept keyboard input, so the package proof was run through `nsenter` in Cubic's active root and mount namespaces.
+
+Disposable proof ISO: `ubuntu-26.04.1-2026.11.18-desktop-amd64.iso`, 6,596,521,984 bytes, SHA-256 `1380cc9a62804dcb2c7cb2c493770fd5e0341306a2a7c60ea8f878378f7fc0fa`. This hash is only for the proof image; it is not the final workstation ISO.
 
 | Build check | Result |
 | --- | --- |
-| Host preflight | Implemented and tested; current status 2 because the WSL 2 Ubuntu distribution is not installed |
+| Host preflight | Passed after restart; the proof build later reduced C: to 16.77 GB free, so the current check is exit 2 until at least 35 GiB is available again |
 | Base ISO hash | Matches Canonical's pinned SHA-256 |
-| WSL Ubuntu 26.04 | WSL feature enabled; pending Windows restart and distro installation |
-| Cubic proof build | Pending |
-| Custom ISO validation and VM boot | Pending |
+| WSL Ubuntu 26.04 | Installed and running as WSL 2 |
+| Cubic proof build | Passed with Cubic 2026.09.110; extraction, loop mount, custom-root package change, and ISO regeneration succeeded |
+| Proof ISO VM boot | Passed after KVM device permissions were corrected; reached Ubuntu live language selection |
+| Final workstation ISO validation and VM boot | Pending |
 | Profile, Wi-Fi, audio, microphone, Bluetooth checks | Pending |
 | SanDisk Ventoy write | Pending; do this only after custom ISO validation |
 
