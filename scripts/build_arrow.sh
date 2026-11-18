@@ -10,7 +10,8 @@ TARGET_DEVICE="TB311FU"
 ROM_NAME="arrow"
 LUNCH_VARIANT="${1:-userdebug}"
 LUNCH_TARGET="${ROM_NAME}_${TARGET_DEVICE}-${LUNCH_VARIANT}"
-BUILD_JOBS="$(nproc)"
+# Limit default build jobs to 4 to prevent Out-Of-Memory thrashing on 8GB RAM
+BUILD_JOBS="${BUILD_JOBS:-4}"
 
 echo "======================================================================"
 echo " Starting ArrowOS Build for Lenovo Tab with Clear Case (${TARGET_DEVICE})"
@@ -27,13 +28,13 @@ if [ ! -f "build/envsetup.sh" ]; then
     exit 1
 fi
 
-# Set up ccache
+# Set up ccache (capped to 30G to preserve NVMe disk space)
 export USE_CCACHE=1
 export CCACHE_EXEC="$(which ccache 2>/dev/null || echo '/usr/bin/ccache')"
 export CCACHE_DIR="${HOME}/.ccache"
 if [ -x "${CCACHE_EXEC}" ]; then
-    "${CCACHE_EXEC}" -M 50G 2>/dev/null || true
-    echo "CCache enabled at: ${CCACHE_DIR}"
+    "${CCACHE_EXEC}" -M 30G 2>/dev/null || true
+    echo "CCache enabled at: ${CCACHE_DIR} (30GB cap)"
 fi
 
 # Initialize build environment
@@ -52,3 +53,12 @@ echo "======================================================================"
 echo " ArrowOS build finished successfully!"
 echo " Output images located in: out/target/product/${TARGET_DEVICE}/"
 echo "======================================================================"
+
+# If USB Ventoy drive is mounted, copy the flashable zip
+USB_MOUNT="/run/media/bangersoul/Ventoy"
+if [ -d "${USB_MOUNT}" ]; then
+    echo "--> Detected USB drive at ${USB_MOUNT}. Copying output zip..."
+    cp -v out/target/product/"${TARGET_DEVICE}"/Arrow-*.zip "${USB_MOUNT}/" 2>/dev/null || true
+    sync
+    echo "--> Successfully copied flashable ZIP to USB drive!"
+fi
