@@ -95,3 +95,6 @@ BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 # Include Vendor BoardConfig if exists
 -include vendor/lenovo/TB311FU/BoardConfigVendor.mk
+
+# Inherit ArrowOS BoardConfig
+-include vendor/arrow/config/BoardConfigArrow.mk
