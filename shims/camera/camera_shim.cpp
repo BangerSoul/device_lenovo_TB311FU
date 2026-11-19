@@ -63,7 +63,7 @@ void _ZN7android13GraphicBufferC1EjjijNSt3__112basic_stringIcNS1_11char_traitsIc
  */
 void _ZN7android13GraphicBufferC1EjjijNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEyj(
         void* thisptr, uint32_t inWidth, uint32_t inHeight, int32_t inFormat,
-        uint32_t inUsage, std::string requestorName, uint64_t inUsage64, uint32_t inStride) {
+        uint32_t inUsage, std::string requestorName, uint64_t inUsage64, uint32_t /* inStride */) {
     if (!thisptr) {
         ALOGE("Shim: GraphicBuffer(6-arg) constructor called with null thisptr");
         return;
@@ -101,7 +101,7 @@ void* _ZNK7android13GraphicBuffer15getNativeBufferEv(android::GraphicBuffer* thi
         ALOGE("Shim: getNativeBuffer called on null GraphicBuffer");
         return nullptr;
     }
-    return const_cast<ANativeWindowBuffer*>(thisptr->toANativeWindowBuffer());
+    return static_cast<ANativeWindowBuffer*>(const_cast<android::GraphicBuffer*>(thisptr));
 }
 
 /**
