@@ -88,6 +88,9 @@ AB_OTA_PARTITIONS += \
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
+# Recovery
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+
 # Linker Shims
 TARGET_LD_SHIM_LIBS += \
     /vendor/lib64/hw/camera.mt6768.so|libshim_camera.so \
