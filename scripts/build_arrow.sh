@@ -13,6 +13,13 @@ LUNCH_TARGET="${ROM_NAME}_${TARGET_DEVICE}-${LUNCH_VARIANT}"
 # Limit default build jobs to 4 to prevent Out-Of-Memory thrashing on 8GB RAM
 BUILD_JOBS="${BUILD_JOBS:-4}"
 
+# Memory management guards for 8GB host
+export GOMEMLIMIT="4GiB"
+export GOGC="50"
+export _JAVA_OPTIONS="-Xmx4g"
+export NINJA_ARGS="-j${BUILD_JOBS}"
+export BUILD_BROKEN_DISABLE_BAZEL="true"
+
 echo "======================================================================"
 echo " Starting ArrowOS Build for Lenovo Tab with Clear Case (${TARGET_DEVICE})"
 echo " Target: ${LUNCH_TARGET}"
