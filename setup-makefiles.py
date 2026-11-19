@@ -123,7 +123,23 @@ PRODUCT_COPY_FILES += \\
 """)
         for i, cf in enumerate(copy_files):
             sep = " \\" if i < len(copy_files) - 1 else ""
-            f.write(f"    vendor/{VENDOR}/{DEVICE}/proprietary/{cf['dest']}:$(TARGET_COPY_OUT_VENDOR)/{cf['dest'].replace('vendor/', '')}{sep}\n")
+            d = cf['dest']
+            if d.startswith("odm/"):
+                out_var = "$(TARGET_COPY_OUT_ODM)"
+                sub_path = d[len("odm/"):]
+            elif d.startswith("product/"):
+                out_var = "$(TARGET_COPY_OUT_PRODUCT)"
+                sub_path = d[len("product/"):]
+            elif d.startswith("system_ext/"):
+                out_var = "$(TARGET_COPY_OUT_SYSTEM_EXT)"
+                sub_path = d[len("system_ext/"):]
+            elif d.startswith("vendor/"):
+                out_var = "$(TARGET_COPY_OUT_VENDOR)"
+                sub_path = d[len("vendor/"):]
+            else:
+                out_var = "$(TARGET_COPY_OUT_VENDOR)"
+                sub_path = d
+            f.write(f"    vendor/{VENDOR}/{DEVICE}/proprietary/{d}:{out_var}/{sub_path}{sep}\n")
 
         f.write(f"\n# Proprietary packages to install\nPRODUCT_PACKAGES += \\\n")
         all_pkg_names = list(lib_modules.keys()) + [b[0] for b in bin_modules] + [j[0] for j in jar_modules]
