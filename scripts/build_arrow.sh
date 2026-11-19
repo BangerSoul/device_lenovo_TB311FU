@@ -4,7 +4,7 @@
 # Target: ArrowOS 14.0 (Android 14)
 # ==============================================================================
 
-set -euo pipefail
+set -eo pipefail
 
 TARGET_DEVICE="TB311FU"
 ROM_NAME="arrow"
