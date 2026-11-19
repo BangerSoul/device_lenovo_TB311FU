@@ -8,7 +8,7 @@
 $(call inherit-product-if-exists, vendor/lineage/config/common_full_tablet_wifionly.mk)
 
 # Inherit from device configuration
-$(call inherit-product, device/lenovo/TB311FU/device.mk)
+$(call inherit-product, $(LOCAL_DIR)/device.mk)
 
 # Device Identifiers
 PRODUCT_NAME := lineage_TB311FU

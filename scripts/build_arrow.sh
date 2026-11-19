@@ -16,7 +16,7 @@ BUILD_JOBS="${BUILD_JOBS:-4}"
 # Memory management guards for 8GB host
 export GOMEMLIMIT="4GiB"
 export GOGC="50"
-export _JAVA_OPTIONS="-Xmx4g"
+export _JAVA_OPTIONS="-Xms512m -Xmx8g -XX:SoftMaxHeapSize=6g -XX:+UseG1GC"
 export NINJA_ARGS="-j${BUILD_JOBS}"
 export BUILD_BROKEN_DISABLE_BAZEL="true"
 
