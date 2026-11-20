@@ -19,6 +19,7 @@ export GOGC="50"
 export _JAVA_OPTIONS="-Xms512m -Xmx6g -XX:+UseG1GC"
 export NINJA_ARGS="-j${BUILD_JOBS}"
 export BUILD_BROKEN_DISABLE_BAZEL="true"
+export UNSAFE_DISABLE_HIDDENAPI_FLAGS="true"
 
 echo "======================================================================"
 echo " Starting ArrowOS Build for Lenovo Tab with Clear Case (${TARGET_DEVICE})"
