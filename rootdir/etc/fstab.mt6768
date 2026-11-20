@@ -4,14 +4,14 @@
 # <src>                                 <mnt_point>       <type>   <mnt_flags and options>                                  <fs_mgr_flags>
 
 # Dynamic logical partitions (EROFS / EXT4)
-system                                  /system           erofs    ro                                                       wait,slotselect,logical,first_stage_mount
-system                                  /system           ext4     ro                                                       wait,slotselect,logical,first_stage_mount
-system_ext                              /system_ext       erofs    ro                                                       wait,slotselect,logical,first_stage_mount
-system_ext                              /system_ext       ext4     ro                                                       wait,slotselect,logical,first_stage_mount
-vendor                                  /vendor           erofs    ro                                                       wait,slotselect,logical,first_stage_mount
-vendor                                  /vendor           ext4     ro                                                       wait,slotselect,logical,first_stage_mount
-product                                 /product          erofs    ro                                                       wait,slotselect,logical,first_stage_mount
-product                                 /product          ext4     ro                                                       wait,slotselect,logical,first_stage_mount
+system                                  /system           erofs    ro                                                       wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system                                  /system           ext4     ro                                                       wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system_ext                              /system_ext       erofs    ro                                                       wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system_ext                              /system_ext       ext4     ro                                                       wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+vendor                                  /vendor           erofs    ro                                                       wait,slotselect,avb,logical,first_stage_mount
+vendor                                  /vendor           ext4     ro                                                       wait,slotselect,avb,logical,first_stage_mount
+product                                 /product          erofs    ro                                                       wait,slotselect,avb,logical,first_stage_mount
+product                                 /product          ext4     ro                                                       wait,slotselect,avb,logical,first_stage_mount
 
 # Metadata Partition
 /dev/block/by-name/md_udc               /metadata         ext4     noatime,nosuid,nodev,discard                             wait,check,formattable,first_stage_mount
@@ -32,7 +32,7 @@ product                                 /product          ext4     ro           
 /dev/block/by-name/vendor_boot          /vendor_boot      emmc     defaults                                                 defaults
 /dev/block/by-name/dtbo                 /dtbo             emmc     defaults                                                 defaults
 /dev/block/by-name/vbmeta               /vbmeta           emmc     defaults                                                 defaults
-/dev/block/by-name/vbmeta_system        /vbmeta_system    emmc     defaults                                                 first_stage_mount,nofail,slotselect
+/dev/block/by-name/vbmeta_system        /vbmeta_system    emmc     defaults                                                 first_stage_mount,nofail,slotselect,avb=vbmeta
 /dev/block/by-name/vbmeta_vendor        /vbmeta_vendor    emmc     defaults                                                 first_stage_mount,nofail,slotselect
 
 # MediaTek System Firmware & Hardware Partitions
