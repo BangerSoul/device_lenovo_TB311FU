@@ -10,13 +10,13 @@ TARGET_DEVICE="TB311FU"
 ROM_NAME="arrow"
 LUNCH_VARIANT="${1:-userdebug}"
 LUNCH_TARGET="${ROM_NAME}_${TARGET_DEVICE}-${LUNCH_VARIANT}"
-# Limit default build jobs to 4 to prevent Out-Of-Memory thrashing on 8GB RAM
-BUILD_JOBS="${BUILD_JOBS:-4}"
+# Limit default build jobs to 3 to leave CPU cores and memory headroom for desktop UI
+BUILD_JOBS="${BUILD_JOBS:-3}"
 
 # Memory management guards for 8GB host
 export GOMEMLIMIT="4GiB"
-export GOGC="50"
-export _JAVA_OPTIONS="-Xms512m -Xmx6g -XX:+UseG1GC"
+export GOGC="100"
+export _JAVA_OPTIONS="-Xms512m -Xmx5g -XX:+UseG1GC"
 export NINJA_ARGS="-j${BUILD_JOBS}"
 export BUILD_BROKEN_DISABLE_BAZEL="true"
 export UNSAFE_DISABLE_HIDDENAPI_FLAGS="true"
@@ -53,9 +53,9 @@ source build/envsetup.sh
 echo "--> Executing lunch ${LUNCH_TARGET}..."
 lunch "${LUNCH_TARGET}"
 
-# Build bacon (ArrowOS target zip)
-echo "--> Compiling ArrowOS image target (m bacon)..."
-m bacon -j"${BUILD_JOBS}"
+# Build bacon (ArrowOS target zip) with reduced scheduling priority to prevent desktop freezing
+echo "--> Compiling ArrowOS image target (nice -n 12 m bacon)..."
+nice -n 12 m bacon -j"${BUILD_JOBS}"
 
 echo "======================================================================"
 echo " ArrowOS build finished successfully!"
