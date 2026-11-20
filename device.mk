@@ -7,6 +7,9 @@
 $(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 $(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
+# Dynamic Partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
 DEVICE_PATH := device/lenovo/TB311FU
 
 # Include Vendor Tree Makefiles
