@@ -17,6 +17,16 @@ on init
     chmod 0660 /sys/touchpanel/double_tap_enable
     chown system system /sys/touchpanel/double_tap_enable
 
+    # Lenovo touchscreen gestures & proc nodes
+    chown system system /proc/gesture_control
+    chmod 0660 /proc/gesture_control
+    chown system system /proc/panel_direction
+    chmod 0660 /proc/panel_direction
+    chown system system /proc/game_mode
+    chmod 0660 /proc/game_mode
+    chown system system /proc/edge_grid_zone
+    chmod 0660 /proc/edge_grid_zone
+
 on fs
     mount_all /vendor/etc/fstab.mt6768 --early
 
@@ -25,10 +35,12 @@ on late-fs
 
 on post-fs
     # Mount persistent calibration and DRM directories
-    mkdir /mnt/vendor/protect1 0770 system system
-    mkdir /mnt/vendor/protect2 0770 system system
+    mkdir /mnt/vendor/protect_f 0770 system system
+    mkdir /mnt/vendor/protect_s 0770 system system
+    mkdir /mnt/vendor/nvcfg 0771 system system
     mkdir /mnt/vendor/persist 0770 system system
     mkdir /mnt/vendor/nvdata 0771 system system
+    mkdir /lenovocust 0777 system system
 
 on post-fs-data
     # Sensor hub & HF Manager nodes
