@@ -53,9 +53,12 @@ source build/envsetup.sh
 echo "--> Executing lunch ${LUNCH_TARGET}..."
 lunch "${LUNCH_TARGET}"
 
-# Build bacon (ArrowOS target zip) with reduced scheduling priority to prevent desktop freezing
-echo "--> Compiling ArrowOS image target (nice -n 12 m bacon)..."
-nice -n 12 m bacon -j"${BUILD_JOBS}"
+# Set process niceness to prevent UI freezing
+renice -n 12 -p $$ >/dev/null 2>&1 || true
+
+# Build bacon (ArrowOS target zip)
+echo "--> Compiling ArrowOS image target (m bacon)..."
+m bacon -j"${BUILD_JOBS}"
 
 echo "======================================================================"
 echo " ArrowOS build finished successfully!"
