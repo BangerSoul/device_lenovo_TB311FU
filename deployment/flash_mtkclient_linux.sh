@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# Lenovo Tab M11 (TB311FU / 'poplar') - Linux BROM Recovery & Flashing Tool
+# Lenovo Tab with Clear Case (TB311FU / 'poplar') - Linux BROM Recovery & Flashing Tool
 # SoC: MediaTek Helio G88 (MT6768 / MT8786, SBC=True)
-# Target Device Serial: HNQ09EZD (Lenovo Tab M11 Wi-Fi, India ZAEH0019IN)
+# Target Device Serial: HNQ09EZD (Lenovo Tab with Clear Case Wi-Fi, India ZAEH0019IN)
 # ==============================================================================
 # This tool uses mtkclient (Python) to communicate with the MediaTek BootROM
 # (BROM VID:PID 0E8D:0003) and Preloader (0E8D:2000) to unbrick and flash
@@ -69,7 +69,7 @@ run_mtk() {
 
 print_banner() {
     echo -e "${CYAN}${BOLD}========================================================================${RESET}"
-    echo -e "${CYAN}${BOLD} Lenovo Tab M11 (TB311FU / poplar) - mtkclient Linux Flasher            ${RESET}"
+    echo -e "${CYAN}${BOLD} Lenovo Tab with Clear Case (TB311FU / poplar) - mtkclient Linux Flasher ${RESET}"
     echo -e "${CYAN}${BOLD} Hardware: MediaTek Helio G88 (MT6768 / MT8786) | SBC: True             ${RESET}"
     echo -e "${CYAN}${BOLD} Target Serial: HNQ09EZD                                                ${RESET}"
     echo -e "${CYAN}${BOLD}========================================================================${RESET}"

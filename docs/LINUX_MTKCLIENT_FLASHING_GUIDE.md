@@ -1,6 +1,6 @@
-# Linux BROM Unbrick & Flashing Guide: Lenovo Tab M11 (TB311FU)
+# Linux BROM Unbrick & Flashing Guide: Lenovo Tab with Clear Case (TB311FU)
 
-Comprehensive technical documentation and operational guide for unbricking, recovering, and flashing the **Lenovo Tab M11** (`TB311FU`, codename `poplar`) on **Linux** using **mtkclient** directly against the MediaTek BootROM (BROM).
+Comprehensive technical documentation and operational guide for unbricking, recovering, and flashing the **Lenovo Tab with Clear Case** (`TB311FU`, codename `poplar`) on **Linux** using **mtkclient** directly against the MediaTek BootROM (BROM).
 
 ---
 
@@ -8,7 +8,7 @@ Comprehensive technical documentation and operational guide for unbricking, reco
 
 | Hardware Property | Specification |
 | :--- | :--- |
-| **Device Model** | Lenovo Tab M11 (`TB311FU` / Wi-Fi / India SKU: `ZAEH0019IN`) |
+| **Device Model** | Lenovo Tab with Clear Case (`TB311FU` / Wi-Fi / India SKU: `ZAEH0019IN`) |
 | **SoC** | MediaTek Helio G88 (`MT6768` / `MT8786`, platform `k68v1`) |
 | **Target Serial Number** | `HNQ09EZD` |
 | **Boot Architecture** | Android Boot Header v4, Chained AVB 2.0, A/B Slots |
