@@ -16,7 +16,12 @@
 # Partitions & Mount points (Protected Widevine & Calibration)
 /mnt/vendor/protect1(/.*)?                          u:object_r:protect_f_data_file:s0
 /mnt/vendor/protect2(/.*)?                          u:object_r:protect_s_data_file:s0
+/mnt/vendor/protect_f(/.*)?                         u:object_r:protect_f_data_file:s0
+/mnt/vendor/protect_s(/.*)?                         u:object_r:protect_s_data_file:s0
 /mnt/vendor/nvdata(/.*)?                            u:object_r:nvdata_file:s0
+/mnt/vendor/nvcfg(/.*)?                             u:object_r:nvdata_file:s0
+/mnt/vendor/persist(/.*)?                           u:object_r:protect_f_data_file:s0
+/lenovocust(/.*)?                                   u:object_r:protect_f_data_file:s0
 
 # Sysfs and Procfs
 /sys/touchpanel(/.*)?                               u:object_r:sysfs_touchpanel:s0

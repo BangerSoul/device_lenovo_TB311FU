@@ -22,8 +22,21 @@ PRODUCT_ENFORCE_RRO_TARGETS := *
 # Rootdir & Init scripts
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/rootdir/etc/fstab.mt6768:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.mt6768 \
+    $(DEVICE_PATH)/rootdir/etc/fstab.mt6768:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.mt6768 \
     $(DEVICE_PATH)/rootdir/etc/init.mt6768.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.mt6768.rc \
     $(DEVICE_PATH)/rootdir/etc/ueventd.mt6768.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
+
+# First-stage mount AVB GSI public keys
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/rootdir/avb/q-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/avb/q-gsi.avbpubkey \
+    $(DEVICE_PATH)/rootdir/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/avb/r-gsi.avbpubkey \
+    $(DEVICE_PATH)/rootdir/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/avb/s-gsi.avbpubkey \
+    $(DEVICE_PATH)/rootdir/avb/q-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/q-gsi.avbpubkey \
+    $(DEVICE_PATH)/rootdir/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/r-gsi.avbpubkey \
+    $(DEVICE_PATH)/rootdir/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/s-gsi.avbpubkey \
+    $(DEVICE_PATH)/rootdir/avb/q-gsi.avbpubkey:$(TARGET_COPY_OUT_RAMDISK)/first_stage_ramdisk/avb/q-gsi.avbpubkey \
+    $(DEVICE_PATH)/rootdir/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_RAMDISK)/first_stage_ramdisk/avb/r-gsi.avbpubkey \
+    $(DEVICE_PATH)/rootdir/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_RAMDISK)/first_stage_ramdisk/avb/s-gsi.avbpubkey
 
 # VINTF Compatibility Manifest
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/vintf/manifest.xml
@@ -60,4 +73,3 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     treble-overlay-lenovo-tb311fu \
     treble-overlay-lenovo-tb311fu-systemui
-
