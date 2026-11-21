@@ -14,15 +14,9 @@ import usb.core
 import usb.util
 
 STOCK_DIR = "/home/bangersoul/GSI-Development/TB311FU_Stock_Firmware/image"
-PRELOADER_RAW = "/home/bangersoul/GSI-Development/native_preloader.bin"
-PRELOADER_PADDED = "/home/bangersoul/GSI-Development/native_preloader_padded.img"
+PRELOADER_RAW = os.path.join(STOCK_DIR, "preloader_tb8786p1_64_k66.bin")
+PRELOADER_PADDED = os.path.join(STOCK_DIR, "preloader_emmc.img")
 MTK_BIN = "/home/bangersoul/.local/bin/mtk"
-
-# Fallback preloader paths if needed
-if not os.path.exists(PRELOADER_RAW):
-    PRELOADER_RAW = os.path.join(STOCK_DIR, "preloader_tb8786p1_64_k66.bin")
-if not os.path.exists(PRELOADER_PADDED):
-    PRELOADER_PADDED = os.path.join(STOCK_DIR, "preloader_emmc.img")
 
 def is_mtk_connected():
     try:
