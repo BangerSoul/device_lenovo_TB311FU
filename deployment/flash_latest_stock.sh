@@ -8,6 +8,6 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export PYTHONPATH="/tmp/mtkclient:$PYTHONPATH"
+export PYTHONPATH="/tmp/mtkclient:${PYTHONPATH:-}"
 
 python3 "$SCRIPT_DIR/flash_latest_stock.py" "$@"
